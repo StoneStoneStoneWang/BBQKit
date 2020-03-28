@@ -56,9 +56,9 @@ public class BBQUserBean: NSObject, Mappable ,NSCoding {
     
     @objc public var sex: Int = Int.max
     
-    public var gender: ZGenderType {
+    public var gender: BBQGenderType {
         
-        return ZGenderType(temp: sex)
+        return BBQGenderType(temp: sex)
     }
     
     @objc public var signature: String = ""

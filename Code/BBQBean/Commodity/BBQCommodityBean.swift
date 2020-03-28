@@ -57,20 +57,20 @@ public class BBQCommodityBean: NSObject, Mappable , IdentifiableType{
     
     @objc public var tag: String = ""
     
-    @objc public var users: ZUserBean!
+    @objc public var users: BBQUserBean!
     
     @objc public var countComment: Int = Int.max
     
-    @objc public var contentMap: [ZKeyValueBean] {
+    @objc public var contentMap: [BBQKeyValueBean] {
         
         let res = WLJsonCast.cast(argu: content) as! [[String: String]]
         
-        return res.map({ ZKeyValueBean(JSON: $0)! })
+        return res.map({ BBQKeyValueBean(JSON: $0)! })
     }
     
-    @objc public var imgs: [ZKeyValueBean] {
+    @objc public var imgs: [BBQKeyValueBean] {
         
-        var result: [ZKeyValueBean] = []
+        var result: [BBQKeyValueBean] = []
         
         for item in contentMap {
             

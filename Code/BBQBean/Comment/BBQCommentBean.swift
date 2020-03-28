@@ -37,7 +37,7 @@ public final class BBQCommentBean: NSObject,Mappable,IdentifiableType {
     
     @objc public var content: String = ""
     
-    @objc public var users: ZUserBean!
+    @objc public var users: BBQUserBean!
     
     @objc public var encoded: String = ""
     

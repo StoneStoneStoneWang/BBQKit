@@ -40,7 +40,7 @@ public class BBQFocusBean: NSObject,Mappable,IdentifiableType {
         
         content <- map["content"]
     }
-    @objc public var users: ZUserBean!
+    @objc public var users: BBQUserBean!
     
     @objc public var tableName: String = ""
     
