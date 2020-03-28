@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
   spec.version      = "0.0.1"
   spec.summary      = "A Lib For tab."
   spec.description  = <<-DESC
-  BBQTab是转场的封装
+  BBQTab是tab的封装
   DESC
   
   spec.homepage     = "https://github.com/StoneStoneStoneWang/BBQKit.git"
