@@ -1,0 +1,6 @@
+framework module BBQOSS {
+  umbrella header "BBQOSS.h"
+
+  export *
+  module * { export * }
+}

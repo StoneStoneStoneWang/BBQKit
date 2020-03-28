@@ -1,0 +1,6 @@
+framework module BBQNavi {
+  umbrella header "BBQNavi.h"
+
+  export *
+  module * { export * }
+}
