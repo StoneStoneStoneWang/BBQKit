@@ -1,11 +1,10 @@
-
 Pod::Spec.new do |spec|
   
-  spec.name         = "BBQApi"
+  spec.name         = "BBQCheck"
   spec.version      = "0.0.1"
-  spec.summary      = "A Lib For Api."
+  spec.summary      = "A Lib For check 文本检测."
   spec.description  = <<-DESC
-  BBQApi是请求接口的封装呢
+  BBQCheck是文本检测
   DESC
   
   spec.homepage     = "https://github.com/StoneStoneStoneWang/BBQKit.git"
@@ -24,11 +23,8 @@ Pod::Spec.new do |spec|
   
   spec.source = { :git => "https://github.com/StoneStoneStoneWang/BBQKit.git", :tag => "#{spec.version}" }
   
-  spec.source_files = "Code/BBQApi/*.{swift}"
-  
-  spec.dependency 'BBQSign'
-  spec.dependency 'Alamofire'
-  spec.dependency 'WLReqKit'
-  spec.dependency 'WLToolsKit/Common'
+  spec.source_files = "Code/BBQCheck/*.{swift}"
+  spec.dependency 'WLBaseResult'
+  spec.dependency 'WLToolsKit/String'
   
 end

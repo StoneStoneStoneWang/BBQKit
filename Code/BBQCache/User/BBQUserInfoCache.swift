@@ -19,33 +19,33 @@ public final class BBQUserInfoCache: NSObject {
         
         if let info = Bundle.main.infoDictionary {
             
-            ZCacheUtil.shared().createCache(info["CFBundleDisplayName"] as? String ?? "BBQUserInfoCache" )
+            BBQYYCahce.shared().createCache(info["CFBundleDisplayName"] as? String ?? "BBQUserInfoCache" )
         }
     }
     @objc (userBean)
-    public dynamic var userBean: ZUserBean = ZUserBean()
+    public dynamic var userBean: BBQUserBean = BBQUserBean()
 }
 
 extension BBQUserInfoCache {
     
-   public func saveUser(data: ZUserBean) -> ZUserBean {
+   public func saveUser(data: BBQUserBean) -> BBQUserBean {
         
-        ZCacheUtil.shared().saveObj(data, withKey: "user_" + data.encoded)
+        BBQYYCahce.shared().saveObj(data, withKey: "user_" + data.encoded)
     
         userBean = data
         
         return data
     }
     
-    public func queryUser() -> ZUserBean  {
+    public func queryUser() -> BBQUserBean  {
         
-        if let user = ZCacheUtil.shared().fetchObj("user_" + ZAccountCache.default.uid) {
+        if let user = BBQYYCahce.shared().fetchObj("user_" + BBQAccountCache.default.uid) {
 
-            userBean = user as! ZUserBean
+            userBean = user as! BBQUserBean
 
             return userBean
         }
         
-        return ZUserBean()
+        return BBQUserBean()
     }
 }

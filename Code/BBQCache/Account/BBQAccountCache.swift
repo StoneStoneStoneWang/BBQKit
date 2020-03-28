@@ -48,7 +48,7 @@ extension BBQAccountCache {
         return !token.isEmpty && token != ""
     }
     
-    public func saveAccount(acc: ZAccountBean) -> ZAccountBean {
+    public func saveAccount(acc: BBQAccountBean) -> BBQAccountBean {
         
         UserDefaults.standard.setValue(acc.token, forKey: "token")
         
@@ -67,14 +67,14 @@ extension BBQAccountCache {
         return acc
     }
     
-    public func queryAccount() -> ZAccountBean! {
+    public func queryAccount() -> BBQAccountBean! {
         
         guard let id = UserDefaults.standard.object(forKey: "uid") else {
             
             return nil
         }
         
-        var acc = ZAccountBean()
+        var acc = BBQAccountBean()
         
         acc.token = UserDefaults.standard.object(forKey: "token") as? String ?? ""
         
@@ -100,7 +100,7 @@ extension BBQAccountCache {
             return
         }
         
-        var acc = ZAccountBean()
+        var acc = BBQAccountBean()
         
         acc.token = UserDefaults.standard.object(forKey: "token") as? String ?? ""
         
