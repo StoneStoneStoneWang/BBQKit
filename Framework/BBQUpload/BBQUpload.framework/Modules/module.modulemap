@@ -1,0 +1,6 @@
+framework module BBQUpload {
+  umbrella header "BBQUpload.h"
+
+  export *
+  module * { export * }
+}
