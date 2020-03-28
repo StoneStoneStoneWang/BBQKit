@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/BBQTNavigationController.h</key>
+		<data>
+		bwoWPSUHS/GTAsrvYHt94vK7D90=
+		</data>
 		<key>Headers/BBQTViewController.h</key>
 		<data>
 		W2tX8k1bDYOz2QjzsJp6nhZzTG8=
@@ -11,10 +15,6 @@
 		<key>Headers/BBQTransition.h</key>
 		<data>
 		8t5bT7maHE1iLZIvXMLnCSWkWqE=
-		</data>
-		<key>Headers/UIViewController+BBQS.h</key>
-		<data>
-		6NjiSXTLItRdbMgXS2u3qodyoo4=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -24,21 +24,20 @@
 		<data>
 		OGTyZC7b66qAcp427ireLRwNLyo=
 		</data>
-		<key>PrivateHeaders/BBQBaseAnimation.h</key>
-		<data>
-		/NRtv7jzrFsf+8/Jws2gbB7NhOk=
-		</data>
-		<key>PrivateHeaders/BBQNaviAnimation.h</key>
-		<data>
-		hkRfxXYmznrcqx7ZKhRLX5YRCek=
-		</data>
-		<key>PrivateHeaders/BBQTNavigationController.h</key>
-		<data>
-		bwoWPSUHS/GTAsrvYHt94vK7D90=
-		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/BBQTNavigationController.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			bwoWPSUHS/GTAsrvYHt94vK7D90=
+			</data>
+			<key>hash2</key>
+			<data>
+			Xs5cMDMjRFXSx5b/XdX6S4FDRScnTy3XtvAQKcctr1k=
+			</data>
+		</dict>
 		<key>Headers/BBQTViewController.h</key>
 		<dict>
 			<key>hash</key>
@@ -61,17 +60,6 @@
 			OmtIAXHtpOBP6KtCY4sPq6dJeBMZVnBbhZO2+jnVIEk=
 			</data>
 		</dict>
-		<key>Headers/UIViewController+BBQS.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			6NjiSXTLItRdbMgXS2u3qodyoo4=
-			</data>
-			<key>hash2</key>
-			<data>
-			ypeBj53giEpsVPKn6PzO/1gdHCTv9lVEgoN6MGbY3Lk=
-			</data>
-		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
@@ -81,39 +69,6 @@
 			<key>hash2</key>
 			<data>
 			o9PUWTp7Xrv4mOPEjXHLjLIq08xFX7jHxYC7zb7Ic6I=
-			</data>
-		</dict>
-		<key>PrivateHeaders/BBQBaseAnimation.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			/NRtv7jzrFsf+8/Jws2gbB7NhOk=
-			</data>
-			<key>hash2</key>
-			<data>
-			YNDWyidfehlaTYMUKMUA1WXEKtMmaZ7wXXNm1+2ioUM=
-			</data>
-		</dict>
-		<key>PrivateHeaders/BBQNaviAnimation.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			hkRfxXYmznrcqx7ZKhRLX5YRCek=
-			</data>
-			<key>hash2</key>
-			<data>
-			AFZTlejCBiO0mcvp98hOmpqv/s9UWOS3aOHwjY3AJTM=
-			</data>
-		</dict>
-		<key>PrivateHeaders/BBQTNavigationController.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			bwoWPSUHS/GTAsrvYHt94vK7D90=
-			</data>
-			<key>hash2</key>
-			<data>
-			Xs5cMDMjRFXSx5b/XdX6S4FDRScnTy3XtvAQKcctr1k=
 			</data>
 		</dict>
 	</dict>
