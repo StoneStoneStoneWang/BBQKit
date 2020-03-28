@@ -1,0 +1,6 @@
+framework module BBQWechat {
+  umbrella header "BBQWechat.h"
+
+  export *
+  module * { export * }
+}
