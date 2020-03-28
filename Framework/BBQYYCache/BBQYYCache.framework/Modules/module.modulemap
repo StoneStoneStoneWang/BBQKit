@@ -1,0 +1,6 @@
+framework module BBQYYCache {
+  umbrella header "BBQYYCache.h"
+
+  export *
+  module * { export * }
+}

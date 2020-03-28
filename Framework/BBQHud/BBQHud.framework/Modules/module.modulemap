@@ -1,0 +1,6 @@
+framework module BBQHud {
+  umbrella header "BBQHud.h"
+
+  export *
+  module * { export * }
+}
