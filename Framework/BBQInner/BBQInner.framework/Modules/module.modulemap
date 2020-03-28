@@ -1,0 +1,6 @@
+framework module BBQInner {
+  umbrella header "BBQInner.h"
+
+  export *
+  module * { export * }
+}

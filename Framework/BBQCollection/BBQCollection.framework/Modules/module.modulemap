@@ -1,0 +1,6 @@
+framework module BBQCollection {
+  umbrella header "BBQCollection.h"
+
+  export *
+  module * { export * }
+}

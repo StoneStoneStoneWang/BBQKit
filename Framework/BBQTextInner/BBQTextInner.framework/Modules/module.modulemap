@@ -1,0 +1,6 @@
+framework module BBQTextInner {
+  umbrella header "BBQTextInner.h"
+
+  export *
+  module * { export * }
+}

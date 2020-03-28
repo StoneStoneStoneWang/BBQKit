@@ -1,0 +1,6 @@
+framework module BBQTable {
+  umbrella header "BBQTable.h"
+
+  export *
+  module * { export * }
+}
