@@ -16,5 +16,5 @@ FOUNDATION_EXPORT const unsigned char BBQYYCacheVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <BBQYYCache/PublicHeader.h>
 
-#import <BBQYYCache/ZCacheUtil.h>
+#import <BBQYYCache/BBQYYCahceUtil.h>
 
