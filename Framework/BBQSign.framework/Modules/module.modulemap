@@ -1,0 +1,6 @@
+framework module BBQSign {
+  umbrella header "BBQSign.h"
+
+  export *
+  module * { export * }
+}

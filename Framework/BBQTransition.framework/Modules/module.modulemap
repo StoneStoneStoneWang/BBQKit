@@ -1,0 +1,6 @@
+framework module BBQTransition {
+  umbrella header "BBQTransition.h"
+
+  export *
+  module * { export * }
+}
