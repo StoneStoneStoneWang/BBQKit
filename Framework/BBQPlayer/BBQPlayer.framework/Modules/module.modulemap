@@ -1,0 +1,6 @@
+framework module BBQPlayer {
+  umbrella header "BBQPlayer.h"
+
+  export *
+  module * { export * }
+}
