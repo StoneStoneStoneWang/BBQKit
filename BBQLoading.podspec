@@ -26,6 +26,6 @@ Pod::Spec.new do |spec|
   
   spec.vendored_frameworks = 'Framework/BBQLoading/BBQLoading.framework'
   
-  spec.dependency 'ZTransition'
+  spec.dependency 'BBQTransition'
   
 end
