@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   
   spec.name         = "BBQCache"
-  spec.version      = "0.0.0"
+  spec.version      = "0.0.1"
   spec.summary      = "A Lib For cache."
   spec.description  = <<-DESC
   BBQCache是user 和account 的封装
