@@ -1,5 +1,5 @@
 //
-//  ZLoginViewModel.swift
+//  BBQLoginViewModel.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/25.
@@ -13,14 +13,14 @@ import RxCocoa
 import WLReqKit
 import ObjectMapper
 import WLBaseResult
-import ZApi
-import ZReq
-import ZRealReq
-import ZBean
-import ZCheck
-import ZCache
+import BBQApi
+import BBQReq
+import BBQRReq
+import BBQBean
+import BBQCheck
+import BBQCache
 
-public struct ZLoginViewModel: WLBaseViewModel {
+public struct BBQLoginViewModel: WLBaseViewModel {
     
     public var input: WLInput
     
@@ -74,13 +74,13 @@ public struct ZLoginViewModel: WLBaseViewModel {
                 
                 switch checkUsernameAndPassword($0.0, password: $0.1) {
                 case .ok:
-                    
-                    return onUserDictResp(ZUserApi.login($0.0,password: $0.1))
-                        .mapObject(type: ZAccountBean.self)
-                        .map({ ZAccountCache.default.saveAccount(acc: $0) }) // 存储account
+
+                    return bbqDictResp(BBQUserApi.login($0.0,password: $0.1))
+                        .mapObject(type: BBQAccountBean.self)
+                        .map({ BBQAccountCache.default.saveAccount(acc: $0) }) // 存储account
                         .map({ $0.toJSON()})
-                        .mapObject(type: ZUserBean.self)
-                        .map({ ZUserInfoCache.default.saveUser(data: $0) })
+                        .mapObject(type: BBQUserBean.self)
+                        .map({ BBQUserInfoCache.default.saveUser(data: $0) })
                         .map({ _ in WLBaseResult.logined })
                         .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
                     

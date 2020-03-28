@@ -1,5 +1,5 @@
 //
-//  ZWelcomeBridge.swift
+//  BBQWelcomeBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/23.
@@ -7,37 +7,36 @@
 //
 
 import Foundation
-import ZCollection
+import BBQCollection
 import RxCocoa
 import RxSwift
 import RxDataSources
-import ZCocoa
+import BBQCocoa
 import WLToolsKit
-import ZCocoa
 
-public typealias ZWelcomeSkipAction = (_ vc: ZBaseViewController) -> ()
+public typealias BBQWelcomeAction = (_ vc: BBQBaseViewController) -> ()
 
-@objc (ZWelcomeBridge)
-public final class ZWelcomeBridge: ZBaseBridge {
+@objc (BBQWelcomeBridge)
+public final class BBQWelcomeBridge: BBQBaseBridge {
     
-    public var viewModel: ZWelcomViewModel!
+    public var viewModel: BBQWelcomViewModel!
     
-    typealias Section = ZSectionModel<(), String>
+    typealias Section = BBQSectionModel<(), String>
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
 }
 // MARK: skip item 101 pagecontrol 102
-extension ZWelcomeBridge {
+extension BBQWelcomeBridge {
     
-    @objc public func configViewModel(_ vc: ZCollectionNoLoadingViewController ,welcomeImgs: [String],canPageHidden: Bool ,skipAction: @escaping ZWelcomeSkipAction) {
+    @objc public func configViewModel(_ vc: BBQCollectionNoLoadingViewController ,welcomeImgs: [String],canPageHidden: Bool ,welcomeAction: @escaping BBQWelcomeAction) {
         
         if let skipItem = vc.view.viewWithTag(101) as? UIButton  ,let pageControl = vc.view.viewWithTag(102) as? UIPageControl {
             
-            let input = ZWelcomViewModel.WLInput(contentoffSetX: vc.collectionView.rx.contentOffset.map({ $0.x }),
+            let input = BBQWelcomViewModel.WLInput(contentoffSetX: vc.collectionView.rx.contentOffset.map({ $0.x }),
                                                  skipTap: skipItem.rx.tap.asSignal(),
                                                  welcomeImgs:welcomeImgs )
             
-            viewModel = ZWelcomViewModel(input, disposed: disposed)
+            viewModel = BBQWelcomViewModel(input, disposed: disposed)
             
             let dataSource = RxCollectionViewSectionedReloadDataSource<Section>(
                 configureCell: { ds, cv, ip, item in return vc.configCollectionViewCell(item, for: ip) })
@@ -93,7 +92,7 @@ extension ZWelcomeBridge {
                 .skiped
                 .drive(onNext: { (_) in
                     
-                    skipAction(vc)
+                    welcomeAction(vc)
                 })
                 .disposed(by: disposed)
         }

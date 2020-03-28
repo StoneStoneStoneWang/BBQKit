@@ -1,5 +1,5 @@
 //
-//  ZLoginBridge.swift
+//  BBQLoginBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/25.
@@ -7,14 +7,14 @@
 //
 
 import Foundation
-import ZBase
-import ZHud
+import BBQBase
+import BBQHud
 import RxCocoa
 import RxSwift
-import ZCocoa
+import BBQCocoa
 
-@objc(ZLoginActionType)
-public enum ZLoginActionType: Int ,Codable {
+@objc(BBQLoginActionType)
+public enum BBQLoginActionType: Int ,Codable {
     
     case swiftLogin = 0
     
@@ -25,38 +25,38 @@ public enum ZLoginActionType: Int ,Codable {
     case backItem = 3
 }
 
-public typealias ZLoginAction = (_ action: ZLoginActionType ,_ vc: ZBaseViewController) -> ()
+public typealias ZLoginAction = (_ action: BBQLoginActionType ) -> ()
 
-@objc (ZLoginBridge)
-public final class ZLoginBridge: ZBaseBridge {
+@objc (BBQLoginBridge)
+public final class BBQLoginBridge: BBQBaseBridge {
     
-    public var viewModel: ZLoginViewModel!
+    public var viewModel: BBQLoginViewModel!
 }
 
 // MARK: 201 手机号 202 密码 203 登陆按钮 204 快捷登录按钮 205 忘记密码按钮 206
-extension ZLoginBridge {
+extension BBQLoginBridge {
     
-    @objc public func configViewModel(_ vc: ZBaseViewController ,loginAction: @escaping ZLoginAction) {
+    @objc public func configViewModel(_ vc: BBQBaseViewController ,loginAction: @escaping ZLoginAction) {
         
         if let phone = vc.view.viewWithTag(201) as? UITextField ,let password = vc.view.viewWithTag(202) as? UITextField ,let loginItem = vc.view.viewWithTag(203) as? UIButton
             , let swiftLoginItem = vc.view.viewWithTag(204) as? UIButton ,let forgetItem = vc.view.viewWithTag(205) as? UIButton , let passwordItem = password.rightView
             as? UIButton ,let backItem = vc.navigationItem.leftBarButtonItem?.customView as? UIButton {
             
-            let input = ZLoginViewModel.WLInput(username: phone.rx.text.orEmpty.asDriver(),
+            let input = BBQLoginViewModel.WLInput(username: phone.rx.text.orEmpty.asDriver(),
                                                 password: password.rx.text.orEmpty.asDriver() ,
                                                 loginTaps: loginItem.rx.tap.asSignal(),
                                                 swiftLoginTaps: swiftLoginItem.rx.tap.asSignal(),
                                                 forgetTaps: forgetItem.rx.tap.asSignal(),
                                                 passwordItemTaps: passwordItem.rx.tap.asSignal())
             
-            viewModel = ZLoginViewModel(input)
+            viewModel = BBQLoginViewModel(input)
             
             backItem
                 .rx
                 .tap
                 .subscribe(onNext: { (_) in
                     
-                    loginAction(.backItem,vc)
+                    loginAction(.backItem)
                 })
                 .disposed(by: disposed)
             
@@ -68,7 +68,7 @@ extension ZLoginBridge {
                     
                     vc.view.endEditing(true)
                     
-                    ZHudUtil.show(withStatus: "登录中...")
+                    BBQHud.show(withStatus: "登录中...")
                 })
                 .disposed(by: disposed)
             
@@ -78,17 +78,17 @@ extension ZLoginBridge {
                 .logined
                 .drive(onNext: {
                     
-                    ZHudUtil.pop()
+                    BBQHud.pop()
                     
                     switch $0 {
                         
-                    case let .failed(msg): ZHudUtil.showInfo(msg)
+                    case let .failed(msg): BBQHud.showInfo(msg)
                         
                     case .logined:
                         
-                        ZHudUtil.showInfo("登录成功")
+                        BBQHud.showInfo("登录成功")
                         
-                        loginAction(.loginSucc,vc)
+                        loginAction(.loginSucc)
 
                         
                     default: break
@@ -101,7 +101,7 @@ extension ZLoginBridge {
                 .swiftLogined
                 .drive(onNext: { (_) in
                     
-                    loginAction(.swiftLogin,vc)
+                    loginAction(.swiftLogin)
     
                 })
                 .disposed(by: disposed)
@@ -111,7 +111,7 @@ extension ZLoginBridge {
                 .forgeted
                 .drive(onNext: {(_) in
                     
-                    loginAction(.gotoFindPwd,vc)
+                    loginAction(.gotoFindPwd)
                     
                 })
                 .disposed(by: disposed)

@@ -12,7 +12,7 @@ import Alamofire
 import WLToolsKit
 import BBQSign
 
-extension BBQUserApi: WLObserverReq {
+extension BBQApi: WLObserverReq {
     public var reqName: String {
         
         switch self {

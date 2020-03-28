@@ -1,5 +1,5 @@
 //
-//  ZWelcomViewModel.swift
+//  BBQWelcomViewModel.swift
 //  ZUserKit
 //
 //  Created by three stone 王 on 2019/3/15.
@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 import WLToolsKit
 
-public struct ZWelcomViewModel: WLBaseViewModel {
+public struct BBQWelcomViewModel: WLBaseViewModel {
     
     public var input: WLInput
     

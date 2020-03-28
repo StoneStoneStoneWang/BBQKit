@@ -1,5 +1,5 @@
 //
-//  BBQUserApi.swift
+//  BBQApi.swift
 //  ZUserKit
 //
 //  Created by three stone 王 on 2019/3/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum BBQUserApi {
+public enum BBQApi {
     
     case login(_ phone: String,password: String)
     
