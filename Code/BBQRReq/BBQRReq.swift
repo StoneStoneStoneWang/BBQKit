@@ -9,23 +9,23 @@
 import Foundation
 import RxSwift
 import WLReqKit
-import ZCache
-import ZReq
-import ZUpload
-import ZSign
+import BBQCache
+import BBQReq
+import BBQUpload
+import BBQSign
 
-public func onUserDictResp<T : WLObserverReq>(_ req: T) -> Observable<[String:Any]> {
+public func bbqDictResp<T : WLObserverReq>(_ req: T) -> Observable<[String:Any]> {
     
     return Observable<[String:Any]>.create({ (observer) -> Disposable in
         
         var params = req.params
         
-        if !ZAccountCache.default.token.isEmpty {
+        if !BBQAccountCache.default.token.isEmpty {
             
-            params.updateValue(ZAccountCache.default.token, forKey: "token")
+            params.updateValue(BBQAccountCache.default.token, forKey: "token")
         }
         
-        ZReqHandler.s_postWithUrl(url: req.host + req.reqName, params: params, header: req.headers, succ: { (data) in
+        BBQReq.postWithUrl(url: req.host + req.reqName, params: params, header: req.headers, succ: { (data) in
             
             observer.onNext(data as! [String:Any])
             
@@ -42,17 +42,17 @@ public func onUserDictResp<T : WLObserverReq>(_ req: T) -> Observable<[String:An
     })
 }
 
-public func onUserArrayResp<T : WLObserverReq>(_ req: T) -> Observable<[Any]> {
+public func bbqArrayResp<T : WLObserverReq>(_ req: T) -> Observable<[Any]> {
     
     return Observable<[Any]>.create({ (observer) -> Disposable in
         
         var params = req.params
         
-        if !ZAccountCache.default.token.isEmpty {
+        if !BBQAccountCache.default.token.isEmpty {
             
-            params.updateValue(ZAccountCache.default.token, forKey: "token")
+            params.updateValue(BBQAccountCache.default.token, forKey: "token")
         }
-        ZReqHandler.s_postWithUrl(url: req.host + req.reqName, params: params, header: req.headers, succ: { (data) in
+        BBQReq.postWithUrl(url: req.host + req.reqName, params: params, header: req.headers, succ: { (data) in
 
             observer.onNext(data as! [Any])
 
@@ -72,18 +72,18 @@ public func onUserArrayResp<T : WLObserverReq>(_ req: T) -> Observable<[Any]> {
 
 
 // 无返回值的 在data里
-public func onUserVoidResp<T : WLObserverReq>(_ req: T) -> Observable<Void> {
+public func bbqVoidResp<T : WLObserverReq>(_ req: T) -> Observable<Void> {
     
     return Observable<Void>.create({ (observer) -> Disposable in
         
         var params = req.params
         
-        if !ZAccountCache.default.token.isEmpty {
+        if !BBQAccountCache.default.token.isEmpty {
             
-            params.updateValue(ZAccountCache.default.token, forKey: "token")
+            params.updateValue(BBQAccountCache.default.token, forKey: "token")
         }
         
-        ZReqHandler.s_postWithUrl(url: req.host + req.reqName, params: params, header: req.headers, succ: { (data) in
+        BBQReq.postWithUrl(url: req.host + req.reqName, params: params, header: req.headers, succ: { (data) in
 
             observer.onNext(())
 
@@ -101,18 +101,17 @@ public func onUserVoidResp<T : WLObserverReq>(_ req: T) -> Observable<Void> {
     })
 }
 
-public func onAliDictResp<T : WLObserverReq>(_ req: T) -> Observable<ZALCredentialsBean> {
+public func bbqAlitResp<T : WLObserverReq>(_ req: T) -> Observable<BBQALCredentialsBean> {
     
-    return Observable<ZALCredentialsBean>.create({ (observer) -> Disposable in
+    return Observable<BBQALCredentialsBean>.create({ (observer) -> Disposable in
         
         var params = req.params
         
-        if !ZAccountCache.default.token.isEmpty {
+        if !BBQAccountCache.default.token.isEmpty {
             
-            params.updateValue(ZAccountCache.default.token, forKey: "token")
+            params.updateValue(BBQAccountCache.default.token, forKey: "token")
         }
-        
-        ZUploadManager.fetchAliObj(withUrl: req.host + req.reqName , andParams: params, andHeader: req.headers, andSucc: { (credentials) in
+        BBQUpload.fetchAliObj(withUrl: req.host + req.reqName , andParams: params, andHeader: req.headers, andSucc: { (credentials) in
 
             observer.onNext(credentials)
 
@@ -131,11 +130,11 @@ public func onAliDictResp<T : WLObserverReq>(_ req: T) -> Observable<ZALCredenti
     })
 }
 
-public func onUploadImgResp(_ data: Data ,file: String ,param: ZALCredentialsBean) -> Observable<String> {
+public func bbqUploadImgResp(_ data: Data ,file: String ,param: BBQALCredentialsBean) -> Observable<String> {
     
     return Observable<String>.create({ (observer) -> Disposable in
         
-        ZUploadManager.uploadAvatar(with: data, andFile: file, andUid: ZAccountCache.default.uid, andParams: param, andSucc: { (objKey) in
+        BBQUpload.uploadAvatar(with: data, andFile: file, andUid: BBQAccountCache.default.uid, andParams: param, andSucc: { (objKey) in
 
             observer.onNext(objKey)
 
@@ -154,11 +153,11 @@ public func onUploadImgResp(_ data: Data ,file: String ,param: ZALCredentialsBea
     })
 }
 
-public func onUploadPubImgResp(_ data: Data ,file: String ,param: ZALCredentialsBean) -> Observable<String> {
+public func bbqUploadPubImgResp(_ data: Data ,file: String ,param: BBQALCredentialsBean) -> Observable<String> {
     
     return Observable<String>.create({ (observer) -> Disposable in
         
-        ZUploadManager.uploadImage(with: data, andFile: file, andUid: ZAccountCache.default.uid, andParams: param, andSucc: { (objKey) in
+        BBQUpload.uploadImage(with: data, andFile: file, andUid: BBQAccountCache.default.uid, andParams: param, andSucc: { (objKey) in
 
             observer.onNext(objKey)
 
@@ -176,11 +175,11 @@ public func onUploadPubImgResp(_ data: Data ,file: String ,param: ZALCredentials
         return Disposables.create { }
     })
 }
-public func onUploadVideoResp(_ data: Data ,file: String ,param: ZALCredentialsBean) -> Observable<String> {
+public func bbqUploadVideoResp(_ data: Data ,file: String ,param: BBQALCredentialsBean) -> Observable<String> {
     
     return Observable<String>.create({ (observer) -> Disposable in
         
-        ZUploadManager.uploadVideo(with: data, andFile: file, andUid: ZAccountCache.default.uid, andParams: param, andSucc: { (objKey) in
+        BBQUpload.uploadVideo(with: data, andFile: file, andUid: BBQAccountCache.default.uid, andParams: param, andSucc: { (objKey) in
 
             observer.onNext(objKey)
 
@@ -199,11 +198,11 @@ public func onUploadVideoResp(_ data: Data ,file: String ,param: ZALCredentialsB
     })
 }
 
-public func onTranslateResp<T : WLObserverReq>(_ req: T) -> Observable<[String:Any]> {
+public func bbqTranslateResp<T : WLObserverReq>(_ req: T) -> Observable<[String:Any]> {
     
     return Observable<[String:Any]>.create({ (observer) -> Disposable in
         
-        ZReqHandler.s_postTranslateWithParams(params: req.params, succ: { (data) in
+        BBQReq.postTranslateWithParams(params: req.params, succ: { (data) in
             observer.onNext(data as! [String:Any])
             
             observer.onCompleted()
