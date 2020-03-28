@@ -1,0 +1,6 @@
+framework module BBQLoading {
+  umbrella header "BBQLoading.h"
+
+  export *
+  module * { export * }
+}
