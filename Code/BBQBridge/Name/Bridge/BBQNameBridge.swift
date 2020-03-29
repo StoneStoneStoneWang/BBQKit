@@ -1,5 +1,5 @@
 //
-//  ZNickNameBridge.swift
+//  BBQNameBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/28.
@@ -7,34 +7,44 @@
 //
 
 import Foundation
-import ZBase
-import ZHud
-import ZBean
+import BBQBase
+import BBQHud
+import BBQBean
 import RxCocoa
-import ZCache
+import BBQCache
 import RxSwift
 
-@objc (ZNickNameBridge)
-public final class ZNickNameBridge: ZBaseBridge {
+@objc(BBQNameActionType)
+public enum BBQNameActionType: Int ,Codable {
     
-    var viewModel: ZNickNameViewModel!
+    case name = 0
     
-    let nickname: BehaviorRelay<String> = BehaviorRelay<String>(value: ZUserInfoCache.default.userBean.nickname)
+    case back = 1
 }
 
-extension ZNickNameBridge {
+public typealias BBQNameAction = (_ action: BBQNameActionType ) -> ()
+
+@objc (BBQNameBridge)
+public final class BBQNameBridge: BBQBaseBridge {
     
-    @objc public func createNickName(_ vc: ZBaseViewController ,succ: @escaping () -> () ) {
+    var viewModel: BBQNameViewModel!
+    
+    let nickname: BehaviorRelay<String> = BehaviorRelay<String>(value: BBQUserInfoCache.default.userBean.nickname)
+}
+
+extension BBQNameBridge {
+    
+    @objc public func createName(_ vc: BBQBaseViewController ,nameAction: @escaping BBQNameAction ) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton ,let name = vc.view.viewWithTag(201) as? UITextField ,let backItem = vc.navigationItem.leftBarButtonItem?.customView as? UIButton{
             
-            let inputs = ZNickNameViewModel.WLInput(orignal: nickname.asDriver(),
+            let inputs = BBQNameViewModel.WLInput(orignal: nickname.asDriver(),
                                                        updated: name.rx.text.orEmpty.asDriver(),
                                                        completTaps: completeItem.rx.tap.asSignal())
             
             name.text = nickname.value
             
-            viewModel = ZNickNameViewModel(inputs)
+            viewModel = BBQNameViewModel(inputs)
             
             viewModel
                 .output
@@ -49,7 +59,7 @@ extension ZNickNameBridge {
                     
                     name.resignFirstResponder()
                     
-                    ZHudUtil.show(withStatus: "修改昵称中...")
+                    BBQHud.show(withStatus: "修改昵称中...")
                 })
                 .disposed(by: disposed)
             
@@ -58,20 +68,18 @@ extension ZNickNameBridge {
                 .completed
                 .drive(onNext: { (result) in
                     
-                    ZHudUtil.pop()
+                    BBQHud.pop()
                     
                     switch result {
                     case let .updateUserInfoSucc(_, msg: msg):
                         
-                        ZHudUtil.showInfo(msg)
+                        BBQHud.showInfo(msg)
                         
-                        succ()
-                        
-                        vc.dismiss(animated: true, completion: nil)
+                        nameAction(.name)
                         
                     case let .failed(msg):
                         
-                        ZHudUtil.showInfo(msg)
+                        BBQHud.showInfo(msg)
                     default: break
                         
                     }
@@ -83,7 +91,7 @@ extension ZNickNameBridge {
                 .tap
                 .subscribe(onNext: { (_) in
                     
-                    vc.navigationController?.dismiss(animated: true, completion: nil)
+                    nameAction(.back)
                 })
                 .disposed(by: disposed)
         }

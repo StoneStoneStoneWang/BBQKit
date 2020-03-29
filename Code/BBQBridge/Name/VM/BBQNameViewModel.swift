@@ -11,12 +11,12 @@ import RxCocoa
 import WLReqKit
 import WLBaseViewModel
 import WLBaseResult
-import ZRealReq
-import ZApi
-import ZBean
-import ZCache
+import BBQRReq
+import BBQApi
+import BBQBean
+import BBQCache
 
-struct ZNickNameViewModel: WLBaseViewModel {
+struct BBQNameViewModel: WLBaseViewModel {
     
     var input: WLInput
     
@@ -53,9 +53,9 @@ struct ZNickNameViewModel: WLBaseViewModel {
         let completed: Driver<WLBaseResult> = input.completTaps
             .withLatestFrom(input.updated)
             .flatMapLatest({
-                return onUserDictResp(ZUserApi.updateUserInfo("users.nickname", value: $0))
-                    .mapObject(type: ZUserBean.self)
-                    .map({ ZUserInfoCache.default.saveUser(data: $0) })
+                return bbqDictResp(BBQApi.updateUserInfo("users.nickname", value: $0))
+                    .mapObject(type: BBQUserBean.self)
+                    .map({ BBQUserInfoCache.default.saveUser(data: $0) })
                     .map { WLBaseResult.updateUserInfoSucc($0, msg: "昵称修改成功")}
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) }) })
         
