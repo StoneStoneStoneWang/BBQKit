@@ -42,9 +42,13 @@ open class BBQLeftImageTextField: BBQBaseTextField {
     open override func commitInit() {
         super.commitInit()
         
-        leftImageFrame = CGRect(x: 0, y: 0, width: 80, height: 44)
+        leftImageFrame = CGRect(x: 0, y: 0, width: 80, height: bounds.height)
     }
     
+    open override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+        
+        return leftImageFrame
+    }
 }
 extension BBQLeftImageTextField {
     

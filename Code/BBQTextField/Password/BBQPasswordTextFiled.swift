@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-@objc (WLPasswordImageTextFiled)
-public final class WLPasswordImageTextFiled: BBQLeftImageTextField {
+@objc (BBQPasswordImageTextFiled)
+public final class BBQPasswordImageTextFiled: BBQLeftImageTextField {
     
     @objc (passwordItem)
     public final let passwordItem: UIButton = UIButton(type: .custom)
@@ -21,6 +21,7 @@ public final class WLPasswordImageTextFiled: BBQLeftImageTextField {
             guard !newValue.isEmpty else { return }
             passwordItem.setImage(UIImage(named: newValue), for: .normal)
             passwordItem.setImage(UIImage(named: newValue), for: .highlighted)
+            rightView = passwordItem
         }
     }
     @objc (selectedIcon)
@@ -61,8 +62,8 @@ public final class WLPasswordImageTextFiled: BBQLeftImageTextField {
     }
 }
 
-@objc (WLPasswordTitleTextFiled)
-public final class WLPasswordTitleTextFiled: BBQLeftTitleTextField {
+@objc (BBQPasswordTitleTextFiled)
+public final class BBQPasswordTitleTextFiled: BBQLeftTitleTextField {
     
     @objc (passwordItem)
     public final let passwordItem: UIButton = UIButton(type: .custom)

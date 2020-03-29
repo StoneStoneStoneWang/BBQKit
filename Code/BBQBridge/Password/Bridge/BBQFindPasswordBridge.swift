@@ -15,7 +15,7 @@ import BBQCocoa
 
 public typealias BBQFindPasswordAction = () -> ()
 
-@objc (BBQFindPwdBridge)
+@objc (BBQFindPasswordBridge)
 public final class BBQFindPasswordBridge: BBQBaseBridge {
     
     public var viewModel: BBQFindPasswordModel!

@@ -15,7 +15,7 @@ import BBQCocoa
 
 public typealias BBQModifyPasswordAction = () -> ()
 
-@objc (BBQModifyPwdBridge)
+@objc (BBQModifyPasswordBridge)
 public final class BBQModifyPasswordBridge: BBQBaseBridge {
     
     public var viewModel: BBQModifyPasswordViewModel!
@@ -28,9 +28,9 @@ extension BBQModifyPasswordBridge {
         if let oldpassword = vc.view.viewWithTag(201) as? UITextField ,let password = vc.view.viewWithTag(202) as? UITextField ,let passwordAgain = vc.view.viewWithTag(203) as? UITextField ,let completeItem = vc.view.viewWithTag(204) as? UIButton {
             
             let input = BBQModifyPasswordViewModel.WLInput(oldpassword: oldpassword.rx.text.orEmpty.asDriver(),
-                                                      password: password.rx.text.orEmpty.asDriver() ,
-                                                      passwordAgain: passwordAgain.rx.text.orEmpty.asDriver(),
-                                                      completeTaps: completeItem.rx.tap.asSignal())
+                                                           password: password.rx.text.orEmpty.asDriver() ,
+                                                           passwordAgain: passwordAgain.rx.text.orEmpty.asDriver(),
+                                                           completeTaps: completeItem.rx.tap.asSignal())
             
             viewModel = BBQModifyPasswordViewModel(input, disposed: disposed)
             
