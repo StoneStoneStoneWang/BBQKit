@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^BBQModifyPasswordBlock)(BBQBaseViewController *vc);
 @interface BBQModifyPasswordViewController : BBQTViewController
 
-+ (instancetype)createPwdWithBlock:(BBQModifyPasswordBlock )block;
++ (instancetype)createPasswordWithBlock:(BBQModifyPasswordBlock )block;
 @end
 
 NS_ASSUME_NONNULL_END

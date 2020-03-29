@@ -1,17 +1,17 @@
 //
-//  BBQFinePasswordViewController.m
+//  BBQFindPasswordViewController.m
 //  BBQContainer
 //
 //  Created by 王磊 on 2020/3/29.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#import "BBQFinePasswordViewController.h"
+#import "BBQFindPasswordViewController.h"
 @import BBQTextField;
 @import SToolsKit;
 @import Masonry;
 
-@interface BBQFinePasswordViewController ()
+@interface BBQFindPasswordViewController ()
 
 @property (nonatomic ,strong) BBQFindPasswordBridge *bridge;
 
@@ -37,9 +37,9 @@
 #endif
 @end
 
-@implementation BBQFinePasswordViewController
+@implementation BBQFindPasswordViewController
 
-+ (instancetype)createPwdWithBlock:(BBQFindPassworBlock)block {
++ (instancetype)createPasswordWithBlock:(BBQFindPassworBlock)block {
     
     return [[self alloc] initWithBlock:block];
 }
@@ -186,7 +186,7 @@
     
     if (!_logoImgView) {
         
-        _logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@ZLogoIcon]];
+        _logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@BBQLogoIcon]];
         
         _logoImgView.layer.cornerRadius = 40;
         

@@ -1,5 +1,5 @@
 //
-//  BBQFinePasswordViewController.h
+//  BBQFindPasswordViewController.h
 //  BBQContainer
 //
 //  Created by 王磊 on 2020/3/29.
@@ -10,8 +10,9 @@
 @import BBQTransition;
 NS_ASSUME_NONNULL_BEGIN
 typedef void(^BBQFindPassworBlock)(BBQBaseViewController *vc);
-@interface BBQFinePasswordViewController : BBQTViewController
-+ (instancetype)createPwdWithBlock:(BBQFindPassworBlock )block;
+@interface BBQFindPasswordViewController : BBQTViewController
+
++ (instancetype)createPasswordWithBlock:(BBQFindPassworBlock )block;
 
 @end
 

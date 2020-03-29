@@ -9,6 +9,7 @@
 #import "BBQConfig.h"
 @import BBQBridge;
 @import BBQTransition;
+
 NS_ASSUME_NONNULL_BEGIN
 typedef void(^BBQRegBlock)(BBQRegActionType type ,BBQBaseViewController *vc);
 @interface BBQRegViewController : BBQTViewController

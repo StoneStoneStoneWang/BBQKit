@@ -34,6 +34,33 @@
 
 #define bbqRootViewController bbqRootViewController11
 
+
+#define BBQLoginBlock BBQLoginBlock111
+
+#define createLoginWithBlock createLoginWithBlock111
+
+#define BBQLoginViewController BBQLoginViewController111
+
+#define BBQRegBlock BBQRegBlock111
+
+#define BBQRegViewController BBQRegViewController111
+
+#define createRegWithBlock createRegWithBlock111
+
+#define createProtocol createProtocol111
+
+#define BBQProtocolViewController BBQProtocolViewController111
+
+#define BBQFindPassworBlock BBQFindPassworBlock111
+
+#define BBQFindPasswordViewController BBQFindPasswordViewController111
+
+#define createPasswordWithBlock createPasswordWithBlock111
+
+#define BBQModifyPasswordBlock BBQModifyPasswordBlock111
+
+#define BBQModifyPasswordViewController BBQModifyPasswordViewController111
+
 #pragma mark ---- 圈子类型
 #if BBQCONFIGURETYPECIRCLE
 

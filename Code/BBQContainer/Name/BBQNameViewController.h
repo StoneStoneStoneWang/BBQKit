@@ -6,11 +6,17 @@
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#import <BBQTransition/BBQTransition.h>
+#import "BBQConfig.h"
+@import BBQBridge;
+@import BBQTransition;
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^ZNickNameSucc)(BBQBaseViewController *from);
+
 @interface BBQNameViewController : BBQTViewController
+
++ (instancetype)createNickname:(ZNickNameSucc)succ;
 
 @end
 

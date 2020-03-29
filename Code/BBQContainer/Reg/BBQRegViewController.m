@@ -234,7 +234,7 @@
     
     if (!_logoImgView) {
         
-        _logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@ZLogoIcon]];
+        _logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@BBQLogoIcon]];
         
         _logoImgView.layer.cornerRadius = 40;
         
