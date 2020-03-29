@@ -6,10 +6,12 @@
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-@import BBQTransition;
+
 #import "BBQConfig.h"
-NS_ASSUME_NONNULL_BEGIN
 @import BBQBridge;
+@import BBQTransition;
+NS_ASSUME_NONNULL_BEGIN
+
 typedef void(^BBQLoginBlock)(BBQLoginActionType actionType ,BBQBaseViewController *vc);
 @interface BBQLoginViewController : BBQTViewController
 
