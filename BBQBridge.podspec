@@ -374,7 +374,7 @@ Pod::Spec.new do |spec|
     translate.subspec 'Bridge' do |bridge|
       bridge.source_files = "Code/BBQBridge/Translate/Bridge/*.{swift}"
       bridge.dependency 'BBQBridge/Translate/VM'
-      bridge.dependency 'ZTransition'
+      bridge.dependency 'BBQTransition'
       bridge.dependency 'BBQBridge/Base'
       bridge.dependency 'BBQHud'
     end
