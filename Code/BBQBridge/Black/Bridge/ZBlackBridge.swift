@@ -7,15 +7,15 @@
 //
 
 import Foundation
-import ZTable
+import BBQTable
 import RxDataSources
-import ZCocoa
-import ZBean
-import ZHud
-import ZNoti
-import ZBridge
+import BBQCocoa
+import BBQBean
+import BBQHud
+
+
 @objc (ZBlackBridge)
-public final class ZBlackBridge: ZBaseBridge {
+public final class ZBlackBridge: BBQBaseBridge {
     
     typealias Section = ZAnimationSetionModel<ZBlackBean>
     
@@ -23,11 +23,11 @@ public final class ZBlackBridge: ZBaseBridge {
     
     public var viewModel: ZBlackViewModel!
     
-    weak var vc: ZTableLoadingViewController!
+    weak var vc: BBQTableLoadingViewController!
 }
 extension ZBlackBridge {
     
-    @objc public func createBlack(_ vc: ZTableLoadingViewController) {
+    @objc public func createBlack(_ vc: BBQTableLoadingViewController) {
         
         self.vc = vc
         
@@ -68,7 +68,7 @@ extension ZBlackBridge {
                 case .fetchList:
                     vc.loadingStatus = .succ
                 case let .failed(msg):
-                    ZHudUtil.showInfo(msg)
+                    BBQHudUtil.showInfo(msg)
                     vc.loadingStatus = .fail
                     
                 case .empty:
@@ -119,7 +119,7 @@ extension ZBlackBridge: UITableViewDelegate {
                 
                 guard let `self` = self else { return }
                 
-                ZHudUtil.show(withStatus: "移除\(type.users.nickname)中...")
+                BBQHudUtil.show(withStatus: "移除\(type.users.nickname)中...")
                 
                 ZBlackViewModel
                     .removeBlack(type.identity)
@@ -129,9 +129,9 @@ extension ZBlackBridge: UITableViewDelegate {
                         switch result {
                         case .ok:
                             
-                            ZHudUtil.pop()
+                            BBQHudUtil.pop()
                             
-                            ZHudUtil.showInfo("移除\(type.users.nickname)成功")
+                            BBQHudUtil.showInfo("移除\(type.users.nickname)成功")
                             
                             var value = self.viewModel.output.tableData.value
                             
@@ -148,9 +148,9 @@ extension ZBlackBridge: UITableViewDelegate {
                             
                         case .failed:
                             
-                            ZHudUtil.pop()
+                            BBQHudUtil.pop()
                             
-                            ZHudUtil.showInfo("移除\(type.users.nickname)失败")
+                            BBQHudUtil.showInfo("移除\(type.users.nickname)失败")
                             
                         default: break
                             

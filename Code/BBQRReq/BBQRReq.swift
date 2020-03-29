@@ -216,3 +216,25 @@ public func bbqTranslateResp<T : WLObserverReq>(_ req: T) -> Observable<[String:
         return Disposables.create { }
     })
 }
+public func bbqAreaResp<T : WLObserverReq>(_ req: T) -> Observable<[Any]> {
+    
+    return Observable<[Any]>.create({ (observer) -> Disposable in
+        
+        BBQReq.postAreaWithUrl(url: req.host + req.reqName, params: req.params, succ: { (data) in
+            
+            observer.onNext(data as! [Any])
+            
+            observer.onCompleted()
+            
+        }, fail: { (error) in
+            
+            let ocError = error as NSError
+            
+            if ocError.code == 122 || ocError.code == 123 || ocError.code == 124 || ocError.code == 121 { observer.onError(WLBaseError.ServerResponseError(ocError.localizedDescription)) }
+            else { observer.onError(WLBaseError.HTTPFailed(error)) }
+        })
+        
+        
+        return Disposables.create { }
+    })
+}

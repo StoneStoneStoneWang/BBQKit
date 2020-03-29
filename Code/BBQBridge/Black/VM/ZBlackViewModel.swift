@@ -14,8 +14,8 @@ import WLReqKit
 import ObjectMapper
 import WLBaseResult
 import ZRealReq
-import ZBean
-import ZApi
+import BBQBean
+import BBQApi
 
 public struct ZBlackViewModel: WLBaseViewModel {
     

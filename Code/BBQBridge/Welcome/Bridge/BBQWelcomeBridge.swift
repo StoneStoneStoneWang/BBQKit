@@ -28,7 +28,7 @@ public final class BBQWelcomeBridge: BBQBaseBridge {
 // MARK: skip item 101 pagecontrol 102
 extension BBQWelcomeBridge {
     
-    @objc public func configViewModel(_ vc: BBQCollectionNoLoadingViewController ,welcomeImgs: [String],canPageHidden: Bool ,welcomeAction: @escaping BBQWelcomeAction) {
+    @objc public func createWelcome(_ vc: BBQCollectionNoLoadingViewController ,welcomeImgs: [String],canPageHidden: Bool ,welcomeAction: @escaping BBQWelcomeAction) {
         
         if let skipItem = vc.view.viewWithTag(101) as? UIButton  ,let pageControl = vc.view.viewWithTag(102) as? UIPageControl {
             

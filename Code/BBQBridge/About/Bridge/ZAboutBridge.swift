@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import ZTable
+import BBQTable
 import RxDataSources
-import ZCocoa
+import BBQCocoa
 
 @objc (ZAboutBridge)
-public final class ZAboutBridge: ZBaseBridge {
+public final class ZAboutBridge: BBQBaseBridge {
     
     typealias Section = ZSectionModel<(), ZAboutType>
     
@@ -23,7 +23,7 @@ public final class ZAboutBridge: ZBaseBridge {
 
 extension ZAboutBridge {
     
-    @objc public func createAbout(_ vc: ZTableNoLoadingViewConntroller) {
+    @objc public func createAbout(_ vc: BBQTableNoLoadingViewConntroller) {
         
         let input = ZAboutViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(ZAboutType.self),
                                             itemSelect: vc.tableView.rx.itemSelected)

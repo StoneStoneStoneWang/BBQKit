@@ -11,11 +11,11 @@ import ZCollection
 import RxCocoa
 import RxSwift
 import RxDataSources
-import ZCocoa
-import ZBridge
+import BBQCocoa
+
 
 @objc (ZAreaHeaderBridge)
-public final class ZAreaHeaderBridge: ZBaseBridge {
+public final class ZAreaHeaderBridge: BBQBaseBridge {
     
     var viewModel: ZAreaHeaderViewModel!
     

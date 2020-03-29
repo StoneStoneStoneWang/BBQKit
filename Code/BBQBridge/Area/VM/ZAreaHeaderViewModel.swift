@@ -10,7 +10,7 @@ import Foundation
 import WLBaseViewModel
 import RxCocoa
 import RxSwift
-import ZBean
+import BBQBean
 
 @objc (ZAreaHeaderBean)
 public class ZAreaHeaderBean: NSObject {

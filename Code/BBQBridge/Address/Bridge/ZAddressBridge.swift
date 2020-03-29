@@ -7,14 +7,14 @@
 //
 
 import Foundation
-import ZTable
+import BBQTable
 import RxDataSources
-import ZCocoa
-import ZHud
+import BBQCocoa
+import BBQHud
 import RxCocoa
 import RxSwift
-import ZBean
-import ZBridge
+import BBQBean
+
 
 public typealias ZAddressLoadingStatus = (_ status: Int) -> ()
 
@@ -25,7 +25,7 @@ public typealias ZAddressAccessoryBlock = (_ ip: IndexPath ,_ address: ZAddressB
 public typealias ZAddressAddAction = (_ vc:ZBaseViewController) -> ()
 
 @objc (ZAddressBridge)
-public final class ZAddressBridge: ZBaseBridge {
+public final class ZAddressBridge: BBQBaseBridge {
     
     typealias Section = ZAnimationSetionModel<ZAddressBean>
     
@@ -33,12 +33,12 @@ public final class ZAddressBridge: ZBaseBridge {
     
     var viewModel: ZAddressViewModel!
     
-    weak var vc: ZTableLoadingViewController!
+    weak var vc: BBQTableLoadingViewController!
 }
 
 extension ZAddressBridge {
     
-    @objc public func createAddress(_ vc: ZTableLoadingViewController ,status: @escaping ZAddressLoadingStatus ,accessoryBlock: @escaping ZAddressAccessoryBlock ,addAction: @escaping ZAddressAddAction) {
+    @objc public func createAddress(_ vc: BBQTableLoadingViewController ,status: @escaping ZAddressLoadingStatus ,accessoryBlock: @escaping ZAddressAccessoryBlock ,addAction: @escaping ZAddressAddAction) {
         
         if let addItem = vc.view.viewWithTag(301) as? UIButton {
             
@@ -119,7 +119,7 @@ extension ZAddressBridge {
                         
                         status(0)
                     case let .failed(msg):
-                        ZHudUtil.showInfo(msg)
+                        BBQHudUtil.showInfo(msg)
                         vc.loadingStatus = .fail
                         status(-1)
                     case .empty:
@@ -191,7 +191,7 @@ extension ZAddressBridge: UITableViewDelegate {
                 
                 guard let `self` = self else { return }
                 
-                ZHudUtil.show(withStatus: "移除地址中...")
+                BBQHudUtil.show(withStatus: "移除地址中...")
                 
                 ZAddressViewModel
                     .removeAddress(type.encoded)
@@ -201,9 +201,9 @@ extension ZAddressBridge: UITableViewDelegate {
                         switch result {
                         case .ok:
                             
-                            ZHudUtil.pop()
+                            BBQHudUtil.pop()
                             
-                            ZHudUtil.showInfo("移除地址成功")
+                            BBQHudUtil.showInfo("移除地址成功")
                             
                             var value = self.viewModel.output.tableData.value
                             
@@ -218,9 +218,9 @@ extension ZAddressBridge: UITableViewDelegate {
                             
                         case .failed:
                             
-                            ZHudUtil.pop()
+                            BBQHudUtil.pop()
                             
-                            ZHudUtil.showInfo("移除当前地址失败")
+                            BBQHudUtil.showInfo("移除当前地址失败")
                         default: break;
                             
                         }

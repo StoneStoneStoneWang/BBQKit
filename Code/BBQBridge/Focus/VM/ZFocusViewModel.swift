@@ -13,9 +13,9 @@ import RxSwift
 import WLReqKit
 import WLToolsKit
 import WLBaseResult
-import ZBean
+import BBQBean
 import ZRealReq
-import ZApi
+import BBQApi
 
 public struct ZFocusViewModel: WLBaseViewModel {
     

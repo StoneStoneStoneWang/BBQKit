@@ -13,8 +13,8 @@ import RxSwift
 import WLReqKit
 import ObjectMapper
 import WLBaseResult
-import ZApi
-import ZBean
+import BBQApi
+import BBQBean
 import ZRealReq
 
 struct ZAddressViewModel: WLBaseViewModel {

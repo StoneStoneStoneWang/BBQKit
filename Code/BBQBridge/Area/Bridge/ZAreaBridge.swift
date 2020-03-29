@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import ZBridge
-import ZCocoa
+
+import BBQCocoa
 import RxDataSources
-import ZTable
-import ZBean
+import BBQTable
+import BBQBean
 
 @objc (ZAreaType)
 public enum ZAreaType: Int {
@@ -26,7 +26,7 @@ public enum ZAreaType: Int {
 public typealias ZAreaAction = (_ from: ZBaseViewController ,_ selectedArea: ZAreaBean ,_ type: ZAreaType ,_ hasNext: Bool) -> ()
 
 @objc (ZAreaBridge)
-public final class ZAreaBridge: ZBaseBridge {
+public final class ZAreaBridge: BBQBaseBridge {
     
     var viewModel: ZAreaViewModel!
     
@@ -43,7 +43,7 @@ public final class ZAreaBridge: ZBaseBridge {
 
 extension ZAreaBridge {
     
-    @objc public func createArea(_ vc: ZTableNoLoadingViewConntroller ,type: ZAreaType,areaAction: @escaping ZAreaAction) {
+    @objc public func createArea(_ vc: BBQTableNoLoadingViewConntroller ,type: ZAreaType,areaAction: @escaping ZAreaAction) {
         
         self.type = type
         

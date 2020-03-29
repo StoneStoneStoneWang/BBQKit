@@ -75,7 +75,7 @@ public struct BBQLoginViewModel: WLBaseViewModel {
                 switch checkUsernameAndPassword($0.0, password: $0.1) {
                 case .ok:
 
-                    return bbqDictResp(BBQUserApi.login($0.0,password: $0.1))
+                    return bbqDictResp(BBQApi.login($0.0,password: $0.1))
                         .mapObject(type: BBQAccountBean.self)
                         .map({ BBQAccountCache.default.saveAccount(acc: $0) }) // 存储account
                         .map({ $0.toJSON()})

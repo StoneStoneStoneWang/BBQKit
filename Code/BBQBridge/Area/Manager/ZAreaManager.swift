@@ -7,14 +7,14 @@
 //
 
 import Foundation
-import ZBean
-import ZYYCache
+import BBQBean
+import BBQYYCache
 import RxCocoa
 import WLBaseResult
 import RxSwift
-import ZReq
+import BBQRReq
 import WLReqKit
-import ZApi
+import BBQApi
 import Alamofire
 
 @objc (ZAreaManager)
@@ -115,27 +115,4 @@ extension ZAreaManager {
         
         return FileManager.default.fileExists(atPath: targetPath)
     }
-}
-
-public func onAreaArrayResp<T : WLObserverReq>(_ req: T) -> Observable<[Any]> {
-    
-    return Observable<[Any]>.create({ (observer) -> Disposable in
-        
-        ZReqHandler.s_postAreaWithUrl(url: req.host + req.reqName, params: req.params, succ: { (data) in
-            
-            observer.onNext(data as! [Any])
-            
-            observer.onCompleted()
-            
-        }, fail: { (error) in
-            
-            let ocError = error as NSError
-            
-            if ocError.code == 122 || ocError.code == 123 || ocError.code == 124 || ocError.code == 121 { observer.onError(WLBaseError.ServerResponseError(ocError.localizedDescription)) }
-            else { observer.onError(WLBaseError.HTTPFailed(error)) }
-        })
-        
-        
-        return Disposables.create { }
-    })
 }

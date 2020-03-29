@@ -7,19 +7,19 @@
 //
 
 import Foundation
-import ZTable
-import ZHud
-import ZBean
+import BBQTable
+import BBQHud
+import BBQBean
 import RxCocoa
 import RxSwift
 import RxDataSources
-import ZCocoa
-import ZBridge
+import BBQCocoa
+
 
 public typealias ZCharactersEditSucc = (_ address: ZAddressBean?) -> ()
 
 @objc (ZAddressEditBridge)
-public final class ZAddressEditBridge: ZBaseBridge {
+public final class ZAddressEditBridge: BBQBaseBridge {
     
     typealias Section = ZSectionModel<(), ZAddressEditBean>
     
@@ -27,7 +27,7 @@ public final class ZAddressEditBridge: ZBaseBridge {
     
     var viewModel: ZAddressEditViewModel!
     
-    var vc: ZTableNoLoadingViewConntroller!
+    var vc: BBQTableNoLoadingViewConntroller!
     
     let name: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     
@@ -46,7 +46,7 @@ public final class ZAddressEditBridge: ZBaseBridge {
 
 extension ZAddressEditBridge {
     
-    @objc public func createAddressEdit(_ vc: ZTableNoLoadingViewConntroller,temp: ZAddressBean? ,succ: @escaping ZCharactersEditSucc) {
+    @objc public func createAddressEdit(_ vc: BBQTableNoLoadingViewConntroller,temp: ZAddressBean? ,succ: @escaping ZCharactersEditSucc) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton {
             
@@ -103,7 +103,7 @@ extension ZAddressEditBridge {
                     
                     vc.view.endEditing(true)
                     
-                    ZHudUtil.show(withStatus: "编辑地址中")
+                    BBQHudUtil.show(withStatus: "编辑地址中")
                     
                 })
                 .disposed(by: disposed)
@@ -114,15 +114,15 @@ extension ZAddressEditBridge {
                 .completed
                 .drive(onNext: {
                     
-                    ZHudUtil.pop()
+                    BBQHudUtil.pop()
                     
                     switch $0 {
                         
-                    case let .failed(msg): ZHudUtil.showInfo(msg)
+                    case let .failed(msg): BBQHudUtil.showInfo(msg)
                         
                     case let .operation(obj):
                         
-                        ZHudUtil.showInfo(temp != nil ? "修改地址成功" : "添加地址成功")
+                        BBQHudUtil.showInfo(temp != nil ? "修改地址成功" : "添加地址成功")
                         
                         succ(obj as? ZAddressBean)
                         
