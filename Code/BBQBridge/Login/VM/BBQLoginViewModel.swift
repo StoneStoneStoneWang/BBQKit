@@ -11,10 +11,8 @@ import WLBaseViewModel
 import RxSwift
 import RxCocoa
 import WLReqKit
-import ObjectMapper
 import WLBaseResult
 import BBQApi
-import BBQReq
 import BBQRReq
 import BBQBean
 import BBQCheck

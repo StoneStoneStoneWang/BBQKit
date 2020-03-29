@@ -1,5 +1,5 @@
 //
-//  ZAboutViewModel.swift
+//  BBQAboutViewModel.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/27.
@@ -12,17 +12,17 @@ import RxCocoa
 import RxSwift
 import WLToolsKit
 
-@objc public final class ZAboutBean: NSObject {
+@objc public final class BBQAboutBean: NSObject {
     
-    @objc public var type: ZAboutType = .space
+    @objc public var type: BBQAboutType = .space
     
     @objc public var title: String = ""
     
     @objc public var subTitle: String = ""
     
-    @objc public static func createAbout(_ type: ZAboutType ,title: String ,subTitle: String) -> ZAboutBean {
+    @objc public static func createAbout(_ type: BBQAboutType ,title: String ,subTitle: String) -> BBQAboutBean {
         
-        let about = ZAboutBean()
+        let about = BBQAboutBean()
         
         about.type = type
         
@@ -35,8 +35,8 @@ import WLToolsKit
     private override init() { }
 }
 
-@objc (ZAboutType)
-public enum ZAboutType: Int {
+@objc (BBQAboutType)
+public enum BBQAboutType: Int {
     
     case version
     
@@ -47,9 +47,9 @@ public enum ZAboutType: Int {
     case space
 }
 
-extension ZAboutType {
+extension BBQAboutType {
     
-    static var types: [ZAboutType] {
+    static var types: [BBQAboutType] {
         
         return [.space,.version,.email,.wechat]
     }
@@ -100,7 +100,7 @@ extension ZAboutType {
     }
 }
 
-struct ZAboutViewModel: WLBaseViewModel {
+struct BBQAboutViewModel: WLBaseViewModel {
     
     var input: WLInput
     
@@ -108,15 +108,15 @@ struct ZAboutViewModel: WLBaseViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<ZAboutType>
+        let modelSelect: ControlEvent<BBQAboutType>
         
         let itemSelect: ControlEvent<IndexPath>
     }
     struct WLOutput {
         
-        let zip: Observable<(ZAboutType,IndexPath)>
+        let zip: Observable<(BBQAboutType,IndexPath)>
         
-        let tableData: BehaviorRelay<[ZAboutType]> = BehaviorRelay<[ZAboutType]>(value: ZAboutType.types)
+        let tableData: BehaviorRelay<[BBQAboutType]> = BehaviorRelay<[BBQAboutType]>(value: BBQAboutType.types)
     }
     init(_ input: WLInput) {
         

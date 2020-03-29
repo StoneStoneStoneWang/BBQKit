@@ -7,13 +7,11 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 import BBQBase
 import BBQHud
-import BBQBean
-import RxCocoa
 import BBQCache
-import RxSwift
-
 @objc(BBQSignatureActionType)
 public enum BBQSignatureActionType: Int ,Codable {
     

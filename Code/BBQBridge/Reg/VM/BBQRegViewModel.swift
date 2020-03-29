@@ -14,7 +14,6 @@ import WLBaseResult
 import BBQCheck
 import BBQApi
 import BBQRReq
-import ObjectMapper
 import BBQBean
 import BBQCache
 import WLReqKit

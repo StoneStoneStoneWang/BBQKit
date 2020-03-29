@@ -18,10 +18,7 @@ import BBQApi
 import BBQRReq
 
 @objc public final class BBQReportBean: NSObject,IdentifiableType ,Mappable {
-    public init?(map: Map) {
-        
-        
-    }
+    public init?(map: Map) { }
     
     public func mapping(map: Map) {
         
@@ -31,7 +28,6 @@ import BBQRReq
         
         type <- map["type"]
     }
-    
     
     public var identity: String = NSUUID().uuidString
     
@@ -117,5 +113,4 @@ struct BBQReportViewModel: WLBaseViewModel {
         
         self.output = output
     }
-    
 }

@@ -1,9 +1,9 @@
 //
-//  ZFocusViewModel.swift
-//  ZBridge
+//  BBQAddressViewModel.swift
+//  ZBombBridge
 //
-//  Created by three stone 王 on 2019/8/26.
-//  Copyright © 2019 three stone 王. All rights reserved.
+//  Created by three stone 王 on 2020/3/20.
+//  Copyright © 2020 three stone 王. All rights reserved.
 //
 
 import Foundation
@@ -11,38 +11,45 @@ import WLBaseViewModel
 import RxCocoa
 import RxSwift
 import WLReqKit
-import WLToolsKit
 import WLBaseResult
-import BBQBean
-import ZRealReq
 import BBQApi
+import BBQBean
+import BBQRReq
 
-public struct ZFocusViewModel: WLBaseViewModel {
+struct BBQAddressViewModel: WLBaseViewModel {
     
-    public var input: WLInput
+    var input: WLInput
     
-    public var output: WLOutput
+    var output: WLOutput
     
-    public struct WLInput {
+    struct WLInput {
         
-        let modelSelect: ControlEvent<ZFocusBean>
+        let modelSelect: ControlEvent<BBQAddressBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
         let headerRefresh: Driver<Void>
+        
+        let itemAccessoryButtonTapped: Driver<IndexPath>
+        
+        let addItemTaps: Signal<Void>
     }
-    public struct WLOutput {
+    
+    struct WLOutput {
         
-        let zip: Observable<(ZFocusBean,IndexPath)>
+        let zip: Observable<(BBQAddressBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[ZFocusBean]> = BehaviorRelay<[ZFocusBean]>(value: [])
+        let tableData: BehaviorRelay<[BBQAddressBean]> = BehaviorRelay<[BBQAddressBean]>(value: [])
         
         let endHeaderRefreshing: Driver<WLBaseResult>
+        
+        let addItemed: Driver<Void>
+        
+        let itemAccessoryButtonTapped: Driver<IndexPath>
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
         self.input = input
-        
         
         let zip = Observable.zip(input.modelSelect,input.itemSelect)
         
@@ -50,15 +57,19 @@ public struct ZFocusViewModel: WLBaseViewModel {
             .headerRefresh
             .startWith(())
             .flatMapLatest({_ in
-                return onUserArrayResp(ZUserApi.fetchMyFocus(1))
-                    .mapArray(type: ZFocusBean.self)
+                return bbqArrayResp(BBQApi.fetchAddress)
+                    .mapArray(type: BBQAddressBean.self)
                     .map({ return $0.count > 0 ? WLBaseResult.fetchList($0) : WLBaseResult.empty })
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
             })
         
+        let itemAccessoryButtonTapped: Driver<IndexPath> = input.itemAccessoryButtonTapped.map { $0 }
+        
         let endHeaderRefreshing = headerRefreshData.map { $0 }
         
-        let output = WLOutput(zip: zip, endHeaderRefreshing: endHeaderRefreshing)
+        let addItemed: Driver<Void> = input.addItemTaps.flatMap { Driver.just($0) }
+        
+        let output = WLOutput(zip: zip, endHeaderRefreshing: endHeaderRefreshing, addItemed: addItemed, itemAccessoryButtonTapped: itemAccessoryButtonTapped)
         
         headerRefreshData
             .drive(onNext: { (result) in
@@ -66,7 +77,7 @@ public struct ZFocusViewModel: WLBaseViewModel {
                 switch result {
                 case let .fetchList(items):
                     
-                    output.tableData.accept(items as! [ZFocusBean])
+                    output.tableData.accept(items as! [BBQAddressBean])
                     
                 default: break
                 }
@@ -76,11 +87,11 @@ public struct ZFocusViewModel: WLBaseViewModel {
         self.output = output
     }
 }
-extension ZFocusViewModel {
+extension BBQAddressViewModel {
     
-    public static func removeFocus(_ uid: String ,encode: String) -> Driver<WLBaseResult> {
+    static func removeAddress(_ encode: String) -> Driver<WLBaseResult> {
         
-        return onUserVoidResp(ZUserApi.focus(uid, targetEncoded: encode))
+        return bbqVoidResp(BBQApi.deleteAddress(encode))
             .flatMapLatest({ return Driver.just(WLBaseResult.ok("移除成功")) })
             .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
     }

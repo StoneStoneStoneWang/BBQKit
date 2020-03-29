@@ -11,7 +11,6 @@ import BBQBase
 import BBQHud
 import RxCocoa
 import RxSwift
-import BBQCocoa
 
 @objc(BBQLoginActionType)
 public enum BBQLoginActionType: Int ,Codable {
@@ -20,12 +19,12 @@ public enum BBQLoginActionType: Int ,Codable {
     
     case loginSucc = 1
     
-    case gotoFindPwd = 2
+    case gotoFindPassword = 2
     
     case backItem = 3
 }
 
-public typealias ZLoginAction = (_ action: BBQLoginActionType ) -> ()
+public typealias BBQLoginAction = (_ action: BBQLoginActionType) -> ()
 
 @objc (BBQLoginBridge)
 public final class BBQLoginBridge: BBQBaseBridge {
@@ -36,7 +35,7 @@ public final class BBQLoginBridge: BBQBaseBridge {
 // MARK: 201 手机号 202 密码 203 登陆按钮 204 快捷登录按钮 205 忘记密码按钮 206
 extension BBQLoginBridge {
     
-    @objc public func createLogin(_ vc: BBQBaseViewController ,loginAction: @escaping ZLoginAction) {
+    @objc public func createLogin(_ vc: BBQBaseViewController ,loginAction: @escaping BBQLoginAction) {
         
         if let phone = vc.view.viewWithTag(201) as? UITextField ,let password = vc.view.viewWithTag(202) as? UITextField ,let loginItem = vc.view.viewWithTag(203) as? UIButton
             , let swiftLoginItem = vc.view.viewWithTag(204) as? UIButton ,let forgetItem = vc.view.viewWithTag(205) as? UIButton , let passwordItem = password.rightView
@@ -111,7 +110,7 @@ extension BBQLoginBridge {
                 .forgeted
                 .drive(onNext: {(_) in
                     
-                    loginAction(.gotoFindPwd)
+                    loginAction(.gotoFindPassword)
                     
                 })
                 .disposed(by: disposed)

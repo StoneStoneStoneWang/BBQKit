@@ -1,5 +1,5 @@
 //
-//  ZAboutBridge.swift
+//  BBQAboutBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/27.
@@ -11,27 +11,27 @@ import BBQTable
 import RxDataSources
 import BBQCocoa
 
-@objc (ZAboutBridge)
-public final class ZAboutBridge: BBQBaseBridge {
+@objc (BBQAboutBridge)
+public final class BBQAboutBridge: BBQBaseBridge {
     
-    typealias Section = ZSectionModel<(), ZAboutType>
+    typealias Section = BBQSectionModel<(), BBQAboutType>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: ZAboutViewModel!
+    var viewModel: BBQAboutViewModel!
 }
 
-extension ZAboutBridge {
+extension BBQAboutBridge {
     
     @objc public func createAbout(_ vc: BBQTableNoLoadingViewConntroller) {
         
-        let input = ZAboutViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(ZAboutType.self),
+        let input = BBQAboutViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQAboutType.self),
                                             itemSelect: vc.tableView.rx.itemSelected)
         
-        viewModel = ZAboutViewModel(input)
+        viewModel = BBQAboutViewModel(input)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
-            configureCell: { ds, tv, ip, item in return vc.configTableViewCell(ZAboutBean.createAbout(item, title: item.title, subTitle: item.subtitle), for: ip) })
+            configureCell: { ds, tv, ip, item in return vc.configTableViewCell(BBQAboutBean.createAbout(item, title: item.title, subTitle: item.subtitle), for: ip) })
         
         viewModel
             .output
@@ -50,7 +50,7 @@ extension ZAboutBridge {
                 
                 vc.tableView.deselectRow(at: ip, animated: true)
                 
-                vc.tableViewSelectData(ZAboutBean.createAbout(item, title: item.title, subTitle: item.subtitle), for: ip)
+                vc.tableViewSelectData(BBQAboutBean.createAbout(item, title: item.title, subTitle: item.subtitle), for: ip)
             })
             .disposed(by: disposed)
         
@@ -62,7 +62,7 @@ extension ZAboutBridge {
     }
     
 }
-extension ZAboutBridge: UITableViewDelegate {
+extension BBQAboutBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

@@ -12,9 +12,8 @@ import RxCocoa
 import RxSwift
 import RxDataSources
 import BBQCocoa
-import WLToolsKit
 
-public typealias BBQWelcomeAction = (_ vc: BBQBaseViewController) -> ()
+public typealias BBQWelcomeAction = () -> ()
 
 @objc (BBQWelcomeBridge)
 public final class BBQWelcomeBridge: BBQBaseBridge {
@@ -25,12 +24,13 @@ public final class BBQWelcomeBridge: BBQBaseBridge {
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
 }
+
 // MARK: skip item 101 pagecontrol 102
 extension BBQWelcomeBridge {
     
     @objc public func createWelcome(_ vc: BBQCollectionNoLoadingViewController ,welcomeImgs: [String],canPageHidden: Bool ,welcomeAction: @escaping BBQWelcomeAction) {
         
-        if let skipItem = vc.view.viewWithTag(101) as? UIButton  ,let pageControl = vc.view.viewWithTag(102) as? UIPageControl {
+        if let skipItem = vc.view.viewWithTag(101) as? UIButton ,let pageControl = vc.view.viewWithTag(102) as? UIPageControl {
             
             let input = BBQWelcomViewModel.WLInput(contentoffSetX: vc.collectionView.rx.contentOffset.map({ $0.x }),
                                                  skipTap: skipItem.rx.tap.asSignal(),
@@ -92,7 +92,7 @@ extension BBQWelcomeBridge {
                 .skiped
                 .drive(onNext: { (_) in
                     
-                    welcomeAction(vc)
+                    welcomeAction()
                 })
                 .disposed(by: disposed)
         }

@@ -1,5 +1,5 @@
 //
-//  ZAddressEditViewModel.swift
+//  BBQAddressEditViewModel.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/20.
@@ -15,16 +15,16 @@ import WLReqKit
 import BBQBean
 import RxDataSources
 import BBQApi
-import ZRealReq
+import BBQRReq
 import WLToolsKit
 
-@objc (ZAddressEditBean)
-public class ZAddressEditBean: NSObject ,IdentifiableType{
+@objc (BBQAddressEditBean)
+public class BBQAddressEditBean: NSObject ,IdentifiableType{
     public var identity: String = NSUUID().uuidString
     
     public typealias Identity = String
     
-    @objc public var type: ZAddressEditType = .name
+    @objc public var type: BBQAddressEditType = .name
     
     @objc public var title: String {
         
@@ -33,11 +33,11 @@ public class ZAddressEditBean: NSObject ,IdentifiableType{
     
     @objc public var value: String = ""
     
-    @objc public var pArea: ZAreaBean = ZAreaBean()
+    @objc public var pArea: BBQAreaBean = BBQAreaBean()
     
-    @objc public var cArea: ZAreaBean = ZAreaBean()
+    @objc public var cArea: BBQAreaBean = BBQAreaBean()
     
-    @objc public var rArea: ZAreaBean = ZAreaBean()
+    @objc public var rArea: BBQAreaBean = BBQAreaBean()
     
     @objc public var isDef: Bool = true
     
@@ -46,25 +46,25 @@ public class ZAddressEditBean: NSObject ,IdentifiableType{
         return type.placeholder
     }
     
-    public static var editTypes: [ZAddressEditBean] {
+    public static var editTypes: [BBQAddressEditBean] {
         
-        let name = ZAddressEditBean()
+        let name = BBQAddressEditBean()
         
         name.type = .name
         
-        let phone = ZAddressEditBean()
+        let phone = BBQAddressEditBean()
         
         phone.type = .phone
         
-        let area = ZAddressEditBean()
+        let area = BBQAddressEditBean()
         
         area.type = .area
         
-        let detail = ZAddressEditBean()
+        let detail = BBQAddressEditBean()
         
         detail.type = .detail
         
-        let def = ZAddressEditBean()
+        let def = BBQAddressEditBean()
         
         def.type = .def
         
@@ -74,8 +74,8 @@ public class ZAddressEditBean: NSObject ,IdentifiableType{
     }
 }
 
-@objc (ZAddressEditType)
-public enum ZAddressEditType:Int {
+@objc (BBQAddressEditType)
+public enum BBQAddressEditType:Int {
     case name
     
     case phone
@@ -87,7 +87,7 @@ public enum ZAddressEditType:Int {
     case def
 }
 
-extension ZAddressEditType {
+extension BBQAddressEditType {
     
     public var title: String {
         
@@ -104,7 +104,7 @@ extension ZAddressEditType {
         }
     }
     
-    public static var types: [ZAddressEditType] {
+    public static var types: [BBQAddressEditType] {
         
         return [.name,.phone,.area,.detail,.def]
     }
@@ -132,7 +132,7 @@ extension ZAddressEditType {
 }
 
 
-struct ZAddressEditViewModel: WLBaseViewModel {
+struct BBQAddressEditViewModel: WLBaseViewModel {
     
     var input: WLInput
     
@@ -140,7 +140,7 @@ struct ZAddressEditViewModel: WLBaseViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<ZAddressEditBean>
+        let modelSelect: ControlEvent<BBQAddressEditBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -154,24 +154,24 @@ struct ZAddressEditViewModel: WLBaseViewModel {
         
         let detail: Driver<String>
         
-        let province: Driver<ZAreaBean>
+        let province: Driver<BBQAreaBean>
         
-        let city: Driver<ZAreaBean>
+        let city: Driver<BBQAreaBean>
         
-        let region: Driver<ZAreaBean>
+        let region: Driver<BBQAreaBean>
         
         let def: Driver<Bool>
     }
     
     struct WLOutput {
         
-        let zip: Observable<(ZAddressEditBean,IndexPath)>
+        let zip: Observable<(BBQAddressEditBean,IndexPath)>
         
         let completing: Driver<Void>
         
         let completed: Driver<WLBaseResult>
         
-        let tableData: BehaviorRelay<[ZAddressEditBean]> = BehaviorRelay<[ZAddressEditBean]>(value: ZAddressEditBean.editTypes)
+        let tableData: BehaviorRelay<[BBQAddressEditBean]> = BehaviorRelay<[BBQAddressEditBean]>(value: BBQAddressEditBean.editTypes)
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -211,9 +211,9 @@ struct ZAddressEditViewModel: WLBaseViewModel {
                     
                     return Driver<WLBaseResult>.just(WLBaseResult.failed("请填写详细地址"))
                 }
-                
-                return onUserDictResp(ZUserApi.editAddress(input.encode, name: $0.0, phone: $0.1, plcl: $0.3.areaId, plclne: $0.3.name, city: $0.4.areaId, cityne: $0.4.name, region: $0.5.areaId, regionne: $0.5.name, addr: $0.2, isdef: $0.6, zipCode: ""))
-                    .mapObject(type: ZAddressBean.self)
+
+                return bbqDictResp(BBQApi.editAddress(input.encode, name: $0.0, phone: $0.1, plcl: $0.3.areaId, plclne: $0.3.name, city: $0.4.areaId, cityne: $0.4.name, region: $0.5.areaId, regionne: $0.5.name, addr: $0.2, isdef: $0.6, zipCode: ""))
+                    .mapObject(type: BBQAddressBean.self)
                     .map({ WLBaseResult.operation($0) })
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
         }

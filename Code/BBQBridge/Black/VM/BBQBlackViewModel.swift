@@ -1,9 +1,9 @@
 //
-//  ZAddressViewModel.swift
-//  ZBombBridge
+//  BBQBlackViewModel.swift
+//  ZBridge
 //
-//  Created by three stone 王 on 2020/3/20.
-//  Copyright © 2020 three stone 王. All rights reserved.
+//  Created by three stone 王 on 2019/8/26.
+//  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
@@ -11,42 +11,33 @@ import WLBaseViewModel
 import RxCocoa
 import RxSwift
 import WLReqKit
-import ObjectMapper
 import WLBaseResult
-import BBQApi
+import BBQRReq
 import BBQBean
-import ZRealReq
+import BBQApi
 
-struct ZAddressViewModel: WLBaseViewModel {
+public struct BBQBlackViewModel: WLBaseViewModel {
     
-    var input: WLInput
+    public var input: WLInput
     
-    var output: WLOutput
+    public var output: WLOutput
     
-    struct WLInput {
+    public struct WLInput {
         
-        let modelSelect: ControlEvent<ZAddressBean>
+        let modelSelect: ControlEvent<BBQBlackBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
         let headerRefresh: Driver<Void>
-        
-        let itemAccessoryButtonTapped: Driver<IndexPath>
-        
-        let addItemTaps: Signal<Void>
     }
     
-    struct WLOutput {
+    public struct WLOutput {
         
-        let zip: Observable<(ZAddressBean,IndexPath)>
+        let zip: Observable<(BBQBlackBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[ZAddressBean]> = BehaviorRelay<[ZAddressBean]>(value: [])
+        let tableData: BehaviorRelay<[BBQBlackBean]> = BehaviorRelay<[BBQBlackBean]>(value: [])
         
         let endHeaderRefreshing: Driver<WLBaseResult>
-        
-        let addItemed: Driver<Void>
-        
-        let itemAccessoryButtonTapped: Driver<IndexPath>
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -58,19 +49,16 @@ struct ZAddressViewModel: WLBaseViewModel {
             .headerRefresh
             .startWith(())
             .flatMapLatest({_ in
-                return onUserArrayResp(ZUserApi.fetchAddress)
-                    .mapArray(type: ZAddressBean.self)
+
+                return bbqArrayResp(BBQApi.fetchBlackList)
+                    .mapArray(type: BBQBlackBean.self)
                     .map({ return $0.count > 0 ? WLBaseResult.fetchList($0) : WLBaseResult.empty })
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
             })
         
-        let itemAccessoryButtonTapped: Driver<IndexPath> = input.itemAccessoryButtonTapped.map { $0 }
-        
         let endHeaderRefreshing = headerRefreshData.map { $0 }
         
-        let addItemed: Driver<Void> = input.addItemTaps.flatMap { Driver.just($0) }
-        
-        let output = WLOutput(zip: zip, endHeaderRefreshing: endHeaderRefreshing, addItemed: addItemed, itemAccessoryButtonTapped: itemAccessoryButtonTapped)
+        let output = WLOutput(zip: zip, endHeaderRefreshing: endHeaderRefreshing)
         
         headerRefreshData
             .drive(onNext: { (result) in
@@ -78,7 +66,7 @@ struct ZAddressViewModel: WLBaseViewModel {
                 switch result {
                 case let .fetchList(items):
                     
-                    output.tableData.accept(items as! [ZAddressBean])
+                    output.tableData.accept(items as! [BBQBlackBean])
                     
                 default: break
                 }
@@ -88,11 +76,11 @@ struct ZAddressViewModel: WLBaseViewModel {
         self.output = output
     }
 }
-extension ZAddressViewModel {
+extension BBQBlackViewModel {
     
-    static func removeAddress(_ encode: String) -> Driver<WLBaseResult> {
+    static func removeBlack(_ encode: String) -> Driver<WLBaseResult> {
         
-        return onUserVoidResp(ZUserApi.deleteAddress(encode))
+        return bbqVoidResp(BBQApi.removeBlack(encode))
             .flatMapLatest({ return Driver.just(WLBaseResult.ok("移除成功")) })
             .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
     }

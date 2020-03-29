@@ -1,5 +1,5 @@
 //
-//  ZBlackViewModel.swift
+//  BBQFocusViewModel.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/26.
@@ -11,13 +11,13 @@ import WLBaseViewModel
 import RxCocoa
 import RxSwift
 import WLReqKit
-import ObjectMapper
+import WLToolsKit
 import WLBaseResult
-import ZRealReq
 import BBQBean
+import BBQRReq
 import BBQApi
 
-public struct ZBlackViewModel: WLBaseViewModel {
+public struct BBQFocusViewModel: WLBaseViewModel {
     
     public var input: WLInput
     
@@ -25,18 +25,17 @@ public struct ZBlackViewModel: WLBaseViewModel {
     
     public struct WLInput {
         
-        let modelSelect: ControlEvent<ZBlackBean>
+        let modelSelect: ControlEvent<BBQFocusBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
         let headerRefresh: Driver<Void>
     }
-    
     public struct WLOutput {
         
-        let zip: Observable<(ZBlackBean,IndexPath)>
+        let zip: Observable<(BBQFocusBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[ZBlackBean]> = BehaviorRelay<[ZBlackBean]>(value: [])
+        let tableData: BehaviorRelay<[BBQFocusBean]> = BehaviorRelay<[BBQFocusBean]>(value: [])
         
         let endHeaderRefreshing: Driver<WLBaseResult>
     }
@@ -44,14 +43,15 @@ public struct ZBlackViewModel: WLBaseViewModel {
         
         self.input = input
         
+        
         let zip = Observable.zip(input.modelSelect,input.itemSelect)
         
         let headerRefreshData = input
             .headerRefresh
             .startWith(())
             .flatMapLatest({_ in
-                return onUserArrayResp(ZUserApi.fetchBlackList)
-                    .mapArray(type: ZBlackBean.self)
+                return bbqArrayResp(BBQApi.fetchMyFocus(1))
+                    .mapArray(type: BBQFocusBean.self)
                     .map({ return $0.count > 0 ? WLBaseResult.fetchList($0) : WLBaseResult.empty })
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
             })
@@ -66,7 +66,7 @@ public struct ZBlackViewModel: WLBaseViewModel {
                 switch result {
                 case let .fetchList(items):
                     
-                    output.tableData.accept(items as! [ZBlackBean])
+                    output.tableData.accept(items as! [BBQFocusBean])
                     
                 default: break
                 }
@@ -76,11 +76,11 @@ public struct ZBlackViewModel: WLBaseViewModel {
         self.output = output
     }
 }
-extension ZBlackViewModel {
+extension BBQFocusViewModel {
     
-    static func removeBlack(_ encode: String) -> Driver<WLBaseResult> {
+    public static func removeFocus(_ uid: String ,encode: String) -> Driver<WLBaseResult> {
         
-        return onUserVoidResp(ZUserApi.removeBlack(encode))
+        return bbqVoidResp(BBQApi.focus(uid, targetEncoded: encode))
             .flatMapLatest({ return Driver.just(WLBaseResult.ok("移除成功")) })
             .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
     }

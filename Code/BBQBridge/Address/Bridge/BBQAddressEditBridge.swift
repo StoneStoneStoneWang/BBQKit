@@ -1,5 +1,5 @@
 //
-//  ZAddressEditBridge.swift
+//  BBQAddressEditBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/20.
@@ -16,16 +16,16 @@ import RxDataSources
 import BBQCocoa
 
 
-public typealias ZCharactersEditSucc = (_ address: ZAddressBean?) -> ()
+public typealias BBQAddressEditAction = (_ address: BBQAddressBean?) -> ()
 
-@objc (ZAddressEditBridge)
-public final class ZAddressEditBridge: BBQBaseBridge {
+@objc (BBQAddressEditBridge)
+public final class BBQAddressEditBridge: BBQBaseBridge {
     
-    typealias Section = ZSectionModel<(), ZAddressEditBean>
+    typealias Section = BBQSectionModel<(), BBQAddressEditBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: ZAddressEditViewModel!
+    var viewModel: BBQAddressEditViewModel!
     
     var vc: BBQTableNoLoadingViewConntroller!
     
@@ -37,22 +37,22 @@ public final class ZAddressEditBridge: BBQBaseBridge {
     
     let def: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
     
-    let province: BehaviorRelay<ZAreaBean> = BehaviorRelay<ZAreaBean>(value: ZAreaBean())
+    let province: BehaviorRelay<BBQAreaBean> = BehaviorRelay<BBQAreaBean>(value: BBQAreaBean())
     
-    let city: BehaviorRelay<ZAreaBean> = BehaviorRelay<ZAreaBean>(value: ZAreaBean())
+    let city: BehaviorRelay<BBQAreaBean> = BehaviorRelay<BBQAreaBean>(value: BBQAreaBean())
     
-    let region: BehaviorRelay<ZAreaBean> = BehaviorRelay<ZAreaBean>(value: ZAreaBean())
+    let region: BehaviorRelay<BBQAreaBean> = BehaviorRelay<BBQAreaBean>(value: BBQAreaBean())
 }
 
-extension ZAddressEditBridge {
+extension BBQAddressEditBridge {
     
-    @objc public func createAddressEdit(_ vc: BBQTableNoLoadingViewConntroller,temp: ZAddressBean? ,succ: @escaping ZCharactersEditSucc) {
+    @objc public func createAddressEdit(_ vc: BBQTableNoLoadingViewConntroller,temp: BBQAddressBean? ,addressAction: @escaping BBQAddressEditAction) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton {
             
             self.vc = vc
             
-            let input = ZAddressEditViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(ZAddressEditBean.self),
+            let input = BBQAddressEditViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQAddressEditBean.self),
                                                          itemSelect: vc.tableView.rx.itemSelected,
                                                          completeTaps: completeItem.rx.tap.asSignal(),
                                                          encode: temp?.encoded ?? "",
@@ -64,7 +64,7 @@ extension ZAddressEditBridge {
                                                          region: region.asDriver(),
                                                          def: def.asDriver())
             
-            viewModel = ZAddressEditViewModel(input, disposed: disposed)
+            viewModel = BBQAddressEditViewModel(input, disposed: disposed)
             
             let dataSource = RxTableViewSectionedReloadDataSource<Section>(
                 configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)})
@@ -95,7 +95,6 @@ extension ZAddressEditBridge {
                 .setDelegate(self)
                 .disposed(by: disposed)
             
-            
             viewModel
                 .output
                 .completing
@@ -103,7 +102,7 @@ extension ZAddressEditBridge {
                     
                     vc.view.endEditing(true)
                     
-                    BBQHudUtil.show(withStatus: "编辑地址中")
+                    BBQHud.show(withStatus: "编辑地址中")
                     
                 })
                 .disposed(by: disposed)
@@ -114,20 +113,18 @@ extension ZAddressEditBridge {
                 .completed
                 .drive(onNext: {
                     
-                    BBQHudUtil.pop()
+                    BBQHud.pop()
                     
                     switch $0 {
                         
-                    case let .failed(msg): BBQHudUtil.showInfo(msg)
+                    case let .failed(msg): BBQHud.showInfo(msg)
                         
                     case let .operation(obj):
                         
-                        BBQHudUtil.showInfo(temp != nil ? "修改地址成功" : "添加地址成功")
+                        BBQHud.showInfo(temp != nil ? "修改地址成功" : "添加地址成功")
                         
-                        succ(obj as? ZAddressBean)
-                        
-                        vc.dismiss(animated: true, completion: nil)
-                        
+                        addressAction(obj as? BBQAddressBean)
+
                     default: break
                     }
                 })
@@ -153,17 +150,17 @@ extension ZAddressEditBridge {
             
                 def.accept(temp.isdel)
                 
-                let p = ZAreaBean()
+                let p = BBQAreaBean()
                 
                 p.areaId = temp.plcl
                 p.name = temp.plclne
                 
-                let c = ZAreaBean()
+                let c = BBQAreaBean()
                 
                 c.areaId = temp.city
                 c.name = temp.cityne
                 
-                let r = ZAreaBean()
+                let r = BBQAreaBean()
                 
                 r.areaId = temp.region
                 r.name = temp.regionne
@@ -185,9 +182,9 @@ extension ZAddressEditBridge {
         }
     }
     
-    @objc public func updateAddressEdit(type: ZAddressEditType,value: String) {
+    @objc public func updateAddressEdit(type: BBQAddressEditType,value: String) {
         
-        var values = viewModel.output.tableData.value
+        let values = viewModel.output.tableData.value
 
         if let idx = values.firstIndex(where: { $0.type == type }) {
 
@@ -205,14 +202,12 @@ extension ZAddressEditBridge {
 
                 detail.accept(value)
             }
-
-//            vc.tableView.reloadRows(at: [IndexPath(item: idx, section: 0)], with: .fade)
         }
     }
     
     @objc public func updateAddressEditDef(isDef: Bool) {
         
-        var values = viewModel.output.tableData.value
+        let values = viewModel.output.tableData.value
         
         if let idx = values.firstIndex(where: { $0.type == .def }) {
             
@@ -227,23 +222,23 @@ extension ZAddressEditBridge {
     }
     @objc public func updateAddressEditArea(pid: Int ,pName: String,cid: Int ,cName: String,rid: Int ,rName: String) {
         
-        var values = viewModel.output.tableData.value
+        let values = viewModel.output.tableData.value
         
         if let idx = values.firstIndex(where: { $0.type == .area }) {
             
             let edit = values[idx]
             
-            let p = ZAreaBean()
+            let p = BBQAreaBean()
             
             p.areaId = pid
             p.name = pName
             
-            let c = ZAreaBean()
+            let c = BBQAreaBean()
             
             c.areaId = cid
             c.name = cName
             
-            let r = ZAreaBean()
+            let r = BBQAreaBean()
             
             r.areaId = rid
             r.name = rName
@@ -264,7 +259,7 @@ extension ZAddressEditBridge {
         }
     }
 }
-extension ZAddressEditBridge: UITableViewDelegate {
+extension BBQAddressEditBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

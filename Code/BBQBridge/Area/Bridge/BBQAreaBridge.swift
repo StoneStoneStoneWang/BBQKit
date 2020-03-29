@@ -1,5 +1,5 @@
 //
-//  ZAreaBridge.swift
+//  BBQAreaBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2020/3/13.
@@ -7,14 +7,13 @@
 //
 
 import Foundation
-
 import BBQCocoa
 import RxDataSources
 import BBQTable
 import BBQBean
 
-@objc (ZAreaType)
-public enum ZAreaType: Int {
+@objc (BBQAreaType)
+public enum BBQAreaType: Int {
     
     case province
     
@@ -23,35 +22,35 @@ public enum ZAreaType: Int {
     case region
 }
 
-public typealias ZAreaAction = (_ from: ZBaseViewController ,_ selectedArea: ZAreaBean ,_ type: ZAreaType ,_ hasNext: Bool) -> ()
+public typealias BBQAreaAction = (_ selectedArea: BBQAreaBean ,_ type: BBQAreaType ,_ hasNext: Bool) -> ()
 
-@objc (ZAreaBridge)
-public final class ZAreaBridge: BBQBaseBridge {
+@objc (BBQAreaBridge)
+public final class BBQAreaBridge: BBQBaseBridge {
     
-    var viewModel: ZAreaViewModel!
+    var viewModel: BBQAreaViewModel!
     
-    typealias Section = ZSectionModel<(), ZAreaBean>
+    typealias Section = BBQSectionModel<(), BBQAreaBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var type: ZAreaType = .province
+    var type: BBQAreaType = .province
     
-    var areas: [ZAreaBean] = []
+    var areas: [BBQAreaBean] = []
     
-    var selectedArea: ZAreaBean!
+    var selectedArea: BBQAreaBean!
 }
 
-extension ZAreaBridge {
+extension BBQAreaBridge {
     
-    @objc public func createArea(_ vc: BBQTableNoLoadingViewConntroller ,type: ZAreaType,areaAction: @escaping ZAreaAction) {
+    @objc public func createArea(_ vc: BBQTableNoLoadingViewConntroller ,type: BBQAreaType,areaAction: @escaping BBQAreaAction) {
         
         self.type = type
         
-        let input = ZAreaViewModel.WLInput(areas: areas,
-                                           modelSelect: vc.tableView.rx.modelSelected(ZAreaBean.self),
+        let input = BBQAreaViewModel.WLInput(areas: areas,
+                                           modelSelect: vc.tableView.rx.modelSelected(BBQAreaBean.self),
                                            itemSelect: vc.tableView.rx.itemSelected)
         
-        viewModel = ZAreaViewModel(input, disposed: disposed)
+        viewModel = BBQAreaViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
             configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)})
@@ -84,10 +83,10 @@ extension ZAreaBridge {
                 switch type {
                 case .province: fallthrough
                 case .region:
-                    areaAction(vc,area,type, true)
+                    areaAction(area,type, true)
                 case .city:
                     
-                    areaAction(vc,area,type, self.fetchRegions(area.areaId).count > 0)
+                    areaAction(area,type, self.fetchRegions(area.areaId).count > 0)
                 default:
                     break;
                 }
@@ -99,7 +98,7 @@ extension ZAreaBridge {
             .setDelegate(self)
             .disposed(by: disposed)
         
-        ZAreaManager
+        BBQAreaManager
             .default
             .fetchAreas()
             .drive(onNext: { [unowned self ](result) in
@@ -107,12 +106,12 @@ extension ZAreaBridge {
                 switch result {
                 case .fetchList(let list):
                     
-                    var mutable: [ZAreaBean] = []
+                    var mutable: [BBQAreaBean] = []
                     
                     switch type {
                     case .province:
                         
-                        mutable += self.fetchProvices(list as! [ZAreaBean])
+                        mutable += self.fetchProvices(list as! [BBQAreaBean])
                     case .city:
                         
                         //                        mutable += self.fetchCitys(<#T##id: Int##Int#>)
@@ -130,7 +129,7 @@ extension ZAreaBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func updateDatas(_ id: Int ,areas: [ZAreaBean]) {
+    @objc public func updateDatas(_ id: Int ,areas: [BBQAreaBean]) {
         
         switch type {
         case .city:
@@ -145,7 +144,7 @@ extension ZAreaBridge {
             self.viewModel.output.tableData.accept(self.fetchProvices(areas))
         }
     }
-    @objc public func fetchProvice(pName: String) -> ZAreaBean {
+    @objc public func fetchProvice(pName: String) -> BBQAreaBean {
         
         let values = self.viewModel.output.tableData.value
         
@@ -155,9 +154,9 @@ extension ZAreaBridge {
         
     }
     
-    @objc public func fetchArea(id: Int) -> ZAreaBean {
+    @objc public func fetchArea(id: Int) -> BBQAreaBean {
         
-        return ZAreaManager.default.fetchSomeArea(id)
+        return BBQAreaManager.default.fetchSomeArea(id)
         
     }
     @objc public func fetchIp(id: Int) -> IndexPath {
@@ -168,9 +167,9 @@ extension ZAreaBridge {
         
         return IndexPath(row: idx, section: 0)
     }
-    @objc public func fetchProvices(_ areas: [ZAreaBean]) -> [ZAreaBean] {
+    @objc public func fetchProvices(_ areas: [BBQAreaBean]) -> [BBQAreaBean] {
         
-        var result: [ZAreaBean] = []
+        var result: [BBQAreaBean] = []
         
         for item in areas {
             
@@ -182,11 +181,11 @@ extension ZAreaBridge {
         return result
     }
     
-    @objc public func fetchCitys(_ id: Int) -> [ZAreaBean] {
+    @objc public func fetchCitys(_ id: Int) -> [BBQAreaBean] {
         
-        var result: [ZAreaBean] = []
+        var result: [BBQAreaBean] = []
         
-        for item in ZAreaManager.default.allAreas {
+        for item in BBQAreaManager.default.allAreas {
             
             if item.arealevel == 2 {
                 
@@ -199,11 +198,11 @@ extension ZAreaBridge {
         return result
     }
     
-    @objc public func fetchRegions(_ id: Int) -> [ZAreaBean] {
+    @objc public func fetchRegions(_ id: Int) -> [BBQAreaBean] {
         
-        var result: [ZAreaBean] = []
+        var result: [BBQAreaBean] = []
         
-        for item in ZAreaManager.default.allAreas {
+        for item in BBQAreaManager.default.allAreas {
             
             if item.arealevel == 3 {
                 
@@ -217,7 +216,7 @@ extension ZAreaBridge {
     }
 }
 
-extension ZAreaBridge: UITableViewDelegate {
+extension BBQAreaBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

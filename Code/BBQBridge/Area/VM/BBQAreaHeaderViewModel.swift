@@ -1,8 +1,8 @@
 //
-//  ZAreaViewModel.swift
-//  ZBridge
+//  BBQAreaHeaderViewModel.swift
+//  ZBombBridge
 //
-//  Created by three stone 王 on 2020/3/13.
+//  Created by three stone 王 on 2020/3/19.
 //  Copyright © 2020 three stone 王. All rights reserved.
 //
 
@@ -12,7 +12,15 @@ import RxCocoa
 import RxSwift
 import BBQBean
 
-struct ZAreaViewModel: WLBaseViewModel {
+@objc (BBQAreaHeaderBean)
+public class BBQAreaHeaderBean: NSObject {
+    
+    @objc public var isSelected: Bool = false
+    
+    @objc public var areaBean: BBQAreaBean!
+}
+
+struct BBQAreaHeaderViewModel: WLBaseViewModel {
     
     var input: WLInput
     
@@ -20,18 +28,16 @@ struct ZAreaViewModel: WLBaseViewModel {
     
     struct WLInput {
         
-        let areas: [ZAreaBean]
-        
-        let modelSelect: ControlEvent<ZAreaBean>
+        let modelSelect: ControlEvent<BBQAreaHeaderBean>
         
         let itemSelect: ControlEvent<IndexPath>
     }
     
     struct WLOutput {
         
-        let zip: Observable<(ZAreaBean,IndexPath)>
+        let zip: Observable<(BBQAreaHeaderBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[ZAreaBean]> = BehaviorRelay<[ZAreaBean]>(value: [])
+        let tableData: BehaviorRelay<[BBQAreaHeaderBean]> = BehaviorRelay<[BBQAreaHeaderBean]>(value: [])
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -40,8 +46,6 @@ struct ZAreaViewModel: WLBaseViewModel {
         let zip = Observable.zip(input.modelSelect,input.itemSelect)
         
         let output = WLOutput(zip: zip)
-        
-        output.tableData.accept(input.areas)
         
         self.output = output
     }

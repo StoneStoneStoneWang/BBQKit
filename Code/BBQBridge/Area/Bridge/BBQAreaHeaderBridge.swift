@@ -1,5 +1,5 @@
 //
-//  ZAreaHeaderBridge.swift
+//  BBQAreaHeaderBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/19.
@@ -7,31 +7,30 @@
 //
 
 import Foundation
-import ZCollection
+import BBQCollection
 import RxCocoa
 import RxSwift
 import RxDataSources
 import BBQCocoa
 
-
-@objc (ZAreaHeaderBridge)
-public final class ZAreaHeaderBridge: BBQBaseBridge {
+@objc (BBQAreaHeaderBridge)
+public final class BBQAreaHeaderBridge: BBQBaseBridge {
     
-    var viewModel: ZAreaHeaderViewModel!
+    var viewModel: BBQAreaHeaderViewModel!
     
-    typealias Section = ZSectionModel<(), ZAreaHeaderBean>
+    typealias Section = BBQSectionModel<(), BBQAreaHeaderBean>
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
 }
 // MARK: skip item 101 pagecontrol 102
-extension ZAreaHeaderBridge {
+extension BBQAreaHeaderBridge {
     
-    @objc public func createAreaHeader(_ vc: ZCollectionNoLoadingViewController) {
+    @objc public func createAreaHeader(_ vc: BBQCollectionNoLoadingViewController) {
         
-        let input = ZAreaHeaderViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(ZAreaHeaderBean.self),
+        let input = BBQAreaHeaderViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(BBQAreaHeaderBean.self),
                                                  itemSelect: vc.collectionView.rx.itemSelected)
         
-        viewModel = ZAreaHeaderViewModel(input, disposed: disposed)
+        viewModel = BBQAreaHeaderViewModel(input, disposed: disposed)
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<Section>(
             configureCell: { ds, cv, ip, item in return vc.configCollectionViewCell(item, for: ip) })
@@ -58,7 +57,7 @@ extension ZAreaHeaderBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func addheader(_ header: ZAreaHeaderBean) {
+    @objc public func addheader(_ header: BBQAreaHeaderBean) {
         
         var values = viewModel.output.tableData.value
         
@@ -71,7 +70,7 @@ extension ZAreaHeaderBridge {
         
         return viewModel.output.tableData.value.count
     }
-    @objc public func removeHeader(_ header: ZAreaHeaderBean) {
+    @objc public func removeHeader(_ header: BBQAreaHeaderBean) {
         
         var values = viewModel.output.tableData.value
         

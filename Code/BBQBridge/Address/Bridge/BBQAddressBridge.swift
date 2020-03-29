@@ -1,5 +1,5 @@
 //
-//  ZAddressBridge.swift
+//  BBQAddressBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/20.
@@ -15,42 +15,52 @@ import RxCocoa
 import RxSwift
 import BBQBean
 
-
-public typealias ZAddressLoadingStatus = (_ status: Int) -> ()
-
-public typealias ZAddressInsertStatus = (_ status: Int) -> ()
-
-public typealias ZAddressAccessoryBlock = (_ ip: IndexPath ,_ address: ZAddressBean) -> ()
-
-public typealias ZAddressAddAction = (_ vc:ZBaseViewController) -> ()
-
-@objc (ZAddressBridge)
-public final class ZAddressBridge: BBQBaseBridge {
+@objc (BBQAddressActionType)
+public enum BBQAddressActionType: Int {
     
-    typealias Section = ZAnimationSetionModel<ZAddressBean>
+    case accessory
+    
+    case add
+    
+    case loaded
+    
+    case delete
+    
+}
+
+public typealias BBQAddressAction = (_ type: BBQAddressActionType , _ addressBean: BBQAddressBean? ,_ ip: IndexPath?) -> ()
+
+@objc (BBQAddressBridge)
+public final class BBQAddressBridge: BBQBaseBridge {
+    
+    typealias Section = BBQAnimationSetionModel<BBQAddressBean>
     
     var dataSource: RxTableViewSectionedAnimatedDataSource<Section>!
     
-    var viewModel: ZAddressViewModel!
+    var viewModel: BBQAddressViewModel!
     
     weak var vc: BBQTableLoadingViewController!
+    
+    var addressAction: BBQAddressAction!
 }
 
-extension ZAddressBridge {
+extension BBQAddressBridge {
     
-    @objc public func createAddress(_ vc: BBQTableLoadingViewController ,status: @escaping ZAddressLoadingStatus ,accessoryBlock: @escaping ZAddressAccessoryBlock ,addAction: @escaping ZAddressAddAction) {
+    @objc public func createAddress(_ vc: BBQTableLoadingViewController ,addressAction: @escaping BBQAddressAction ) {
         
         if let addItem = vc.view.viewWithTag(301) as? UIButton {
             
             self.vc = vc
+        
+            self.addressAction = addressAction
             
-            let input = ZAddressViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(ZAddressBean.self),
+            let input = BBQAddressViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQAddressBean.self),
                                                      itemSelect: vc.tableView.rx.itemSelected,
                                                      headerRefresh: vc.tableView.mj_header!.rx.refreshing.asDriver(),
                                                      itemAccessoryButtonTapped: vc.tableView.rx.itemAccessoryButtonTapped.asDriver() ,
                                                      addItemTaps: addItem.rx.tap.asSignal())
             
-            viewModel = ZAddressViewModel(input, disposed: disposed)
+            viewModel = BBQAddressViewModel(input, disposed: disposed)
             
             let dataSource = RxTableViewSectionedAnimatedDataSource<Section>(
                 animationConfiguration: AnimationConfiguration(insertAnimation: .fade, reloadAnimation: .fade, deleteAnimation: .left),
@@ -82,9 +92,9 @@ extension ZAddressBridge {
                 .itemAccessoryButtonTapped
                 .drive(onNext: { (ip) in
                     
-                    var values = self.viewModel.output.tableData.value
+                    let values = self.viewModel.output.tableData.value
 
-                    accessoryBlock(ip ,values[ip.section]);
+                    addressAction(.accessory, values[ip.section], ip)
                     
                 })
                 .disposed(by: disposed)
@@ -94,7 +104,7 @@ extension ZAddressBridge {
                 .addItemed
                 .drive(onNext: { (_) in
                     
-                    addAction(vc)
+                    addressAction(.add, nil, nil)
                 })
                 .disposed(by: disposed)
             
@@ -117,56 +127,50 @@ extension ZAddressBridge {
                     case .fetchList:
                         vc.loadingStatus = .succ
                         
-                        status(0)
                     case let .failed(msg):
-                        BBQHudUtil.showInfo(msg)
+                        BBQHud.showInfo(msg)
                         vc.loadingStatus = .fail
-                        status(-1)
                     case .empty:
                         vc.loadingStatus = .succ
                         
                         vc.tableViewEmptyShow()
-                        status(1);
-                        
+
                     default:
                         break
                     }
+                    
+                    addressAction(.loaded, nil, nil)
                 })
                 .disposed(by: disposed)
             
         }
     }
     
-    @objc public func insertAddress(_ address: ZAddressBean ,status: @escaping ZAddressInsertStatus ) {
+    @objc public func insertAddress(_ address: BBQAddressBean ) {
         
         var values = viewModel.output.tableData.value
         
         if values.isEmpty {
             
-            status(0)
-            
             self.vc.tableViewEmptyHidden()
-        } else {
-            
-            status(1)
         }
         
         values.insert(address, at: 0)
         
         viewModel.output.tableData.accept(values)
     }
-    @objc public func updateAddress(_ address: ZAddressBean ,ip: IndexPath) {
+    @objc public func updateAddress(_ address: BBQAddressBean ,ip: IndexPath) {
         
         var values = viewModel.output.tableData.value
         
-        values.replaceSubrange(ip.row..<ip.row+1, with: [address])
+        values.replaceSubrange(ip.section..<ip.section+1, with: [address])
         
         viewModel.output.tableData.accept(values)
         
     }
     
 }
-extension ZAddressBridge: UITableViewDelegate {
+extension BBQAddressBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -177,65 +181,56 @@ extension ZAddressBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let delete = UITableViewRowAction(style: .destructive, title: "移除") { [weak self] (a, ip) in
+        let delete = UITableViewRowAction(style: .destructive, title: "删除地址") { [weak self] (a, ip) in
             
             guard let `self` = self else { return }
             
-            let type = self.dataSource[ip]
+            self.addressAction(.delete, self.dataSource[ip], ip)
             
-            let alert = UIAlertController(title: "地址信息", message: "是否删除当前地址", preferredStyle: .alert)
-            
-            let cancel = UIAlertAction(title: "取消", style: .cancel) { (a) in }
-            
-            let confirm = UIAlertAction(title: "确定", style: .default) { [weak self] (a) in
-                
-                guard let `self` = self else { return }
-                
-                BBQHudUtil.show(withStatus: "移除地址中...")
-                
-                ZAddressViewModel
-                    .removeAddress(type.encoded)
-                    .drive(onNext: { [weak self] (result) in
-                        
-                        guard let `self` = self else { return }
-                        switch result {
-                        case .ok:
-                            
-                            BBQHudUtil.pop()
-                            
-                            BBQHudUtil.showInfo("移除地址成功")
-                            
-                            var value = self.viewModel.output.tableData.value
-                            
-                            value.remove(at: ip.row)
-                            
-                            self.viewModel.output.tableData.accept(value)
-                            
-                            if value.isEmpty {
-                                
-                                self.vc.tableViewEmptyShow()
-                            }
-                            
-                        case .failed:
-                            
-                            BBQHudUtil.pop()
-                            
-                            BBQHudUtil.showInfo("移除当前地址失败")
-                        default: break;
-                            
-                        }
-                    })
-                    .disposed(by: self.disposed)
-            }
-            
-            alert.addAction(cancel)
-            
-            alert.addAction(confirm)
-            
-            self.vc.present(alert, animated: true, completion: nil)
+        }
+        let cancel = UITableViewRowAction(style: .default, title: "取消") { (a, ip) in
             
         }
         
-        return [delete]
+        return [cancel,delete]
+    }
+    
+    @objc public func removeAddress(_ address: BBQAddressBean ,_ ip: IndexPath)  {
+        
+        BBQHud.show(withStatus: "移除地址中...")
+
+        BBQAddressViewModel
+            .removeAddress(address.encoded)
+            .drive(onNext: { [weak self] (result) in
+
+                guard let `self` = self else { return }
+                switch result {
+                case .ok:
+
+                    BBQHud.pop()
+
+                    BBQHud.showInfo("移除地址成功")
+
+                    var values = self.viewModel.output.tableData.value
+
+                    values.remove(at: ip.section)
+
+                    self.viewModel.output.tableData.accept(values)
+
+                    if values.isEmpty {
+
+                        self.vc.tableViewEmptyShow()
+                    }
+
+                case .failed:
+
+                    BBQHud.pop()
+
+                    BBQHud.showInfo("移除地址失败")
+                default: break;
+
+                }
+            })
+            .disposed(by: self.disposed)
     }
 }

@@ -29,9 +29,7 @@ import BBQSign
         
         return setting
     }
-    private override init() {
-        
-    }
+    private override init() { }
 }
 
 @objc (BBQSettingType)

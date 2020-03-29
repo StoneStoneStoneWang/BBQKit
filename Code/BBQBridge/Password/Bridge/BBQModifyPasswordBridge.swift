@@ -13,7 +13,7 @@ import RxCocoa
 import RxSwift
 import BBQCocoa
 
-public typealias ZModifyPasswordAction = () -> ()
+public typealias BBQModifyPasswordAction = () -> ()
 
 @objc (BBQModifyPwdBridge)
 public final class BBQModifyPasswordBridge: BBQBaseBridge {
@@ -23,7 +23,7 @@ public final class BBQModifyPasswordBridge: BBQBaseBridge {
 // MARK:  旧密码201 新密码 202 确认密码 203 修改密码
 extension BBQModifyPasswordBridge {
     
-    @objc public func createPassword(_ vc: BBQBaseViewController ,passwordAction: @escaping ZModifyPasswordAction) {
+    @objc public func createPassword(_ vc: BBQBaseViewController ,passwordAction: @escaping BBQModifyPasswordAction) {
         
         if let oldpassword = vc.view.viewWithTag(201) as? UITextField ,let password = vc.view.viewWithTag(202) as? UITextField ,let passwordAgain = vc.view.viewWithTag(203) as? UITextField ,let completeItem = vc.view.viewWithTag(204) as? UIButton {
             

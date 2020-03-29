@@ -1,5 +1,5 @@
 //
-//  ZAreaManager.swift
+//  BBQAreaManager.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/19.
@@ -8,29 +8,27 @@
 
 import Foundation
 import BBQBean
-import BBQYYCache
 import RxCocoa
 import WLBaseResult
 import RxSwift
 import BBQRReq
 import WLReqKit
 import BBQApi
-import Alamofire
 
-@objc (ZAreaManager)
-public class ZAreaManager: NSObject {
+@objc (BBQAreaManager)
+public class BBQAreaManager: NSObject {
     
     @objc (shared)
-    public static let `default`: ZAreaManager = ZAreaManager()
+    public static let `default`: BBQAreaManager = BBQAreaManager()
     
     private override init() { }
     // 全部地区
-    @objc public var allAreas: [ZAreaBean] = []
+    @objc public var allAreas: [BBQAreaBean] = []
 }
 
-extension ZAreaManager {
+extension BBQAreaManager {
     
-      public func fetchAreas() -> Driver<WLBaseResult> {
+    public func fetchAreas() -> Driver<WLBaseResult> {
         
         if allAreas.count > 0 {
             
@@ -45,11 +43,11 @@ extension ZAreaManager {
                 
                 if let arr = NSArray(contentsOfFile: targetPath) {
                     
-                    var mutable: [ZAreaBean] = []
+                    var mutable: [BBQAreaBean] = []
                     
                     for item in arr {
                         
-                        mutable += [ZAreaBean(JSON: item as! [String: Any])!]
+                        mutable += [BBQAreaBean(JSON: item as! [String: Any])!]
                     }
                     
                     allAreas += mutable
@@ -57,22 +55,19 @@ extension ZAreaManager {
                     return Driver.just(WLBaseResult.fetchList(mutable))
                 }
                 
-                return Driver.just(WLBaseResult.failed("获取本地数据失败!"))
-            } else {
-                
-                return onAreaArrayResp(ZUserApi.fetchAreaJson)
-                    .map({ ZAreaManager.default.saveArea($0) })
-                    .map({ _ in WLBaseResult.fetchList(ZAreaManager.default.allAreas)  })
-                    .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
             }
+            return bbqAreaResp(BBQApi.fetchAreaJson)
+                .map({ BBQAreaManager.default.saveArea($0) })
+                .map({ _ in WLBaseResult.fetchList(BBQAreaManager.default.allAreas)  })
+                .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
         }
     }
     
-   @objc public func fetchSomeArea(_ id: Int)  -> ZAreaBean {
+    @objc public func fetchSomeArea(_ id: Int)  -> BBQAreaBean {
         
         assert(allAreas.count > 0, "请先调用 fetchArea")
         
-        var result: ZAreaBean!
+        var result: BBQAreaBean!
         
         for item in allAreas {
             
@@ -84,14 +79,14 @@ extension ZAreaManager {
             }
         }
         
-        return result ?? ZAreaBean()
+        return result ?? BBQAreaBean()
     }
     
-   @objc public func saveArea(_ areas: [Any]) -> [Any] {
+    @objc public func saveArea(_ areas: [Any]) -> [Any] {
         
         for item in areas {
             
-            allAreas += [ZAreaBean(JSON: item as! [String: Any])!]
+            allAreas += [BBQAreaBean(JSON: item as! [String: Any])!]
         }
         
         let mutable = NSMutableArray()

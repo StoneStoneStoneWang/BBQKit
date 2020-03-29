@@ -1,137 +1,467 @@
-#
-#  Be sure to run `pod spec lint BBQBridge.podspec' to ensure this is a
-#  valid spec and to remove all comments including this before submitting the spec.
-#
-#  To learn more about Podspec attributes see https://guides.cocoapods.org/syntax/podspec.html
-#  To see working Podspecs in the CocoaPods repo see https://github.com/CocoaPods/Specs/
-#
-
 Pod::Spec.new do |spec|
-
-  # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  These will help people to find your library, and whilst it
-  #  can feel like a chore to fill in it's definitely to your advantage. The
-  #  summary should be tweet-length, and the description more in depth.
-  #
-
+  
   spec.name         = "BBQBridge"
   spec.version      = "0.0.1"
-  spec.summary      = "A short description of BBQBridge."
-
-  # This description is used to generate tags and improve search results.
-  #   * Think: What does it do? Why did you write it? What is the focus?
-  #   * Try to keep it short, snappy and to the point.
-  #   * Write the description between the DESC delimiters below.
-  #   * Finally, don't worry about the indent, CocoaPods strips it!
+  spec.summary      = "A Lib For bridge."
   spec.description  = <<-DESC
-                   DESC
-
-  spec.homepage     = "http://EXAMPLE/BBQBridge"
-  # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
-
-
-  # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Licensing your code is important. See https://choosealicense.com for more info.
-  #  CocoaPods will detect a license file if there is a named LICENSE*
-  #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
-  #
-
-  spec.license      = "MIT (example)"
-  # spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
-
-
-  # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Specify the authors of the library, with email addresses. Email addresses
-  #  of the authors are extracted from the SCM log. E.g. $ git log. CocoaPods also
-  #  accepts just a name if you'd rather not provide an email address.
-  #
-  #  Specify a social_media_url where others can refer to, for example a twitter
-  #  profile URL.
-  #
-
+  BBQBridge是oc swift 转换的封装呢
+  DESC
+  
+  spec.homepage     = "https://github.com/StoneStoneStoneWang/BBQKit.git"
+  spec.license      = { :type => "MIT", :file => "LICENSE.md" }
   spec.author             = { "StoneStoneStoneWang" => "yuanxingfu1314@163.com" }
-  # Or just: spec.author    = "StoneStoneStoneWang"
-  # spec.authors            = { "StoneStoneStoneWang" => "yuanxingfu1314@163.com" }
-  # spec.social_media_url   = "https://twitter.com/StoneStoneStoneWang"
-
-  # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  If this Pod runs only on iOS or OS X, then specify the platform and
-  #  the deployment target. You can optionally include the target after the platform.
-  #
-
-  # spec.platform     = :ios
-  # spec.platform     = :ios, "5.0"
-
-  #  When using multiple platforms
-  # spec.ios.deployment_target = "5.0"
-  # spec.osx.deployment_target = "10.7"
-  # spec.watchos.deployment_target = "2.0"
-  # spec.tvos.deployment_target = "9.0"
-
-
-  # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Specify the location from where the source should be retrieved.
-  #  Supports git, hg, bzr, svn and HTTP.
-  #
-
-  spec.source       = { :git => "http://EXAMPLE/BBQBridge.git", :tag => "#{spec.version}" }
-
-
-  # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  CocoaPods is smart about how it includes source code. For source files
-  #  giving a folder will include any swift, h, m, mm, c & cpp files.
-  #  For header files it will include any header in the folder.
-  #  Not including the public_header_files will make all headers public.
-  #
-
-  spec.source_files  = "Classes", "Classes/**/*.{h,m}"
-  spec.exclude_files = "Classes/Exclude"
-
-  # spec.public_header_files = "Classes/**/*.h"
-
-
-  # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  A list of resources included with the Pod. These are copied into the
-  #  target bundle with a build phase script. Anything else will be cleaned.
-  #  You can preserve files from being cleaned, please don't preserve
-  #  non-essential files like tests, examples and documentation.
-  #
-
-  # spec.resource  = "icon.png"
-  # spec.resources = "Resources/*.png"
-
-  # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
-
-
-  # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Link your library with frameworks, or libraries. Libraries do not include
-  #  the lib prefix of their name.
-  #
-
-  # spec.framework  = "SomeFramework"
-  # spec.frameworks = "SomeFramework", "AnotherFramework"
-
-  # spec.library   = "iconv"
-  # spec.libraries = "iconv", "xml2"
-
-
-  # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  If your library depends on compiler flags you can set them in the xcconfig hash
-  #  where they will only apply to your library. If you depend on other Podspecs
-  #  you can include multiple dependencies to ensure it works.
-
-  # spec.requires_arc = true
-
-  # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # spec.dependency "JSONKit", "~> 1.4"
-
+  spec.platform     = :ios, "10.0"
+  spec.ios.deployment_target = "10.0"
+  
+  spec.swift_version = '5.0'
+  
+  spec.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+  
+  spec.static_framework = true
+  
+  spec.frameworks = 'UIKit', 'Foundation'
+  
+  spec.source = { :git => "https://github.com/StoneStoneStoneWang/BBQKit.git", :tag => "#{spec.version}" }
+  
+  spec.subspec 'Base' do |base|
+    base.source_files = "Code/BBQBridge/Base/*.{swift}"
+    base.dependency 'RxSwift'
+  end
+  
+  #欢迎界面
+  spec.subspec 'Welcome' do |welcome|
+    
+    welcome.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Welcome/VM/*.{swift}"
+      vm.dependency 'WLToolsKit/Common'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'RxCocoa'
+      vm.dependency 'RxSwift'
+    end
+    
+    welcome.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Welcome/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Welcome/VM'
+      bridge.dependency 'BBQCollection'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'BBQCocoa/Button'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  
+  # 协议
+  spec.subspec 'Protocol' do |protocol|
+    
+    protocol.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Protocol/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'RxSwift'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQSign'
+    end
+    
+    protocol.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Protocol/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Protocol/VM'
+      bridge.dependency 'BBQTextInner'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  # 协议
+  spec.subspec 'Privacy' do |privacy|
+    
+    privacy.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Privacy/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'RxSwift'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQSign'
+    end
+    
+    privacy.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Privacy/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Privacy/VM'
+      bridge.dependency 'BBQInner'
+      bridge.dependency 'BBQBridge/Base'
+      
+    end
+  end
+  
+  # 登陆
+  spec.subspec 'Login' do |login|
+    
+    login.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Login/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQCheck'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+    end
+    
+    login.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Login/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Login/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQBase'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  
+  # 注册/登陆
+  spec.subspec 'Reg' do |reg|
+    
+    reg.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Reg/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQCheck'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+    end
+    
+    reg.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Reg/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Reg/VM'
+      bridge.dependency 'BBQCocoa/Button'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQBase'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  
+  # 密码
+  spec.subspec 'Password' do |password|
+    
+    password.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Password/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQCheck'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+    end
+    
+    password.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Password/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Password/VM'
+      bridge.dependency 'BBQCocoa/Button'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQBase'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  
+  # 设置
+  spec.subspec 'Setting' do |setting|
+    
+    setting.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Setting/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQCache/Account'
+      vm.dependency 'BBQSign'
+    end
+    
+    setting.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Setting/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Setting/VM'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'RxDataSources'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  
+  # 关于我们
+  spec.subspec 'About' do |about|
+    
+    about.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/About/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'WLToolsKit/String'
+    end
+    
+    about.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/About/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/About/VM'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'RxDataSources'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  # 昵称
+  spec.subspec 'Name' do |name|
+    
+    name.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Name/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'BBQCache/User'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    name.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Name/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Name/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQBase'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  # 个性签名
+  spec.subspec 'Signature' do |signature|
+    
+    signature.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Signature/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'BBQCache/User'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    signature.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Signature/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Signature/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQBase'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  
+  # 我的资料
+  spec.subspec 'UserInfo' do |userinfo|
+    
+    userinfo.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/UserInfo/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'BBQCache/User'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+    end
+    
+    userinfo.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/UserInfo/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/UserInfo/VM'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'RxDataSources'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  # 评论
+  spec.subspec 'Comment' do |comment|
+    
+    comment.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Comment/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQBean/Comment'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'WLBaseViewModel'
+    end
+    
+    comment.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Comment/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Comment/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/Refresh'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  # 举报
+  spec.subspec 'Report' do |report|
+    
+    report.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Report/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'ObjectMapper'
+      vm.dependency 'RxDataSources'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'WLBaseViewModel'
+    end
+    
+    report.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Report/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Report/VM'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'RxDataSources'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQHud'
+    end
+  end
+  
+  # 黑名单
+  spec.subspec 'Black' do |black|
+    
+    black.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Black/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQBean/Black'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    black.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Black/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Black/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/Refresh'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  # 我的关注
+  spec.subspec 'Focus' do |focus|
+    
+    focus.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Focus/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQBean/Focus'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    focus.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Focus/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Focus/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/Refresh'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  
+  # 翻译
+  spec.subspec 'Translate' do |translate|
+    
+    translate.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Translate/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'ObjectMapper'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    translate.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Translate/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Translate/VM'
+      bridge.dependency 'ZTransition'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQHud'
+    end
+  end
+  
+  spec.subspec 'Area' do |area|
+    
+    area.subspec 'Manager' do |manager|
+      
+      manager.source_files = "Code/BBQBridge/Area/Manager/*.{swift}"
+      manager.dependency 'RxCocoa'
+      manager.dependency 'WLBaseViewModel'
+      manager.dependency 'BBQApi'
+      manager.dependency 'BBQRReq'
+      manager.dependency 'WLBaseResult'
+      manager.dependency 'BBQYYCache'
+      manager.dependency 'BBQBean/Area'
+    end
+    area.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Area/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'BBQBean/Area'
+    end
+    
+    area.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Area/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Area/VM'
+      bridge.dependency 'BBQBridge/Area/Manager'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCollection'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQCocoa/SM'
+    end
+  end
+  
+  spec.subspec 'Address' do |address|
+    
+    address.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Address/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'ObjectMapper'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'BBQBean/Area'
+      vm.dependency 'BBQBean/Address'
+      vm.dependency 'WLToolsKit/String'
+      
+    end
+    
+    address.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Address/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Address/VM'
+      bridge.dependency 'ZTable'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'BBQCocoa/Refresh'
+    end
+  end
+  
+  spec.subspec 'Video' do |video|
+    
+    video.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Video/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'WLBaseViewModel'
+    end
+    
+    video.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Video/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Video/VM'
+      bridge.dependency 'BBQTransition'
+      bridge.dependency 'BBQCache/Account'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQHud'
+    end
+  end
+  
 end
