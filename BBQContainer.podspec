@@ -33,4 +33,22 @@ Pod::Spec.new do |spec|
     welcome.dependency 'Masonry'
   end
   
+  # 协议 textview
+  spec.subspec 'Protocol' do |protocol|
+    
+    protocol.source_files = "Code/BBQContainer/Protocol/*.{h,m}"
+    protocol.dependency 'BBQConfig'
+    protocol.dependency 'BBQBridge/Protocol/Bridge'
+    protocol.dependency 'SToolsKit'
+    protocol.dependency 'Masonry'
+  end
+  # 协议 webview
+  spec.subspec 'Privacy' do |privacy|
+    
+    privacy.source_files = "Code/BBQContainer/Privacy/*.{h,m}"
+    privacy.dependency 'BBQConfig'
+    privacy.dependency 'BBQBridge/Privacy/Bridge'
+    privacy.dependency 'SToolsKit'
+    privacy.dependency 'Masonry'
+  end
 end

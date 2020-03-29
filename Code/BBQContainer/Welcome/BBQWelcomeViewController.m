@@ -347,6 +347,18 @@
 #endif //
     
 }
+
+- (void)configOwnProperties {
+    
+#if BBQBGSWITCH
+    
+    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+#else
+    
+    [super configOwnProperties];
+#endif
+    
+}
 - (void)configViewModel {
     
     BBQWelcomeBridge *bridge = [BBQWelcomeBridge new];

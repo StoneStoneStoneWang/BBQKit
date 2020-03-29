@@ -9,7 +9,9 @@
 
 #define BBQColor "#50c9c3"
 
-#define BBQBGALPHA 1
+#pragma mark --- 0 背景正常 1 背景全局色
+
+#define BBQBGSWITCH 0
 
 #define BBQCONTAINDRAWER 0
 
@@ -26,3 +28,13 @@
 #define BBQWelcomeFive 0
 
 #define BBQWelcomeSix 1
+
+#pragma mark ---login
+
+#define BBQLoginOne 1
+
+#define BBQLoginTwo 0
+
+#define BBQLoginThree 0
+
+#define BBQLoginFour 0

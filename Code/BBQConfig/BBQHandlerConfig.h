@@ -28,6 +28,12 @@
 
 #define rootShared rootShared111
 
+#define bbqUnLogin bbqUnLogin11
+
+#define bbqPresentLogin bbqPresentLogin111
+
+#define bbqRootViewController bbqRootViewController11
+
 #pragma mark ---- 圈子类型
 #if BBQCONFIGURETYPECIRCLE
 
