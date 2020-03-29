@@ -26,7 +26,7 @@ Pod::Spec.new do |spec|
   # 翻译
   spec.subspec 'Welcome' do |welcome|
     
-    welcome.source_files = "Code/BBQContainer/*.{h,m}"
+    welcome.source_files = "Code/BBQContainer/Welcome/*.{h,m}"
     welcome.dependency 'BBQConfig'
     welcome.dependency 'BBQBridge/Welcome/Bridge'
     welcome.dependency 'SToolsKit'
