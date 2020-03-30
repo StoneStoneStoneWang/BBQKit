@@ -42,3 +42,22 @@
 #define BBQLoginThree 0
 
 #define BBQLoginFour 0
+
+#pragma mark ---个人中心 1- 4 profile 5- 8 usercenter
+
+#define BBQMeOne 0
+
+#define BBQMeTwo 0
+
+#define BBQMeThree 0
+
+#define BBQMeFour 0
+
+#define BBQMeFive 0
+
+#define BBQMeSix 0
+
+#define BBQMeSeven 0
+
+#define BBQMeEight 0
+
