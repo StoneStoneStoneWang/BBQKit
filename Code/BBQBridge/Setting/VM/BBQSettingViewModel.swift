@@ -33,18 +33,28 @@ import BBQSign
         
         return setting
     }
-    static var types: [BBQSettingBean] {
+    
+    static func createTabledata(_ hasPlace: Bool ) -> [BBQSettingBean] {
         
         var result: [BBQSettingBean] = []
         
-        for item in BBQSettingType.types {
+        if hasPlace {
             
-            result += [BBQSettingBean.createSetting(item, title: item.title, sub: "")]
+            for item in BBQSettingType.placeTypes {
+                
+                result += [BBQSettingBean.createSetting(item, title: item.title, sub: "")]
+            }
+            
+        } else {
+            
+            for item in BBQSettingType.placeTypes {
+                
+                result += [BBQSettingBean.createSetting(item, title: item.title, sub: "")]
+            }
         }
         
         return result
     }
-    
     private override init() { }
 }
 
@@ -68,7 +78,7 @@ public enum BBQSettingType: Int {
 
 extension BBQSettingType {
     
-    static var types: [BBQSettingType] {
+    static var placeTypes: [BBQSettingType] {
         
         if BBQAccountCache.default.isLogin() {
             
@@ -90,6 +100,29 @@ extension BBQSettingType {
             return [.space,.pwd,.space,.clear,.push]
         }
     }
+    static var types: [BBQSettingType] {
+        
+        if BBQAccountCache.default.isLogin() {
+            
+            if BBQConfigure.fetchPType() == .circle {
+                
+                return [.password,.black,.clear,.push,.logout]
+            } else if BBQConfigure.fetchPType() == .store {
+                
+                return [.password,.clear,.push,.logout]
+            }else if BBQConfigure.fetchPType() == .game {
+                
+                return [.password,.clear,.push,.logout]
+            } else {
+                
+                return [.password,.black,.clear,.push,.logout]
+            }
+        } else {
+            
+            return [.space,.pwd,.space,.clear,.push]
+        }
+    }
+    
     
     public var title: String {
         
@@ -133,21 +166,25 @@ public struct BBQSettingViewModel: WLBaseViewModel {
         let modelSelect: ControlEvent<BBQSettingBean>
         
         let itemSelect: ControlEvent<IndexPath>
+        
+        let hasPlace: Bool
     }
     public struct WLOutput {
         
         let zip: Observable<(BBQSettingBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[BBQSettingBean]> = BehaviorRelay<[BBQSettingBean]>(value: BBQSettingBean.types)
+        let tableData: BehaviorRelay<[BBQSettingBean]> = BehaviorRelay<[BBQSettingBean]>(value: [])
     }
     
     init(_ input: WLInput) {
         
         self.input = input
-        
+
         let zip = Observable.zip(input.modelSelect,input.itemSelect)
         
         self.output = WLOutput(zip: zip)
+        
+        self.output.tableData.accept(BBQSettingBean.createTabledata(input.hasPlace))
     }
 }
 

@@ -42,12 +42,12 @@ public final class BBQSettingBridge: BBQBaseBridge {
 }
 extension BBQSettingBridge {
     
-    @objc public func createSetting(_ vc: BBQTableNoLoadingViewConntroller ,settingAction: @escaping BBQSettingAction) {
+    @objc public func createSetting(_ vc: BBQTableNoLoadingViewConntroller ,hasPlace: Bool,settingAction: @escaping BBQSettingAction) {
         
         self.vc = vc
         
         let input = BBQSettingViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQSettingBean.self),
-                                              itemSelect: vc.tableView.rx.itemSelected)
+                                                itemSelect: vc.tableView.rx.itemSelected, hasPlace: hasPlace)
         
         viewModel = BBQSettingViewModel(input)
         
@@ -120,9 +120,9 @@ extension BBQSettingBridge {
         }
     }
     
-    @objc public func updateTableData() {
+    @objc public func updateTableData(_ hasPlace: Bool) {
         
-        viewModel.output.tableData.accept(BBQSettingBean.types)
+        viewModel.output.tableData.accept(BBQSettingBean.createTabledata(hasPlace))
     }
 }
 extension BBQSettingBridge: UITableViewDelegate {

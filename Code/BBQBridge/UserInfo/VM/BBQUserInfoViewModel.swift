@@ -30,6 +30,37 @@ import BBQBean
         return type.title;
     }
     
+    static func createUserInfo(_ type: BBQUserInfoType) -> BBQUserInfoBean {
+        
+        let userInfo = BBQUserInfoBean()
+        
+        userInfo.type = type
+        
+        return userInfo
+    }
+    
+    static func createUserInfoTypes(_ hasPlace: Bool) -> [BBQUserInfoBean] {
+        
+        var result: [BBQUserInfoBean] = []
+        
+        if hasPlace {
+            
+            for item in BBQUserInfoType.placeTypes {
+                
+                result += [BBQUserInfoBean.createUserInfo(item)]
+            }
+            
+        } else {
+            
+            for item in BBQUserInfoType.types {
+                
+                result += [BBQUserInfoBean.createUserInfo(item)]
+            }
+        }
+        
+        return result
+    }
+    
     static var types: [BBQUserInfoBean] {
         
         let space = BBQUserInfoBean()
@@ -85,9 +116,13 @@ public enum BBQUserInfoType: Int {
 
 extension BBQUserInfoType {
     
-    static var types: [BBQUserInfoType] {
+    static var placeTypes: [BBQUserInfoType] {
         
         return [.space ,.header ,.name ,.phone ,.space ,.sex ,.birth ,.signature]
+    }
+    static var types: [BBQUserInfoType] {
+        
+        return [.header ,.name ,.phone ,.sex ,.birth ,.signature]
     }
     
     var title: String {
@@ -151,12 +186,14 @@ public struct BBQUserInfoViewModel: WLBaseViewModel {
         let modelSelect: ControlEvent<BBQUserInfoBean>
         
         let itemSelect: ControlEvent<IndexPath>
+        
+        let hasPlace: Bool
     }
     public struct WLOutput {
         
         let zip: Observable<(BBQUserInfoBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[BBQUserInfoBean]> = BehaviorRelay<[BBQUserInfoBean]>(value: BBQUserInfoBean.types)
+        let tableData: BehaviorRelay<[BBQUserInfoBean]> = BehaviorRelay<[BBQUserInfoBean]>(value: [])
     }
     public init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -165,6 +202,8 @@ public struct BBQUserInfoViewModel: WLBaseViewModel {
         let zip = Observable.zip(input.modelSelect,input.itemSelect)
         
         let output = WLOutput(zip: zip)
+        
+        output.tableData.accept(BBQUserInfoBean.createUserInfoTypes(input.hasPlace))
         
         BBQUserInfoCache.default
             .rx

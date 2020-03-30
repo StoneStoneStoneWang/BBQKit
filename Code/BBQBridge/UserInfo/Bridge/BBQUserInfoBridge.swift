@@ -34,12 +34,13 @@ public final class BBQUserInfoBridge: BBQBaseBridge {
 
 extension BBQUserInfoBridge {
     
-    @objc public func createUserInfo(_ vc: BBQTableNoLoadingViewConntroller) {
+    @objc public func createUserInfo(_ vc: BBQTableNoLoadingViewConntroller ,hasPlace: Bool) {
         
         self.vc = vc
         
         let input = BBQUserInfoViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQUserInfoBean.self),
-                                                 itemSelect: vc.tableView.rx.itemSelected)
+                                                 itemSelect: vc.tableView.rx.itemSelected,
+                                                 hasPlace: hasPlace)
         
         viewModel = BBQUserInfoViewModel(input, disposed: disposed)
         

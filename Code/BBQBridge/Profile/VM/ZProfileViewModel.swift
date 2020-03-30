@@ -10,11 +10,11 @@ import Foundation
 import WLBaseViewModel
 import RxCocoa
 import RxSwift
-import ZBean
-import ZSign
-import ZApi
-import ZRealReq
-import ZCache
+import BBQBean
+import BBQSign
+import BBQApi
+import BBQRReq
+import BBQCache
 
 @objc public final class ZProfileBean: NSObject {
     
@@ -67,18 +67,18 @@ extension ZProfileType {
     
     static var types: [ZProfileType] {
         
-        if ZConfigure.fetchPType() == .store {
+        if BBQConfigure.fetchPType() == .store {
             
             return [.space,userInfo,.order,.address,.space,.contactUS,.privacy,.about,.space,.setting]
-        } else if ZConfigure.fetchPType() == .map {
+        } else if BBQConfigure.fetchPType() == .map {
             
             return [.space,userInfo,.order,.focus,.space,.contactUS,.privacy,.about,.space,.setting]
             
-        } else if ZConfigure.fetchPType() == .game {
+        } else if BBQConfigure.fetchPType() == .game {
             
             return [.space,userInfo,.characters,.space,.contactUS,.privacy,.about,.space,.setting]
             
-        } else if ZConfigure.fetchPType() == .mix {
+        } else if BBQConfigure.fetchPType() == .mix {
             
             return [.space,userInfo,.myCircle,.address,.space,.contactUS,.privacy,.about,.space,.setting]
             
@@ -155,19 +155,18 @@ struct ZProfileViewModel: WLBaseViewModel {
         
         let tableData: BehaviorRelay<[ZProfileType]> = BehaviorRelay<[ZProfileType]>(value: ZProfileType.types)
         
-        let userInfo: Observable<ZUserBean?>
+        let userInfo: Observable<BBQUserBean?>
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
         self.input = input
         
-        let userInfo: Observable<ZUserBean?> = ZUserInfoCache.default.rx.observe(ZUserBean.self, "userBean")
+        let userInfo: Observable<BBQUserBean?> = BBQUserInfoCache.default.rx.observe(BBQUserBean.self, "userBean")
         
-        ZUserInfoCache.default.userBean = ZUserInfoCache.default.queryUser()
-        
-        onUserDictResp(ZUserApi.fetchProfile)
-            .mapObject(type: ZUserBean.self)
-            .map({ ZUserInfoCache.default.saveUser(data: $0) })
+        BBQUserInfoCache.default.userBean = BBQUserInfoCache.default.queryUser()
+        bbqVoidResp(BBQApi.fetchProfile)
+            .mapObject(type: BBQUserBean.self)
+            .map({ BBQUserInfoCache.default.saveUser(data: $0) })
             .subscribe(onNext: { (_) in })
             .disposed(by: disposed)
         

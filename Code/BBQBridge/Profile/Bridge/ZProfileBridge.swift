@@ -7,14 +7,14 @@
 //  
 
 import Foundation
-import ZTable
+import BBQTable
 import RxDataSources
-import ZCocoa
-import ZCache
-import ZHud
+import BBQCocoa
+import BBQCache
+import BBQHud
 import RxCocoa
 import RxSwift
-import ZBean
+import BBQBean
 import RxGesture
 
 @objc(ZProfileActionType)
@@ -45,15 +45,15 @@ public enum ZProfileActionType: Int ,Codable {
     case unLogin
 }
 
-public typealias ZProfileAction = (_ action: ZProfileActionType ,_ vc: ZBaseViewController) -> ()
+public typealias ZProfileAction = (_ action: ZProfileActionType ) -> ()
 
 private var key: Void?
 
-extension ZTableHeaderView {
+extension BBQTableHeaderView {
     
-    @objc public var user: ZUserBean? {
+    @objc public var user: BBQUserBean? {
         get {
-            return objc_getAssociatedObject(self, &key) as? ZUserBean
+            return objc_getAssociatedObject(self, &key) as? BBQUserBean
         }
         set{
             objc_setAssociatedObject(self, &key,newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -61,9 +61,9 @@ extension ZTableHeaderView {
     }
 }
 
-extension Reactive where Base: ZTableHeaderView {
+extension Reactive where Base: BBQTableHeaderView {
     
-    var user: Binder<ZUserBean?> {
+    var user: Binder<BBQUserBean?> {
         
         return Binder(base) { view, user in
             
@@ -73,20 +73,20 @@ extension Reactive where Base: ZTableHeaderView {
 }
 
 @objc (ZProfileBridge)
-public final class ZProfileBridge: ZBaseBridge {
+public final class ZProfileBridge: BBQBaseBridge {
     
-    typealias Section = ZSectionModel<(), ZProfileType>
+    typealias Section = BBQSectionModel<(), ZProfileType>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
     var viewModel: ZProfileViewModel!
     
-    weak var vc: ZTableNoLoadingViewConntroller!
+    weak var vc: BBQTableNoLoadingViewConntroller!
 }
 
 extension ZProfileBridge {
     
-    @objc public func createProfile(_ vc: ZTableNoLoadingViewConntroller,profileAction:@escaping ZProfileAction) {
+    @objc public func createProfile(_ vc: BBQTableNoLoadingViewConntroller,profileAction:@escaping ZProfileAction) {
         
         let input = ZProfileViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(ZProfileType.self),
                                               itemSelect: vc.tableView.rx.itemSelected)
@@ -119,20 +119,20 @@ extension ZProfileBridge {
                 
                 vc.tableView.deselectRow(at: ip, animated: true)
                 
-                let isLogin = ZAccountCache.default.isLogin()
+                let isLogin = BBQAccountCache.default.isLogin()
                 
                 switch type {
-                case .setting: profileAction(.setting,vc)
+                case .setting: profileAction(.setting)
                     
-                case .privacy: profileAction(.privacy,vc)
-                case .about: profileAction(.about,vc)
+                case .privacy: profileAction(.privacy)
+                case .about: profileAction(.about)
                     
-                case .userInfo: profileAction(isLogin ? .userInfo : .unLogin,vc)
-                case .address: profileAction(isLogin ? .address : .unLogin,vc)
-                case .order: profileAction(isLogin ? .order : .unLogin,vc)
-                case .focus: profileAction(isLogin ? .focus : .unLogin,vc)
-                case .characters: profileAction(isLogin ? .characters : .unLogin,vc)
-                case .myCircle: profileAction(isLogin ? .myCircle : .unLogin,vc)
+                case .userInfo: profileAction(isLogin ? .userInfo : .unLogin)
+                case .address: profileAction(isLogin ? .address : .unLogin)
+                case .order: profileAction(isLogin ? .order : .unLogin)
+                case .focus: profileAction(isLogin ? .focus : .unLogin)
+                case .characters: profileAction(isLogin ? .characters : .unLogin)
+                case .myCircle: profileAction(isLogin ? .myCircle : .unLogin)
                     
                 case .contactUS:
                     
@@ -156,9 +156,9 @@ extension ZProfileBridge {
             .when(.recognized)
             .subscribe(onNext: { (_) in
                 
-                let isLogin = ZAccountCache.default.isLogin()
+                let isLogin = BBQAccountCache.default.isLogin()
                 
-                profileAction(isLogin ? .userInfo : .unLogin,vc)
+                profileAction(isLogin ? .userInfo : .unLogin)
             
             })
             .disposed(by: disposed)
