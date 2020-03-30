@@ -31,9 +31,11 @@
 
 #elif BBQCONFIGURETYPEGAME
 
-#define BBQCONFIGURETYPE BBQConfigureTypeMap
+#define BBQCONFIGURETYPE BBQConfigureTypeGame
 #else
 
-#define BBQCONFIGURETYPE BBQConfigureTypeGame
+#define BBQCONFIGURETYPE BBQConfigureTypeMap
 
 #endif
+
+

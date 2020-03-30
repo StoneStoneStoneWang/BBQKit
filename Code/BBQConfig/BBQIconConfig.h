@@ -66,6 +66,21 @@
 #elif BBQCONFIGURETYPEGAME
 
 #define BBQCharatersIcon "我的角色"
+
+#define BBQCircleIcon "我的圈子"
+
+#define BBQFocusIcon "我的关注"
+
+#define BBQMoreIcon "更多"
+
+#define BBQWatchIcon "观看"
+
+#define BBQCommentIcon "评论"
+
+#define BBQFunNormalIcon "点赞未选中"
+
+#define BBQFunSelectedIcon "点赞选中"
+
 #pragma mark ---- 地图类型
 #else
 

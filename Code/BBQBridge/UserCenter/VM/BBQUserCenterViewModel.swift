@@ -173,7 +173,7 @@ struct BBQUserCenterViewModel: WLBaseViewModel {
         
         BBQUserInfoCache.default.userBean = BBQUserInfoCache.default.queryUser()
         
-        bbqVoidResp(BBQApi.fetchProfile)
+        bbqDictResp(BBQApi.fetchProfile)
             .mapObject(type: BBQUserBean.self)
             .map({ BBQUserInfoCache.default.saveUser(data: $0) })
             .subscribe(onNext: { (_) in })
