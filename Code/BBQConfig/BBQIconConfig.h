@@ -22,6 +22,8 @@
 
 #define BBQUserInfoIcon "用户资料"
 
+#define BBQSettingIcon "意见建议"
+
 #define BBQSettingIcon "设置"
 
 #define BBQZPhoneNum "+0314-8032560"

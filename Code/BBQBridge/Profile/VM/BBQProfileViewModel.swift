@@ -83,6 +83,8 @@ public enum BBQProfileType : Int{
     case address
     
     case characters
+    
+    case feedBack
 }
 
 extension BBQProfileType {
@@ -91,18 +93,18 @@ extension BBQProfileType {
         
         if BBQConfigure.fetchPType() == .store {
             
-            return [.space,userInfo,.order,.address,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [.space,userInfo,.order,.address,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
         } else if BBQConfigure.fetchPType() == .map {
             
-            return [.space,userInfo,.order,.focus,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [.space,userInfo,.order,.focus,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .game {
             
-            return [.space,userInfo,.characters,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [.space,userInfo,.characters,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .mix {
             
-            return [.space,userInfo,.myCircle,.address,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [.space,userInfo,.myCircle,.address,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
             
         }else {
             
@@ -110,11 +112,11 @@ extension BBQProfileType {
                 
                 if version > "1.1.0" {
                     
-                    return [.space,userInfo,.myCircle,.focus,.space,.contactUS,.privacy,.about,.space,.setting]
+                    return [.space,userInfo,.myCircle,.focus,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
                 }
             }
             
-            return [.space,userInfo,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [.space,userInfo,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
         }
     }
     
@@ -122,18 +124,26 @@ extension BBQProfileType {
         
         if BBQConfigure.fetchPType() == .store {
             
-            return [userInfo,.order,.address,.contactUS,.privacy,.about,.setting]
+            return [userInfo,.order,.address,.contactUS,.privacy,.about,.feedBack,.setting]
         } else if BBQConfigure.fetchPType() == .map {
             
-            return [userInfo,.order,.focus,.contactUS,.privacy,.about,.setting]
+            return [userInfo,.order,.focus,.contactUS,.privacy,.about,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .game {
             
-            return [userInfo,.characters,.contactUS,.privacy,.about,.setting]
+            if let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
+                
+                if version > "1.1.0" {
+                    
+                    return [.userInfo,.myCircle,.focus,.contactUS,.privacy,.about,.feedBack,.setting]
+                }
+            }
+            
+            return [userInfo,.myCircle,.characters,.contactUS,.privacy,.about,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .mix {
             
-            return [userInfo,.myCircle,.address,.contactUS,.privacy,.about,.setting]
+            return [userInfo,.myCircle,.address,.contactUS,.privacy,.about,.feedBack,.setting]
             
         }else {
             
@@ -141,11 +151,11 @@ extension BBQProfileType {
                 
                 if version > "1.1.0" {
                     
-                    return [.space,userInfo,.myCircle,.focus,.space,.contactUS,.privacy,.about,.space,.setting]
+                    return [.space,userInfo,.myCircle,.focus,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
                 }
             }
             
-            return [userInfo,.contactUS,.privacy,.about,.setting]
+            return [userInfo,.contactUS,.privacy,.about,.feedBack,.setting]
         }
     }
     
@@ -181,6 +191,8 @@ extension BBQProfileType {
         case .order: return "我的订单"
             
         case .characters: return "角色信息"
+            
+        case .feedBack: return "意见建议"
             
         default: return ""
             
