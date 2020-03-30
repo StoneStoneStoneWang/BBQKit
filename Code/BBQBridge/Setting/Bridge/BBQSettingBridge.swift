@@ -92,7 +92,7 @@ extension BBQSettingBridge {
                     } else {
                         
                         settingAction(.unlogin)
-
+                        
                     }
                     
                 default:

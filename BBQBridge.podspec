@@ -464,4 +464,50 @@ Pod::Spec.new do |spec|
     end
   end
   
+  spec.subspec 'Profile' do |profile|
+    
+    profile.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Profile/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQCache/User'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'WLBaseViewModel'
+    end
+    
+    profile.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Profile/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Profile/VM'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCache/Account'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'RxGesture'
+      bridge.dependency 'BBQCocoa/SM'
+    end
+  end
+  spec.subspec 'UserCenter' do |userCenter|
+    
+    userCenter.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/UserCenter/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQCache/User'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'WLBaseViewModel'
+    end
+    
+    userCenter.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/UserCenter/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/UserCenter/VM'
+      bridge.dependency 'BBQCollection'
+      bridge.dependency 'BBQCache/Account'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'RxGesture'
+      bridge.dependency 'BBQCocoa/SM'
+    end
+  end
 end

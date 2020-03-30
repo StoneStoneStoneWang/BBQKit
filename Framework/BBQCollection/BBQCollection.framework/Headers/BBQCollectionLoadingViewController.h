@@ -7,7 +7,8 @@
 //
 
 @import BBQLoading;
-
+#import "BBQCollectionHeaderView.h"
+#import "BBQCollectionFooterView.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BBQCollectionLoadingViewController : BBQLoadingViewController
@@ -23,6 +24,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)collectionEmptyShow;
 
 - (void)collectionEmptyHidden;
+
+- (CGSize )configCollectionViewCellItemSize:(id)data forIndexPath:(NSIndexPath *)ip ;
+
+- ( UIEdgeInsets)configCollectionViewCellSectionInset:(id)data forSection:(NSInteger )section;
+
+- (CGFloat )configCollectionViewCellMinimumLineSpacing:(id)data forSection:(NSInteger )section ;
+
+- (CGFloat )configCollectionViewCellMinimumInteritemSpacing:(id)data forSection:(NSInteger )section  ;
+- (CGSize )configCollectionViewHeaderItemSize:(id)data forSection:(NSInteger )section ;
+
+- (CGSize )configCollectionViewFooterItemSize:(id)data forSection:(NSInteger )section ;
+
+- (BBQCollectionHeaderView *)configCollectionViewHeader:(id)data forIndexPath:(NSIndexPath *)ip;
+
+- (BBQCollectionFooterView *)configCollectionViewFooter:(id)data forIndexPath:(NSIndexPath *)ip;
 
 @end
 

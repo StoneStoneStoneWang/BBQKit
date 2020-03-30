@@ -1,9 +1,9 @@
 //
-//  ZProfileViewModel.swift
-//  ZBridge
+//  BBQUserCenterViewModel.swift
+//  BBQBridge
 //
-//  Created by three stone 王 on 2019/8/27.
-//  Copyright © 2019 three stone 王. All rights reserved.
+//  Created by 王磊 on 2020/3/30.
+//  Copyright © 2020 王磊. All rights reserved.
 //
 
 import Foundation
@@ -16,15 +16,15 @@ import BBQApi
 import BBQRReq
 import BBQCache
 
-@objc public final class ZProfileBean: NSObject {
+@objc public final class BBQUserCenterBean: NSObject {
     
-    @objc public var type: ZProfileType = .space
+    @objc public var type: BBQUserCenterType = .userInfo
     
     @objc public var title: String = ""
     
-    @objc public static func createProfile(_ type: ZProfileType ,title: String) -> ZProfileBean {
+    @objc public static func createUserCenter(_ type: BBQUserCenterType ,title: String) -> BBQUserCenterBean {
         
-        let profile = ZProfileBean()
+        let profile = BBQUserCenterBean()
         
         profile.type = type
         
@@ -32,13 +32,25 @@ import BBQCache
         
         return profile
     }
+    
+    static public func createUserCenterTypes() -> [BBQUserCenterBean] {
+        
+        var result: [BBQUserCenterBean] = []
+        
+        for item in BBQUserCenterType.types {
+            
+            result += [BBQUserCenterBean.createUserCenter(item, title: item.title)]
+        }
+        
+        return result
+    }
     private override init() {
         
     }
 }
 
-@objc (ZProfileType)
-public enum ZProfileType : Int{
+@objc (BBQUserCenterType)
+public enum BBQUserCenterType : Int{
     
     case about
     
@@ -52,8 +64,6 @@ public enum ZProfileType : Int{
     
     case focus
     
-    case space
-    
     case myCircle
     
     case order
@@ -63,24 +73,24 @@ public enum ZProfileType : Int{
     case characters
 }
 
-extension ZProfileType {
+extension BBQUserCenterType {
     
-    static var types: [ZProfileType] {
+    static var types: [BBQUserCenterType] {
         
         if BBQConfigure.fetchPType() == .store {
             
-            return [.space,userInfo,.order,.address,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [userInfo,.order,.address,.contactUS,.privacy,.about,.setting]
         } else if BBQConfigure.fetchPType() == .map {
             
-            return [.space,userInfo,.order,.focus,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [userInfo,.order,.focus,.contactUS,.privacy,.about,.setting]
             
         } else if BBQConfigure.fetchPType() == .game {
             
-            return [.space,userInfo,.characters,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [userInfo,.characters,.contactUS,.privacy,.about,.setting]
             
         } else if BBQConfigure.fetchPType() == .mix {
             
-            return [.space,userInfo,.myCircle,.address,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [userInfo,.myCircle,.address,.contactUS,.privacy,.about,.setting]
             
         }else {
             
@@ -88,19 +98,18 @@ extension ZProfileType {
                 
                 if version > "1.1.0" {
                     
-                    return [.space,userInfo,.myCircle,.focus,.space,.contactUS,.privacy,.about,.space,.setting]
+                    return [userInfo,.myCircle,.focus,.contactUS,.privacy,.about,.setting]
                 }
             }
             
-            return [.space,userInfo,.space,.contactUS,.privacy,.about,.space,.setting]
+            return [userInfo,.contactUS,.privacy,.about,.setting]
         }
     }
     
     var cellHeight: CGFloat {
         
         switch self {
-        case .space: return 10
-            
+
         default: return 55
         }
     }
@@ -135,8 +144,7 @@ extension ZProfileType {
     }
 }
 
-
-struct ZProfileViewModel: WLBaseViewModel {
+struct BBQUserCenterViewModel: WLBaseViewModel {
     
     var input: WLInput
     
@@ -144,16 +152,16 @@ struct ZProfileViewModel: WLBaseViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<ZProfileType>
+        let modelSelect: ControlEvent<BBQUserCenterBean>
         
         let itemSelect: ControlEvent<IndexPath>
     }
     
     struct WLOutput {
         
-        let zip: Observable<(ZProfileType,IndexPath)>
+        let zip: Observable<(BBQUserCenterBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[ZProfileType]> = BehaviorRelay<[ZProfileType]>(value: ZProfileType.types)
+        let tableData: BehaviorRelay<[BBQUserCenterBean]> = BehaviorRelay<[BBQUserCenterBean]>(value: [])
         
         let userInfo: Observable<BBQUserBean?>
     }
@@ -164,6 +172,7 @@ struct ZProfileViewModel: WLBaseViewModel {
         let userInfo: Observable<BBQUserBean?> = BBQUserInfoCache.default.rx.observe(BBQUserBean.self, "userBean")
         
         BBQUserInfoCache.default.userBean = BBQUserInfoCache.default.queryUser()
+        
         bbqVoidResp(BBQApi.fetchProfile)
             .mapObject(type: BBQUserBean.self)
             .map({ BBQUserInfoCache.default.saveUser(data: $0) })
@@ -173,6 +182,8 @@ struct ZProfileViewModel: WLBaseViewModel {
         let zip = Observable.zip(input.modelSelect,input.itemSelect)
         
         self.output = WLOutput(zip: zip, userInfo: userInfo)
+        
+        self.output.tableData.accept(BBQUserCenterBean.createUserCenterTypes())
     }
 }
 

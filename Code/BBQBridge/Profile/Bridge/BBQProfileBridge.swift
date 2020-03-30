@@ -1,5 +1,5 @@
 //
-//  ZProfileBridge.swift
+//  BBQProfileBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/27.
@@ -11,14 +11,15 @@ import BBQTable
 import RxDataSources
 import BBQCocoa
 import BBQCache
-import BBQHud
 import RxCocoa
 import RxSwift
 import BBQBean
 import RxGesture
 
-@objc(ZProfileActionType)
-public enum ZProfileActionType: Int ,Codable {
+@objc(BBQProfileActionType)
+public enum BBQProfileActionType: Int ,Codable {
+    
+    case header
     
     case about
     
@@ -45,7 +46,7 @@ public enum ZProfileActionType: Int ,Codable {
     case unLogin
 }
 
-public typealias ZProfileAction = (_ action: ZProfileActionType ) -> ()
+public typealias BBQProfileAction = (_ action: BBQProfileActionType ) -> ()
 
 private var key: Void?
 
@@ -72,29 +73,30 @@ extension Reactive where Base: BBQTableHeaderView {
     }
 }
 
-@objc (ZProfileBridge)
-public final class ZProfileBridge: BBQBaseBridge {
+@objc (BBQProfileBridge)
+public final class BBQProfileBridge: BBQBaseBridge {
     
-    typealias Section = BBQSectionModel<(), ZProfileType>
+    typealias Section = BBQSectionModel<(), BBQProfileBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: ZProfileViewModel!
+    var viewModel: BBQProfileViewModel!
     
     weak var vc: BBQTableNoLoadingViewConntroller!
 }
 
-extension ZProfileBridge {
+extension BBQProfileBridge {
     
-    @objc public func createProfile(_ vc: BBQTableNoLoadingViewConntroller,profileAction:@escaping ZProfileAction) {
+    @objc public func createProfile(_ vc: BBQTableNoLoadingViewConntroller,hasPlace: Bool,profileAction:@escaping BBQProfileAction) {
         
-        let input = ZProfileViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(ZProfileType.self),
-                                              itemSelect: vc.tableView.rx.itemSelected)
+        let input = BBQProfileViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQProfileBean.self),
+                                              itemSelect: vc.tableView.rx.itemSelected,
+                                              hasPlace: hasPlace)
         
-        viewModel = ZProfileViewModel(input, disposed: disposed)
+        viewModel = BBQProfileViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
-            configureCell: { ds, tv, ip, item in return vc.configTableViewCell(ZProfileBean.createProfile(item, title: item.title), for: ip)  })
+            configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)  })
         
         viewModel
             .output
@@ -121,7 +123,7 @@ extension ZProfileBridge {
                 
                 let isLogin = BBQAccountCache.default.isLogin()
                 
-                switch type {
+                switch type.type {
                 case .setting: profileAction(.setting)
                     
                 case .privacy: profileAction(.privacy)
@@ -158,18 +160,19 @@ extension ZProfileBridge {
                 
                 let isLogin = BBQAccountCache.default.isLogin()
                 
-                profileAction(isLogin ? .userInfo : .unLogin)
+                profileAction(isLogin ? .header : .unLogin)
             
             })
             .disposed(by: disposed)
     }
 }
-extension ZProfileBridge: UITableViewDelegate {
+
+extension BBQProfileBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         guard let datasource = dataSource else { return 0}
         
-        return datasource[indexPath].cellHeight
+        return datasource[indexPath].type.cellHeight
     }
 }

@@ -19,3 +19,7 @@ FOUNDATION_EXPORT const unsigned char BBQCollectionVersionString[];
 #import <BBQCollection/BBQCollectionLoadingViewController.h>
 
 #import <BBQCollection/BBQCollectionNoLoadingViewController.h>
+
+#import <BBQCollection/BBQCollectionHeaderView.h>
+
+#import <BBQCollection/BBQCollectionFooterView.h>

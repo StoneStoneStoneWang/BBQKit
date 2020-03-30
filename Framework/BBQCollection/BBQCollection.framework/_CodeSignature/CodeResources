@@ -6,15 +6,23 @@
 	<dict>
 		<key>Headers/BBQCollection.h</key>
 		<data>
-		PbXyTR3ifuI50caZQsBNc17zNng=
+		XRmIqHHHlYgW7zh8g0IinvmUnvk=
+		</data>
+		<key>Headers/BBQCollectionFooterView.h</key>
+		<data>
+		EqL2uvMb2CeLO/lGH9VYUA4uVMU=
+		</data>
+		<key>Headers/BBQCollectionHeaderView.h</key>
+		<data>
+		yQbdPbfIR47bbZcrwkUT+kCJrrE=
 		</data>
 		<key>Headers/BBQCollectionLoadingViewController.h</key>
 		<data>
-		7nmWh6y3ZpZHRy5hsroTdQVVwGo=
+		HzkDFnPlLMUXPGZolo174BnRbQs=
 		</data>
 		<key>Headers/BBQCollectionNoLoadingViewController.h</key>
 		<data>
-		zQQX6k9XZxTAFHyLjJhMVq5sKy0=
+		8+kTlVL9yej/L/CPI+2eFFWGri8=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -89,33 +97,55 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PbXyTR3ifuI50caZQsBNc17zNng=
+			XRmIqHHHlYgW7zh8g0IinvmUnvk=
 			</data>
 			<key>hash2</key>
 			<data>
-			YR42mx2b4NHixE18H3bLHO7SZJrF0vHCoU8Eotmj/kM=
+			2Gq6BHiLBMaVySX+4JRtg+CF/F/AYyMhi7/p1oi06bc=
+			</data>
+		</dict>
+		<key>Headers/BBQCollectionFooterView.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			EqL2uvMb2CeLO/lGH9VYUA4uVMU=
+			</data>
+			<key>hash2</key>
+			<data>
+			HdLtYQh9hf2NAq+tvwMM8SKa2qE2+U0i4R4hhpdX5Cw=
+			</data>
+		</dict>
+		<key>Headers/BBQCollectionHeaderView.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			yQbdPbfIR47bbZcrwkUT+kCJrrE=
+			</data>
+			<key>hash2</key>
+			<data>
+			l/f0sZNnq78lej+lQjLZ0a0OlGnlGaAawfCGE8XqQcs=
 			</data>
 		</dict>
 		<key>Headers/BBQCollectionLoadingViewController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			7nmWh6y3ZpZHRy5hsroTdQVVwGo=
+			HzkDFnPlLMUXPGZolo174BnRbQs=
 			</data>
 			<key>hash2</key>
 			<data>
-			rtNiq+KHjJMP6SZcVYt5bgOj9v5lHAIYV+t4CeQuLQQ=
+			RF8M0xTL85tVCGhQN2qeib93gVWKG79+sf9O0j0TyDI=
 			</data>
 		</dict>
 		<key>Headers/BBQCollectionNoLoadingViewController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			zQQX6k9XZxTAFHyLjJhMVq5sKy0=
+			8+kTlVL9yej/L/CPI+2eFFWGri8=
 			</data>
 			<key>hash2</key>
 			<data>
-			DGiPw+/geHKbj4dY+MyNlOXcqjxyGrivnwZUmo/b/Vc=
+			KMB/rpEHhtzWjZCUkj/MIwJFkRkilZd3CS2mRxysGGA=
 			</data>
 		</dict>
 		<key>MJRefresh.bundle/arrow@2x.png</key>
