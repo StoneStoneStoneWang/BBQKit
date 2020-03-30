@@ -510,4 +510,24 @@ Pod::Spec.new do |spec|
       bridge.dependency 'BBQCocoa/SM'
     end
   end
+  # 个性签名
+  spec.subspec 'FeedBack' do |feedBack|
+    
+    feedBack.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/FeedBack/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    feedBack.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/FeedBack/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/FeedBack/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQBase'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
 end
