@@ -71,6 +71,8 @@ public enum BBQUserCenterType : Int{
     case address
     
     case characters
+    
+    case feedBack
 }
 
 extension BBQUserCenterType {
@@ -79,18 +81,26 @@ extension BBQUserCenterType {
         
         if BBQConfigure.fetchPType() == .store {
             
-            return [userInfo,.order,.address,.contactUS,.privacy,.about,.setting]
+            return [userInfo,.order,.address,.contactUS,.privacy,.about,.feedBack,.setting]
         } else if BBQConfigure.fetchPType() == .map {
             
-            return [userInfo,.order,.focus,.contactUS,.privacy,.about,.setting]
+            return [userInfo,.order,.focus,.contactUS,.privacy,.about,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .game {
             
-            return [userInfo,.characters,.contactUS,.privacy,.about,.setting]
+            if let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
+                
+                if version > "1.1.0" {
+                    
+                    return [.userInfo,.myCircle,.focus,.contactUS,.privacy,.about,.feedBack,.setting]
+                }
+            }
+            
+            return [userInfo,.myCircle,.characters,.contactUS,.privacy,.about,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .mix {
             
-            return [userInfo,.myCircle,.address,.contactUS,.privacy,.about,.setting]
+            return [userInfo,.myCircle,.address,.contactUS,.privacy,.about,.feedBack,.setting]
             
         }else {
             
@@ -98,18 +108,18 @@ extension BBQUserCenterType {
                 
                 if version > "1.1.0" {
                     
-                    return [userInfo,.myCircle,.focus,.contactUS,.privacy,.about,.setting]
+                    return [.userInfo,.myCircle,.focus,.contactUS,.privacy,.about,.feedBack,.setting]
                 }
             }
             
-            return [userInfo,.contactUS,.privacy,.about,.setting]
+            return [userInfo,.contactUS,.privacy,.about,.feedBack,.setting]
         }
     }
     
     var cellHeight: CGFloat {
         
         switch self {
-
+            
         default: return 55
         }
     }

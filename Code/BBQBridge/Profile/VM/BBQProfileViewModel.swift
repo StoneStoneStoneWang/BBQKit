@@ -100,6 +100,14 @@ extension BBQProfileType {
             
         } else if BBQConfigure.fetchPType() == .game {
             
+            if let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
+                
+                if version > "1.1.0" {
+                    
+                    return [.space,userInfo,.focus,.characters,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
+                }
+            }
+            
             return [.space,userInfo,.characters,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .mix {
@@ -151,7 +159,7 @@ extension BBQProfileType {
                 
                 if version > "1.1.0" {
                     
-                    return [.space,userInfo,.myCircle,.focus,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
+                    return [.userInfo,.myCircle,.focus,.contactUS,.privacy,.about,.feedBack,.setting]
                 }
             }
             
