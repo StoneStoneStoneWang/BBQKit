@@ -148,6 +148,7 @@ extension BBQUserCenterType {
             
         case .characters: return "角色信息"
             
+        case .feedBack: return "意见建议"
         default: return ""
             
         }

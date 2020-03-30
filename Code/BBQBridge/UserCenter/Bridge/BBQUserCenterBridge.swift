@@ -44,6 +44,8 @@ public enum BBQUserCenterActionType: Int ,Codable {
     case characters
     
     case unLogin
+    
+    case feedBack
 }
 
 public typealias BBQUserCenterAction = (_ action: BBQUserCenterActionType ) -> ()
@@ -87,7 +89,9 @@ public final class BBQUserCenterBridge: BBQBaseBridge {
 
 extension BBQUserCenterBridge {
     
-    @objc public func createProfile(_ vc: BBQCollectionNoLoadingViewController,headerView: BBQCollectionHeaderView,profileAction:@escaping BBQUserCenterAction) {
+    @objc public func createUserCenter(_ vc: BBQCollectionNoLoadingViewController,headerView: BBQCollectionHeaderView,centerAction:@escaping BBQUserCenterAction) {
+        
+        self.vc = vc
         
         let input = BBQUserCenterViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(BBQUserCenterBean.self),
                                                    itemSelect: vc.collectionView.rx.itemSelected)
@@ -117,18 +121,18 @@ extension BBQUserCenterBridge {
                 let isLogin = BBQAccountCache.default.isLogin()
                 
                 switch type.type {
-                case .setting: profileAction(.setting)
+                case .setting: centerAction(.setting)
                     
-                case .privacy: profileAction(.privacy)
-                case .about: profileAction(.about)
+                case .privacy: centerAction(.privacy)
+                case .about: centerAction(.about)
                     
-                case .userInfo: profileAction(isLogin ? .userInfo : .unLogin)
-                case .address: profileAction(isLogin ? .address : .unLogin)
-                case .order: profileAction(isLogin ? .order : .unLogin)
-                case .focus: profileAction(isLogin ? .focus : .unLogin)
-                case .characters: profileAction(isLogin ? .characters : .unLogin)
-                case .myCircle: profileAction(isLogin ? .myCircle : .unLogin)
-                    
+                case .userInfo: centerAction(isLogin ? .userInfo : .unLogin)
+                case .address: centerAction(isLogin ? .address : .unLogin)
+                case .order: centerAction(isLogin ? .order : .unLogin)
+                case .focus: centerAction(isLogin ? .focus : .unLogin)
+                case .characters: centerAction(isLogin ? .characters : .unLogin)
+                case .myCircle: centerAction(isLogin ? .myCircle : .unLogin)
+                case .feedBack: centerAction(isLogin ? .feedBack : .unLogin)
                 case .contactUS:
                     
                     vc.collectionViewSelectData(type, for: ip)
@@ -158,7 +162,7 @@ extension BBQUserCenterBridge {
                 
                 let isLogin = BBQAccountCache.default.isLogin()
                 
-                profileAction(isLogin ? .header : .unLogin)
+                centerAction(isLogin ? .header : .unLogin)
                 
             })
             .disposed(by: disposed)

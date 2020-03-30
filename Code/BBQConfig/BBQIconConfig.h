@@ -22,7 +22,7 @@
 
 #define BBQUserInfoIcon "用户资料"
 
-#define BBQSettingIcon "意见建议"
+#define BBQFeedBackIcon "意见建议"
 
 #define BBQSettingIcon "设置"
 

@@ -13,11 +13,11 @@
 #define BBQDOMAIN "http://zhihw.ecsoi.com/"
 
 #pragma mark ---- 圈子类型
-#define BBQCONFIGURETYPECIRCLE 1
+#define BBQCONFIGURETYPECIRCLE 0
 #pragma mark ---- 商城类型
 #define BBQCONFIGURETYPESTORE 0
 #pragma mark ---- 游戏类型
-#define BBQCONFIGURETYPEGAME 0
+#define BBQCONFIGURETYPEGAME 1
 #pragma mark ---- 地图类型
 #define BBQCONFIGURETYPEMAP 0
 

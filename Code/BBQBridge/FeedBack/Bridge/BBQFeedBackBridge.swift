@@ -22,7 +22,7 @@ public final class BBQFeedBackBridge: BBQBaseBridge {
 
 extension BBQFeedBackBridge {
     
-    @objc public func createSignature(_ vc: BBQBaseViewController ,feedBackAction: @escaping BBQFeedBackAction ) {
+    @objc public func createFeedBack(_ vc: BBQBaseViewController ,feedBackAction: @escaping BBQFeedBackAction ) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton ,let feedBack = vc.view.viewWithTag(201) as? UITextView ,let placeholder = vc.view.viewWithTag(202) ,let phone = vc.view.viewWithTag(203) as? UITextField{
             

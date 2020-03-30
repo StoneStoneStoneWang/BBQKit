@@ -221,12 +221,12 @@
     
     __weak typeof(self) weakSelf = self;
     
-#if BBQBGSWITCH
+#if BBQBGNORMAL || BBQBGITEMFULL
     [self.bridge createSetting:self hasPlace:false settingAction:^(enum BBQSettingActionType actionType) {
         
         weakSelf.block(actionType, weakSelf);
     }];
-#else
+#elif BBQBGFULL
     [self.bridge createSetting:self hasPlace:true settingAction:^(enum BBQSettingActionType actionType) {
         
         weakSelf.block(actionType, weakSelf);
