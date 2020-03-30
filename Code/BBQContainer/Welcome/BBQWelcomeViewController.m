@@ -350,12 +350,13 @@
 
 - (void)configOwnProperties {
     
-#if BBQBGSWITCH
+#if BBQBGNORMAL || BBQBGITEMFULL
+    [super configOwnProperties];
+    
+#elif BBQBGFULL
     
     self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-#else
     
-    [super configOwnProperties];
 #endif
     
 }

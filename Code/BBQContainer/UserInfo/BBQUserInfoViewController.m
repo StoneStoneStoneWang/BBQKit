@@ -143,6 +143,17 @@
         default:
             break;
     }
+    
+#if BBQBGNORMAL || BBQBGFULL
+    
+#elif BBQBGITEMFULL
+    
+    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    
+    self.titleLabel.textColor = [UIColor whiteColor];
+    
+    self.subTitleLabel.textColor = [UIColor whiteColor];
+#endif
 }
 
 - (void)layoutSubviews {
@@ -174,7 +185,6 @@
         
         make.centerY.equalTo(self);
     }];
-    
 }
 @end
 
@@ -223,7 +233,18 @@
     }
     return _imagePicker;
 }
-
+- (void)configOwnProperties {
+    
+#if BBQBGNORMAL || BBQBGITEMFULL
+    [super configOwnProperties];
+    
+#elif BBQBGFULL
+    
+    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    
+#endif
+    
+}
 - (void)configOwnSubViews {
     [super configOwnSubViews];
     
@@ -243,7 +264,11 @@
     
     self.bridge = [BBQUserInfoBridge new];
     
-    [self.bridge createUserInfo:self];
+#if BBQBGNORMAL || BBQBGITEMFULL
+    [self.bridge createUserInfo:self hasPlace:false];
+#elif BBQBGFULL
+    [self.bridge createUserInfo:self hasPlace:true];
+#endif
 }
 
 - (void)configNaviItem {

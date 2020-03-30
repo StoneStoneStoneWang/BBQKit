@@ -9,9 +9,13 @@
 
 #define BBQColor "#50c9c3"
 
-#pragma mark --- 0 背景正常 1 背景全局色
+#pragma mark --- BBQBGNORMAL 背景正常 item正常 BBQBGFULL 背景全局色 item 正常 BBQBGITEMFULL 背景色正常 item 全橘色
 
-#define BBQBGSWITCH 0
+#define BBQBGNORMAL 0
+
+#define BBQBGFULL 0
+
+#define BBQBGITEMFULL 1
 
 #define BBQCONTAINDRAWER 0
 

@@ -118,6 +118,16 @@
     
     self.titleLabel.text = setting.title;
     
+#if BBQBGNORMAL || BBQBGFULL
+    
+#elif BBQBGITEMFULL
+    
+    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    
+    self.titleLabel.textColor = [UIColor whiteColor];
+    
+    self.subTitleLabel.textColor = [UIColor whiteColor];
+#endif
 }
 
 
@@ -211,21 +221,42 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [self.bridge createSetting:self settingAction:^(enum BBQSettingActionType actionType) {
+#if BBQBGSWITCH
+    [self.bridge createSetting:self hasPlace:false settingAction:^(enum BBQSettingActionType actionType) {
         
         weakSelf.block(actionType, weakSelf);
     }];
+#else
+    [self.bridge createSetting:self hasPlace:true settingAction:^(enum BBQSettingActionType actionType) {
+        
+        weakSelf.block(actionType, weakSelf);
+    }];
+#endif
     
     [self updateCache];
 }
 
 - (void)updateTableData {
+#if BBQBGNORMAL || BBQBGITEMFULL
     
-    [self.bridge updateTableData];
+    [self.bridge updateTableData:false];
+#elif BBQBGFULL
+    [self.bridge updateTableData:true];
+#endif
     
     [self updateCache];
 }
-
+- (void)configOwnProperties {
+#if BBQBGNORMAL || BBQBGITEMFULL
+    [super configOwnProperties];
+    
+#elif BBQBGFULL
+    
+    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    
+#endif
+    
+}
 - (void)updateCache {
     
     NSString *cache = [NSString stringWithFormat:@"%.2fM",[[SDImageCache sharedImageCache] totalDiskSize]/1024.0/1024.0];
