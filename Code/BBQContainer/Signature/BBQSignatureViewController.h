@@ -11,10 +11,11 @@
 @import BBQTransition;
 
 NS_ASSUME_NONNULL_BEGIN
-typedef void(^ZSignatureSucc)(BBQBaseViewController *frome);
+typedef void(^BBQSignatureBlock)(BBQSignatureActionType actionType,BBQBaseViewController *from);
+
 @interface BBQSignatureViewController : BBQTViewController
 
-+ (instancetype)createSignature:(ZSignatureSucc)succ;
++ (instancetype)createSignature:(BBQSignatureBlock)block;
 
 @end
 

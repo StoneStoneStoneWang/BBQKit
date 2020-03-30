@@ -21,22 +21,22 @@
 
 @property (nonatomic ,strong) UIButton *backItem;
 
-@property (nonatomic ,strong) ZNickNameSucc succ;
+@property (nonatomic ,strong) BBQNameBlock block;
 
 @end
 
 @implementation BBQNameViewController
 
-+ (instancetype)createNickname:(ZNickNameSucc)succ {
++ (instancetype)createNickname:(BBQNameBlock)block {
     
-    return [[self alloc] initWithSucc:succ];
+    return [[self alloc] initWithBlock:block];
     
 }
-- (instancetype)initWithSucc:(ZNickNameSucc)succ {
+- (instancetype)initWithBlock:(BBQNameBlock)block {
     
     if (self = [super init]) {
         
-        self.succ = succ;
+        self.block = block;
     }
     return self;
 }
@@ -47,9 +47,9 @@
         
         _textField = [[BBQNickNameTextField alloc] initWithFrame:CGRectZero];
         
-        [_textField set_clearButtonMode:UITextFieldViewModeWhileEditing];
+        [_textField bbq_clearButtonMode:UITextFieldViewModeWhileEditing];
         
-        [_textField set_returnKeyType:UIReturnKeyDone];
+        [_textField bbq_returnKeyType:UIReturnKeyDone];
         
         _textField.tag = 201;
         
@@ -72,7 +72,7 @@
         
         _completeItem.titleLabel.font = [UIFont systemFontOfSize:15];
         
-        if ([BBQColor isEqualToString:@"#ffffff"]) {
+        if ([@BBQColor isEqualToString:@"#ffffff"]) {
             
             [_completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#666666"] forState:UIControlStateNormal];
             
@@ -124,7 +124,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.completeItem];
     
-    [self.backItem setImage:[UIImage imageNamed:@ZBackIcon] forState:UIControlStateNormal];
+    [self.backItem setImage:[UIImage imageNamed:@BBQBackIcon] forState:UIControlStateNormal];
     
     [self.backItem sizeToFit];
     
@@ -135,8 +135,14 @@
     
     self.bridge = [BBQNameBridge new];
     
-    [self.bridge createNickName:self succ:self.succ];
+    __weak typeof(self) weakSelf = self;
+    
+    [self.bridge createName:self nameAction:^(enum BBQNameActionType actionType) {
+        
+        __strong typeof(weakSelf) strongSelf = weakSelf ;
+        
+        strongSelf.block(actionType, strongSelf);
+    }];
 }
-
 
 @end

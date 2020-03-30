@@ -7,14 +7,21 @@
 //
 
 #import "BBQSettingViewController.h"
-@interface ZSettingTableViewCell()
+@import SToolsKit;
+@import Masonry;
+@import SDWebImage;
+
+@interface BBQSettingTableViewCell()
 
 @property (nonatomic ,strong) UILabel *titleLabel;
 
 @property (nonatomic ,strong) UISwitch *swiItem;
+
+@property (nonatomic ,strong) UILabel *subTitleLabel;
+
 @end
 
-@implementation ZSettingTableViewCell
+@implementation BBQSettingTableViewCell
 
 - (UILabel *)titleLabel {
     
@@ -30,17 +37,31 @@
     }
     return _titleLabel;
 }
+- (UILabel *)subTitleLabel {
+    
+    if (!_subTitleLabel) {
+        
+        _subTitleLabel = [UILabel new];
+        
+        _subTitleLabel.font = [UIFont systemFontOfSize:15];
+        
+        _subTitleLabel.textAlignment = NSTextAlignmentRight;
+        
+        _subTitleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#999999"];
+    }
+    return _subTitleLabel;
+}
 - (UISwitch *)swiItem {
     if (!_swiItem) {
         
         _swiItem = [[UISwitch alloc] initWithFrame:CGRectZero];
         
-        _swiItem.onTintColor = [UIColor s_transformToColorByHexColorStr:@ZFragmentColor];
+        _swiItem.onTintColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
         
     }
     return _swiItem;
 }
-- (void)setSetting:(ZSettingBean *)setting {
+- (void)setSetting:(BBQSettingBean *)setting {
     //    _setting = setting;
     
     self.swiItem.hidden = true;
@@ -51,29 +72,35 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     
-    self.bottomLineType = ZBottomLineTypeNormal;
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    self.bottomLineType = BBQBottomLineTypeNormal;
+    
+    self.subTitleLabel.hidden = true;
+    
+    self.subTitleLabel.text = setting.subTitle;
     
     self.backgroundColor = [UIColor whiteColor];
     
     switch (setting.type) {
-        case ZSettingTypeLogout:
+        case BBQSettingTypeLogout:
             
             self.titleLabel.textAlignment = NSTextAlignmentCenter;
             
-            self.titleLabel.textColor =  [UIColor s_transformToColorByHexColorStr:@ZFragmentColor];
+            self.titleLabel.textColor =  [UIColor s_transformToColorByHexColorStr:@BBQColor];
             break;
-        case ZSettingTypeSpace:
+        case BBQSettingTypeSpace:
             
             self.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            self.bottomLineType = ZBottomLineTypeNone;
+            self.bottomLineType = BBQBottomLineTypeNone;
             
             self.backgroundColor = [UIColor clearColor];
             
             self.accessoryType = UITableViewCellAccessoryNone;
             
             break;
-        case ZSettingTypePush:
+        case BBQSettingTypePush:
             
             self.swiItem.hidden = false;
             
@@ -81,11 +108,16 @@
             
             self.accessoryType = UITableViewCellAccessoryNone;
             
+        case BBQSettingTypeClear:
+            
+            self.subTitleLabel.hidden = false;
+            
         default:
             break;
     }
     
     self.titleLabel.text = setting.title;
+    
 }
 
 
@@ -94,16 +126,25 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     
-    self.backgroundColor = [UIColor whiteColor];
-    
     [self.contentView addSubview:self.titleLabel];
     
     [self.contentView addSubview:self.swiItem];
+    
+    [self.contentView addSubview:self.subTitleLabel];
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(@15);
+        
+        make.right.mas_equalTo(@-15);
+        
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+    
+    [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.mas_equalTo(@15);
         
@@ -122,19 +163,19 @@
 @end
 @interface BBQSettingViewController ()
 
-@property (nonatomic ,strong) ZSettingBridge *bridge;
+@property (nonatomic ,strong) BBQSettingBridge *bridge;
 
-@property (nonatomic ,copy) ZSettingBlock block;
+@property (nonatomic ,copy) BBQSettingBlock block;
 
 @end
 
 @implementation BBQSettingViewController
 
-+ (instancetype)createSettingWithBlock:(ZSettingBlock)block {
++ (instancetype)createSettingWithBlock:(BBQSettingBlock)block {
     
     return [[self alloc] initWithBlock:block];
 }
-- (instancetype)initWithBlock:(ZSettingBlock)block {
+- (instancetype)initWithBlock:(BBQSettingBlock)block {
     
     if (self = [super init]) {
         
@@ -145,19 +186,19 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@ZFragmentColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
     
 }
 
 - (void)configOwnSubViews {
     [super configOwnSubViews];
     
-    [self.tableView registerClass:[ZSettingTableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerClass:[BBQSettingTableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
 - (UITableViewCell *)configTableViewCell:(id)data forIndexPath:(NSIndexPath *)ip {
     
-    ZSettingTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+    BBQSettingTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     cell.setting = data;
     
@@ -166,16 +207,31 @@
 
 - (void)configViewModel {
     
-    self.bridge = [ZSettingBridge new];
+    self.bridge = [BBQSettingBridge new];
     
     __weak typeof(self) weakSelf = self;
     
-    [self.bridge createSetting:self settingAction:^(enum ZSettingActionType type, ZBaseViewController * _Nonnull vc) {
+    [self.bridge createSetting:self settingAction:^(enum BBQSettingActionType actionType) {
         
-        weakSelf.block(type, vc);
+        weakSelf.block(actionType, weakSelf);
     }];
+    
+    [self updateCache];
 }
 
+- (void)updateTableData {
+    
+    [self.bridge updateTableData];
+    
+    [self updateCache];
+}
+
+- (void)updateCache {
+    
+    NSString *cache = [NSString stringWithFormat:@"%.2fM",[[SDImageCache sharedImageCache] totalDiskSize]/1024.0/1024.0];
+    
+    [self.bridge updateCache:cache];
+}
 - (void)configNaviItem {
     
     self.title = @"设置";

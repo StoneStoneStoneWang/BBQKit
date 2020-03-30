@@ -19,7 +19,9 @@ import BBQSign
     
     @objc public var title: String = ""
     
-    @objc public static func createSetting(_ type: BBQSettingType ,title: String) -> BBQSettingBean {
+    @objc public var subTitle: String = ""
+    
+    @objc public static func createSetting(_ type: BBQSettingType ,title: String ,sub: String) -> BBQSettingBean {
         
         let setting = BBQSettingBean()
         
@@ -27,8 +29,22 @@ import BBQSign
         
         setting.title = title
         
+        setting.subTitle = sub
+        
         return setting
     }
+    static var types: [BBQSettingBean] {
+        
+        var result: [BBQSettingBean] = []
+        
+        for item in BBQSettingType.types {
+            
+            result += [BBQSettingBean.createSetting(item, title: item.title, sub: "")]
+        }
+        
+        return result
+    }
+    
     private override init() { }
 }
 
@@ -114,15 +130,15 @@ public struct BBQSettingViewModel: WLBaseViewModel {
     
     public struct WLInput {
         
-        let modelSelect: ControlEvent<BBQSettingType>
+        let modelSelect: ControlEvent<BBQSettingBean>
         
         let itemSelect: ControlEvent<IndexPath>
     }
     public struct WLOutput {
         
-        let zip: Observable<(BBQSettingType,IndexPath)>
+        let zip: Observable<(BBQSettingBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[BBQSettingType]> = BehaviorRelay<[BBQSettingType]>(value: BBQSettingType.types)
+        let tableData: BehaviorRelay<[BBQSettingBean]> = BehaviorRelay<[BBQSettingBean]>(value: BBQSettingBean.types)
     }
     
     init(_ input: WLInput) {

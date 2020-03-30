@@ -12,6 +12,8 @@
 @import CoreServices;
 @import JXTAlertManager;
 @import WLToolsKit;
+@import SDWebImage;
+@import ZDatePicker;
 
 @interface BBQUserInfoTableViewCell()
 
@@ -184,6 +186,7 @@
 
 @property (nonatomic ,strong) UIImagePickerController *imagePicker;
 
+@property (nonatomic ,copy) BBQUserInfoBlock block;
 @end
 
 @implementation BBQUserInfoViewController
@@ -194,7 +197,18 @@
     [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
     
 }
-
++ (instancetype)createUserInfoWithBlock:(BBQUserInfoBlock )block {
+    
+    return [[self alloc] initWithUserInfoBlock:block];
+}
+- (instancetype)initWithUserInfoBlock:(BBQUserInfoBlock )block {
+    
+    if (self = [super init]) {
+        
+        self.block = block;
+    }
+    return self;
+}
 - (UIImagePickerController *)imagePicker {
     
     if (!_imagePicker) {
@@ -243,27 +257,14 @@
     switch (userInfo.type) {
         case BBQUserInfoTypeName:
         {
-            __weak typeof(self) weakSelf = self;
+            self.block(BBQUserInfoActionTypeName, self);
             
-//            ZNickNameViewController *nickname = [ZNickNameViewController createNickname:^{
-//
-//                [weakSelf.tableView reloadData];
-//            }];
-//
-//            [self presentViewController:[[ZTNavigationController alloc] initWithRootViewController:nickname] animated:true completion:nil];
         }
             break;
         case BBQUserInfoTypeSignature:
         {
             
-            __weak typeof(self) weakSelf = self;
-            
-//            ZSignatureViewController *signature = [ZSignatureViewController createSignature:^{
-//
-//                [weakSelf.tableView reloadData];
-//            }];
-            
-//            [self presentViewController:[[ZTNavigationController alloc] initWithRootViewController:signature] animated:true completion:nil];
+            self.block(BBQUserInfoActionTypeSignature, self);
         }
             break;
         case BBQUserInfoTypeSex:
@@ -283,16 +284,16 @@
                 }
                 else if ([action.title isEqualToString:@"男"]) {
                     
-                    [weakSelf.bridge updateUserInfoWithType:BBQUserInfoTypeSex value:@"1" succ:^{
+                    [weakSelf.bridge updateUserInfoWithType:BBQUserInfoTypeSex value:@"1" action:^{
                         
-                        [weakSelf.tableView reloadData];
+                        [weakSelf.bridge updateUserInfo:BBQUserInfoTypeSex value:@"1"];
                     }];
                     
                 } else if ([action.title isEqualToString:@"女"]) {
                     
-                    [weakSelf.bridge updateUserInfoWithType:BBQUserInfoTypeSex value:@"2" succ:^{
+                    [weakSelf.bridge updateUserInfoWithType:BBQUserInfoTypeSex value:@"2" action:^{
                         
-                        [weakSelf.tableView reloadData];
+                        [weakSelf.bridge updateUserInfo:BBQUserInfoTypeSex value:@"2"];
                         
                     }];
                 }
@@ -303,7 +304,7 @@
         {
             if (!self.picker) {
                 
-                self.picker = [[ZDatePicker alloc] initWithTextColor:[UIColor s_transformToColorByHexColorStr:@"#666666"] buttonColor:[UIColor s_transformToColorByHexColorStr:BBQColor] font:[UIFont systemFontOfSize:15] locale:[NSLocale localeWithLocaleIdentifier:@"zh-Hans"] showCancelButton:true];
+                self.picker = [[ZDatePicker alloc] initWithTextColor:[UIColor s_transformToColorByHexColorStr:@"#666666"] buttonColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] font:[UIFont systemFontOfSize:15] locale:[NSLocale localeWithLocaleIdentifier:@"zh-Hans"] showCancelButton:true];
             }
             
             __weak typeof(self) weakSelf = self;
@@ -312,9 +313,9 @@
                 
                 if (date) {
                     
-                    [weakSelf.bridge updateUserInfoWithType:BBQUserInfoTypeBirth value:[NSString stringWithFormat:@"%ld",(NSInteger)date.timeIntervalSince1970] succ:^{
+                    [weakSelf.bridge updateUserInfoWithType:BBQUserInfoTypeBirth value:[NSString stringWithFormat:@"%ld",(NSInteger)date.timeIntervalSince1970] action:^{
                         
-                        [weakSelf.tableView reloadData];
+                        [weakSelf.bridge updateUserInfo:BBQUserInfoTypeBirth value:[NSString stringWithFormat:@"%ld",(NSInteger)date.timeIntervalSince1970]];
                     }];
                 }
             }];
@@ -367,7 +368,7 @@
         originalImage = info[UIImagePickerControllerEditedImage];
     }
     
-    [self.bridge updateHeader:[UIImage compressImageWithImage:originalImage andMaxLength:500 * 1024] succ:^{
+    [self.bridge updateHeader:[UIImage compressImageWithImage:originalImage andMaxLength:500 * 1024] action:^{
         
         [weakSelf.tableView reloadData];
     }];
@@ -384,5 +385,13 @@
     return true ;
 }
 
+- (void)updateName:(NSString *)name {
+    
+    [self.bridge updateUserInfo:BBQUserInfoTypeName value:name ];
+}
+- (void)updateSignature:(NSString *)signature {
+    
+    [self.bridge updateUserInfo:BBQUserInfoTypeSignature value:signature];
+}
 
 @end

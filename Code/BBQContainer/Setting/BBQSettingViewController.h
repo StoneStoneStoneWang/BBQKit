@@ -9,20 +9,22 @@
 #import "BBQConfig.h"
 @import BBQBridge;
 @import BBQTable;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZSettingTableViewCell : BBQBaseTableViewCell
+@interface BBQSettingTableViewCell : BBQBaseTableViewCell
 
-@property (nonatomic ,strong) ZSettingBean *setting;
+@property (nonatomic ,strong) BBQSettingBean *setting;
 
 @end
 
-typedef void(^ZSettingBlock)(ZSettingActionType type ,ZBaseViewController *vc);
+typedef void(^BBQSettingBlock)(BBQSettingActionType actionType ,BBQBaseViewController *from);
 
 @interface BBQSettingViewController : BBQTableNoLoadingViewConntroller
 
-+ (instancetype)createSettingWithBlock:(ZSettingBlock) block;
++ (instancetype)createSettingWithBlock:(BBQSettingBlock) block;
 
+- (void)updateTableData;
 @end
 
 NS_ASSUME_NONNULL_END

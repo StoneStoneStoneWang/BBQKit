@@ -431,11 +431,12 @@
         
         make.top.mas_equalTo(self.password.mas_bottom).offset(10);
         
-        make.right.mas_equalTo(self.phone.mas_right);
+        make.left.mas_equalTo(self.phone.mas_left);
         
         make.height.mas_equalTo(self.phone.mas_height);
+        
     }];
-
+    
     [self.forgetItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
     
     [self.forgetItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
@@ -462,9 +463,7 @@
     
     [self.swiftLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.loginItem.mas_bottom).offset(10);
-        
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.top.mas_equalTo(self.password.mas_bottom).offset(10);
         
         make.right.mas_equalTo(self.phone.mas_right);
         
@@ -472,13 +471,9 @@
         
     }];
     
-    [self.swiftLoginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
     
-    [self.swiftLoginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
-    
-    [self.swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] forState:UIControlStateNormal];
-    
-    [self.swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
+    [self.swiftLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
     
     [_password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     

@@ -12,11 +12,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^ZNickNameSucc)(BBQBaseViewController *from);
+typedef void(^BBQNameBlock)(BBQNameActionType actionType ,BBQBaseViewController *from);
 
 @interface BBQNameViewController : BBQTViewController
 
-+ (instancetype)createNickname:(ZNickNameSucc)succ;
++ (instancetype)createNickname:(BBQNameBlock)block;
 
 @end
 

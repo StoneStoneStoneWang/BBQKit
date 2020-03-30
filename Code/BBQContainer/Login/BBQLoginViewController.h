@@ -12,7 +12,7 @@
 @import BBQTransition;
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^BBQLoginBlock)(BBQLoginActionType actionType ,BBQBaseViewController *vc);
+typedef void(^BBQLoginBlock)(BBQLoginActionType actionType ,BBQBaseViewController *from);
 @interface BBQLoginViewController : BBQTViewController
 
 + (instancetype)createLoginWithBlock:(BBQLoginBlock)block;

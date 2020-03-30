@@ -17,9 +17,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+typedef NS_ENUM(NSInteger, BBQUserInfoActionType) {
+    BBQUserInfoActionTypeName,
+    BBQUserInfoActionTypeSignature,
+};
+
+typedef void(^BBQUserInfoBlock)(BBQUserInfoActionType actionType ,BBQBaseViewController *from);
+
 @interface BBQUserInfoViewController : BBQTableNoLoadingViewConntroller
 
-+ (instancetype)createUserInfo;
++ (instancetype)createUserInfoWithBlock:(BBQUserInfoBlock )block;
+
+- (void)updateName:(NSString *)name;
+
+- (void)updateSignature:(NSString *)signature;
 
 @end
 

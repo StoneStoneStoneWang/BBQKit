@@ -173,17 +173,33 @@ public struct BBQUserInfoViewModel: WLBaseViewModel {
                 
                 if let user = user {
                     
-                    output.tableData.value[1].subtitle = user.headImg
+                    let values =  output.tableData.value
                     
-                    output.tableData.value[2].subtitle = user.nickname
+                    if let headIdx = values.firstIndex(where: { $0.type == .header}) {
+                        
+                        output.tableData.value[headIdx].subtitle = user.headImg
+                    }
+                    if let nameIdx = values.firstIndex(where: { $0.type == .name}) {
+                        
+                        output.tableData.value[nameIdx].subtitle = user.nickname
+                    }
+                    if let phoneIdx = values.firstIndex(where: { $0.type == .phone}) {
+                        
+                        output.tableData.value[phoneIdx].subtitle = user.phone
+                    }
+                    if let sexIdx = values.firstIndex(where: { $0.type == .sex}) {
+                        
+                        output.tableData.value[sexIdx].subtitle = user.gender.gender
+                    }
                     
-                    output.tableData.value[3].subtitle = user.phone
-                    
-                    output.tableData.value[5].subtitle = user.gender.gender
-                    
-                    output.tableData.value[6].subtitle = user.birthday
-                    
-                    output.tableData.value[7].subtitle = user.signature
+                    if let birthIdx = values.firstIndex(where: { $0.type == .birth}) {
+                        
+                        output.tableData.value[birthIdx].subtitle = user.birthday
+                    }
+                    if let signtureIdx = values.firstIndex(where: { $0.type == .header}) {
+                        
+                        output.tableData.value[signtureIdx].subtitle = user.signature
+                    }
                 }
             })
             .disposed(by: disposed)
@@ -192,7 +208,7 @@ public struct BBQUserInfoViewModel: WLBaseViewModel {
     }
     
     public static func updateUserInfo(type: BBQUserInfoType,value: String) -> Driver<WLBaseResult>{
-
+        
         return bbqDictResp(BBQApi.updateUserInfo(type.updateKey, value: value))
             .mapObject(type: BBQUserBean.self)
             .map({ BBQUserInfoCache.default.saveUser(data: $0) })

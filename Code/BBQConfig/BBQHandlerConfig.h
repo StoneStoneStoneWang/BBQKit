@@ -34,6 +34,33 @@
 
 #define bbqRootViewController bbqRootViewController11
 
+#define bbqPushReg bbqPushReg111
+
+#define bbqPushProtocol bbqPushProtocol111
+
+#define bbqPushFindPassword bbqPushFindPassword111
+
+#define bbqPushModifyPassword bbqPushModifyPassword111
+
+#define bbqPushSetting bbqPushSetting111
+
+#define bbqPushUserInfo bbqPushUserInfo1111
+
+#define bbqPushName bbqPushName111
+
+#define bbqPushSignature bbqPushSignature111
+
+#define bbqLogout bbqLogout111
+
+#define bbqDismiss bbqDismiss111
+
+#define bbqPop bbqPop111
+
+#define bbqTokenInvalid bbqTokenInvalid111
+
+#define bbqCheckLogin bbqCheckLogin1111
+
+
 
 #define BBQLoginBlock BBQLoginBlock111
 
@@ -47,8 +74,6 @@
 
 #define createRegWithBlock createRegWithBlock111
 
-#define createProtocol createProtocol111
-
 #define BBQProtocolViewController BBQProtocolViewController111
 
 #define BBQFindPassworBlock BBQFindPassworBlock111
@@ -60,6 +85,25 @@
 #define BBQModifyPasswordBlock BBQModifyPasswordBlock111
 
 #define BBQModifyPasswordViewController BBQModifyPasswordViewController111
+
+#define BBQSettingTableViewCell BBQSettingTableViewCell111
+
+#define BBQSettingBlock BBQSettingBlock111
+
+#define BBQSettingViewController BBQSettingViewController111
+
+#define createSettingWithBlock createSettingWithBlock111
+
+
+#define BBQUserInfoActionType BBQUserInfoActionType111
+
+#define BBQUserInfoBlock BBQUserInfoBlock111
+
+#define BBQUserInfoViewController BBQUserInfoViewController111
+
+#define BBQUserInfoTableViewCell BBQUserInfoTableViewCell111
+
+#define createUserInfoWithBlock createUserInfoWithBlock111
 
 #pragma mark ---- 圈子类型
 #if BBQCONFIGURETYPECIRCLE

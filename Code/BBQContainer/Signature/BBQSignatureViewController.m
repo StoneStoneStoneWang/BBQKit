@@ -20,24 +20,38 @@
 
 @property (nonatomic ,strong) UIButton *backItem;
 
-@property (nonatomic ,strong) ZSignatureSucc succ;
+@property (nonatomic ,strong) BBQSignatureBlock block;
+
+@property (nonatomic ,strong) UITextView *placeholder;
+
+@property (nonatomic ,strong) UIView *whiteView;
 
 @end
 
 @implementation BBQSignatureViewController
 
-+ (instancetype)createSignature:(ZSignatureSucc)succ {
++ (instancetype)createSignature:(BBQSignatureBlock)block {
     
-    return [[self alloc] initWithSucc:succ];
+    return [[self alloc] initWithBlock:block];
     
 }
-- (instancetype)initWithSucc:(ZSignatureSucc)succ {
+- (instancetype)initWithBlock:(BBQSignatureBlock)block {
     
     if (self = [super init]) {
         
-        self.succ = succ;
+        self.block = block;
     }
     return self;
+}
+- (UIView *)whiteView {
+    
+    if (!_whiteView) {
+        
+        _whiteView = [UIView new];
+        
+        _whiteView.backgroundColor = [UIColor whiteColor];
+    }
+    return _whiteView;
 }
 - (UITextView *)signaturetv {
     
@@ -51,10 +65,32 @@
         
         _signaturetv.tag = 201;
         
+        _signaturetv.backgroundColor = [UIColor clearColor];
     }
     return _signaturetv;
 }
-
+- (UITextView *)placeholder {
+    
+    if (!_placeholder) {
+        
+        _placeholder = [[UITextView alloc] initWithFrame:CGRectZero];
+        
+        _placeholder.font = [UIFont systemFontOfSize:15];
+        
+        _placeholder.textContainerInset = UIEdgeInsetsMake(15, 15, 15, 15);
+        
+        _placeholder.tag = 202;
+        
+        _placeholder.backgroundColor = [UIColor whiteColor];
+        
+        _placeholder.userInteractionEnabled = false;
+        
+        _placeholder.text = @"请输入个性昵称";
+        
+        _placeholder.textColor = [UIColor s_transformToColorByHexColorStr:@"#999999"];
+    }
+    return _placeholder;
+}
 - (UIButton *)completeItem {
     
     if (!_completeItem) {
@@ -69,7 +105,7 @@
         
         _completeItem.titleLabel.font = [UIFont systemFontOfSize:15];
         
-        if ([BBQColor isEqualToString:@"#ffffff"]) {
+        if ([@BBQColor isEqualToString:@"#ffffff"]) {
             
             [_completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#666666"] forState:UIControlStateNormal];
             
@@ -100,9 +136,31 @@
 
 - (void)addOwnSubViews {
     
+    [self.view addSubview:self.whiteView];
+    
+    [self.view addSubview:self.placeholder];
+    
     [self.view addSubview:self.signaturetv];
 }
 - (void)configOwnSubViews {
+    
+    [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD);
+        
+        make.height.mas_equalTo(200);
+    }];
+    
+    [self.placeholder mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD);
+        
+        make.height.mas_equalTo(200);
+    }];
     
     [self.signaturetv mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -112,7 +170,6 @@
         
         make.height.mas_equalTo(200);
     }];
-    
 }
 
 - (void)configNaviItem {
@@ -123,7 +180,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.completeItem];
     
-    [self.backItem setImage:[UIImage imageNamed:@ZBackIcon] forState:UIControlStateNormal];
+    [self.backItem setImage:[UIImage imageNamed:@BBQBackIcon] forState:UIControlStateNormal];
     
     [self.backItem sizeToFit];
     
@@ -134,7 +191,12 @@
     
     self.bridge = [BBQSignatureBridge new];
     
-    [self.bridge createSignature:self succ:self.succ];
+    __weak typeof(self) weakSelf = self;
+    
+    [self.bridge createSignature:self signatureAction:^(enum BBQSignatureActionType actionType) {
+        
+        weakSelf.block(actionType, weakSelf);
+    }];
 }
 
 @end

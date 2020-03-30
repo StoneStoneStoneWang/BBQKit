@@ -32,7 +32,7 @@ public typealias BBQSettingAction = (_ action: BBQSettingActionType ) -> ()
 @objc (BBQSettingBridge)
 public final class BBQSettingBridge: BBQBaseBridge {
     
-    typealias Section = BBQSectionModel<(), BBQSettingType>
+    typealias Section = BBQSectionModel<(), BBQSettingBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
@@ -46,13 +46,13 @@ extension BBQSettingBridge {
         
         self.vc = vc
         
-        let input = BBQSettingViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQSettingType.self),
+        let input = BBQSettingViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQSettingBean.self),
                                               itemSelect: vc.tableView.rx.itemSelected)
         
         viewModel = BBQSettingViewModel(input)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
-            configureCell: { ds, tv, ip, item in  return vc.configTableViewCell(BBQSettingBean.createSetting(item, title: item.title), for: ip) })
+            configureCell: { ds, tv, ip, item in  return vc.configTableViewCell(item, for: ip) })
         
         viewModel
             .output
@@ -71,7 +71,7 @@ extension BBQSettingBridge {
                 
                 vc.tableView.deselectRow(at: ip, animated: true)
                 
-                switch type {
+                switch type.type {
                     
                 case .pwd:
                     
@@ -107,6 +107,23 @@ extension BBQSettingBridge {
             .setDelegate(self)
             .disposed(by: disposed)
     }
+    
+    @objc public func updateCache(_ value: String ) {
+        
+        let values = viewModel.output.tableData.value
+        
+        if let idx = values.firstIndex(where: { $0.type == .clear}) {
+            
+            viewModel.output.tableData.value[idx].subTitle = value
+            
+            vc.tableView.reloadRows(at: [IndexPath(row: idx, section: 0)], with: .none)
+        }
+    }
+    
+    @objc public func updateTableData() {
+        
+        viewModel.output.tableData.accept(BBQSettingBean.types)
+    }
 }
 extension BBQSettingBridge: UITableViewDelegate {
     
@@ -114,6 +131,6 @@ extension BBQSettingBridge: UITableViewDelegate {
         
         guard let datasource = dataSource else { return 0}
         
-        return datasource[indexPath].cellHeight
+        return datasource[indexPath].type.cellHeight
     }
 }

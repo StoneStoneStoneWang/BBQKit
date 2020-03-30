@@ -28,14 +28,18 @@ public final class BBQUserInfoBridge: BBQBaseBridge {
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
     var viewModel: BBQUserInfoViewModel!
+    
+    weak var vc: BBQTableNoLoadingViewConntroller!
 }
 
 extension BBQUserInfoBridge {
     
     @objc public func createUserInfo(_ vc: BBQTableNoLoadingViewConntroller) {
         
+        self.vc = vc
+        
         let input = BBQUserInfoViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQUserInfoBean.self),
-                                               itemSelect: vc.tableView.rx.itemSelected)
+                                                 itemSelect: vc.tableView.rx.itemSelected)
         
         viewModel = BBQUserInfoViewModel(input, disposed: disposed)
         
@@ -69,7 +73,17 @@ extension BBQUserInfoBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func updateUserInfo(type: BBQUserInfoType,value: String,succ: @escaping BBQUserInfoAction) {
+    @objc public func updateUserInfo(_ type: BBQUserInfoType,value: String ) {
+        
+        let values =  viewModel.output.tableData.value
+        
+        if let idx = values.firstIndex(where: { $0.type == type}) {
+            
+            self.vc.tableView.reloadRows(at: [IndexPath(row: idx, section: 0)], with: .fade)
+        }
+    }
+    
+    @objc public func updateUserInfo(type: BBQUserInfoType,value: String,action: @escaping BBQUserInfoAction) {
         
         BBQHud.show(withStatus: "修改\(type.title)中...")
         
@@ -82,7 +96,7 @@ extension BBQUserInfoBridge {
                     
                 case .ok(_):
                     
-                    succ()
+                    action()
                     
                     BBQHud.showInfo(type == .header ? "上传头像成功" : "修改\(type.title)成功")
                     
@@ -92,7 +106,7 @@ extension BBQUserInfoBridge {
             })
             .disposed(by: disposed)
     }
-    @objc public func updateHeader(_ data: Data ,succ: @escaping BBQUserInfoAction) {
+    @objc public func updateHeader(_ data: Data ,action: @escaping BBQUserInfoAction) {
         
         BBQHud.show(withStatus: "上传头像中...")
         
@@ -112,7 +126,7 @@ extension BBQUserInfoBridge {
                                 
                                 DispatchQueue.main.async {
                                     
-                                    self.updateUserInfo(type: BBQUserInfoType.header, value: value, succ: succ)
+                                    self.updateUserInfo(type: BBQUserInfoType.header, value: value, action: action)
                                 }
                                 
                                 }, onError: { (error) in
