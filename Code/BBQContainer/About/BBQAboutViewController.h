@@ -6,11 +6,25 @@
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#import <BBQTable/BBQTable.h>
 
+#import "BBQConfig.h"
+@import BBQBridge;
+@import BBQTable;
 NS_ASSUME_NONNULL_BEGIN
 
+@interface BBQAboutTableHeaderView : BBQTableHeaderView
+
+@end
+
+@interface BBQAboutTableViewCell : BBQBaseTableViewCell
+
+@property (nonatomic ,strong) BBQAboutBean *about;
+
+@end
+
 @interface BBQAboutViewController : BBQTableNoLoadingViewConntroller
+
++ (instancetype)createAbout;
 
 @end
 

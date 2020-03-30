@@ -60,6 +60,14 @@
 
 #define bbqCheckLogin bbqCheckLogin1111
 
+#define bbqCreateProfile bbqCreateProfile111
+
+#define bbqPushPrivacy bbqPushPrivacy111
+
+#define bbqPushAbout bbqPushAbout111
+
+#define bbqPushFeedBack bbqPushFeedBack111
+
 
 
 #define BBQLoginBlock BBQLoginBlock111
@@ -94,7 +102,6 @@
 
 #define createSettingWithBlock createSettingWithBlock111
 
-
 #define BBQUserInfoActionType BBQUserInfoActionType111
 
 #define BBQUserInfoBlock BBQUserInfoBlock111
@@ -104,6 +111,14 @@
 #define BBQUserInfoTableViewCell BBQUserInfoTableViewCell111
 
 #define createUserInfoWithBlock createUserInfoWithBlock111
+
+#define BBQFeedBackViewController BBQFeedBackViewController111
+
+#define BBQAboutViewController BBQAboutViewController111
+
+#define BBQAboutTableHeaderView BBQAboutTableHeaderView111
+
+#define BBQAboutTableViewCell BBQAboutTableViewCell111
 
 #pragma mark ---- 圈子类型
 #if BBQCONFIGURETYPECIRCLE

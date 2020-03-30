@@ -128,4 +128,25 @@ Pod::Spec.new do |spec|
     setting.dependency 'SDWebImage'
   end
   
+  # 个性签名 signature
+  spec.subspec 'About' do |about|
+    
+    about.source_files = "Code/BBQContainer/About/*.{h,m}"
+    about.dependency 'BBQConfig'
+    about.dependency 'BBQBridge/About/Bridge'
+    about.dependency 'Masonry'
+    about.dependency 'BBQTable'
+  end
+  
+  # 个性签名 signature
+  spec.subspec 'FeedBack' do |feedBack|
+    
+    feedBack.source_files = "Code/BBQContainer/FeedBack/*.{h,m}"
+    feedBack.dependency 'BBQConfig'
+    feedBack.dependency 'BBQBridge/FeedBack/Bridge'
+    feedBack.dependency 'Masonry'
+    feedBack.dependency 'BBQTransition'
+    feedBack.dependency 'JXTAlertManager'
+    feedBack.dependency 'BBQTextField'
+  end
 end
