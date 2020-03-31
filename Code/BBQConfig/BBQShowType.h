@@ -17,7 +17,9 @@
 
 #define BBQBGITEMFULL 1
 
-#define BBQCONTAINDRAWER 0
+#define BBQCONTAINDRAWER 1
+
+#define BBQCONTAINERTAB 1
 
 #pragma mark ---welcome
 
