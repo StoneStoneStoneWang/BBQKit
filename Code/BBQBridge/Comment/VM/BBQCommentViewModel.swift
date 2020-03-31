@@ -1,5 +1,5 @@
 //
-//  ZCommentViewModel.swift
+//  BBQCommentViewModel.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/9/11.
@@ -16,7 +16,7 @@ import WLBaseResult
 import BBQRReq
 import BBQApi
 
-struct ZCommentViewModel: WLBaseViewModel {
+struct BBQCommentViewModel: WLBaseViewModel {
     
     var input: WLInput
     
@@ -24,7 +24,7 @@ struct ZCommentViewModel: WLBaseViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<ZCommentBean>
+        let modelSelect: ControlEvent<BBQCommentBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -39,9 +39,9 @@ struct ZCommentViewModel: WLBaseViewModel {
     
     struct WLOutput {
         
-        let zip: Observable<(ZCommentBean,IndexPath)>
+        let zip: Observable<(BBQCommentBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[ZCommentBean]> = BehaviorRelay<[ZCommentBean]>(value: [])
+        let tableData: BehaviorRelay<[BBQCommentBean]> = BehaviorRelay<[BBQCommentBean]>(value: [])
         
         let endHeaderRefreshing: Driver<WLBaseResult>
         
@@ -60,8 +60,8 @@ struct ZCommentViewModel: WLBaseViewModel {
             .startWith(())
             .flatMapLatest({_ in
                 
-                return onUserArrayResp(ZUserApi.fetchComments(1, targetEncoded: input.encoded))
-                    .mapArray(type: ZCommentBean.self)
+                return bbqArrayResp(BBQApi.fetchComments(1, targetEncoded: input.encoded))
+                    .mapArray(type: BBQCommentBean.self)
                     .map({ return $0.count > 0 ? WLBaseResult.fetchList($0) : WLBaseResult.empty })
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
             })
@@ -72,8 +72,8 @@ struct ZCommentViewModel: WLBaseViewModel {
             .footerRefresh
             .flatMapLatest({_ in
                 
-                return onUserArrayResp(ZUserApi.fetchComments(input.page.value, targetEncoded: input.encoded))
-                    .mapArray(type: ZCommentBean.self)
+                return bbqArrayResp(BBQApi.fetchComments(input.page.value, targetEncoded: input.encoded))
+                    .mapArray(type: BBQCommentBean.self)
                     .map({ return $0.count > 0 ? WLBaseResult.fetchList($0) : WLBaseResult.empty })
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
             })
@@ -85,7 +85,7 @@ struct ZCommentViewModel: WLBaseViewModel {
         headerRefreshData
             .drive(onNext: { (result) in
                 
-                let rectangle = ZCommentBean()
+                let rectangle = BBQCommentBean()
                 
                 rectangle.type = .rectangle
                 
@@ -95,7 +95,7 @@ struct ZCommentViewModel: WLBaseViewModel {
                 
                 rectangle.identity = NSUUID().uuidString
                 
-                let total = ZCommentBean()
+                let total = BBQCommentBean()
                 
                 total.type = .total
                 
@@ -120,9 +120,9 @@ struct ZCommentViewModel: WLBaseViewModel {
                         output.footerHidden.accept(false)
                     }
                     
-                    output.tableData.accept([rectangle] + [total] + items as! [ZCommentBean])
+                    output.tableData.accept([rectangle] + [total] + items as! [BBQCommentBean])
                     
-                    let noMore = ZCommentBean()
+                    let noMore = BBQCommentBean()
                     
                     noMore.encoded = NSUUID().uuidString
                     
@@ -136,7 +136,7 @@ struct ZCommentViewModel: WLBaseViewModel {
                     
                 case .empty:
                     
-                    let empty = ZCommentBean()
+                    let empty = BBQCommentBean()
                     
                     empty.encoded = NSUUID().uuidString
                     
@@ -149,7 +149,7 @@ struct ZCommentViewModel: WLBaseViewModel {
                     output.tableData.accept([rectangle,total,empty])
                 case .failed:
                     
-                    let failed = ZCommentBean()
+                    let failed = BBQCommentBean()
                     
                     failed.type = .failed
                     
@@ -186,11 +186,11 @@ struct ZCommentViewModel: WLBaseViewModel {
                     
                     var value = output.tableData.value
                     
-                    value += (items as! [ZCommentBean])
+                    value += (items as! [BBQCommentBean])
                     
                     output.tableData.accept( value)
                     
-                    let noMore = ZCommentBean()
+                    let noMore = BBQCommentBean()
                     
                     noMore.encoded = NSUUID().uuidString
                     
@@ -204,7 +204,7 @@ struct ZCommentViewModel: WLBaseViewModel {
                     
                 case .failed:
                     
-                    let failed = ZCommentBean()
+                    let failed = BBQCommentBean()
                     
                     failed.encoded = NSUUID().uuidString
                     
@@ -222,5 +222,13 @@ struct ZCommentViewModel: WLBaseViewModel {
             .disposed(by: disposed)
         
         self.output = output
+    }
+    
+    static func addComment(_ encoded: String,content: String) -> Driver<WLBaseResult> {
+        
+        return bbqDictResp(BBQApi.addComment(encoded, content: content, tablename: "CircleFriends", type: "0"))
+            .mapObject(type: BBQCommentBean.self)
+            .map({ WLBaseResult.operation($0) })
+            .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
     }
 }

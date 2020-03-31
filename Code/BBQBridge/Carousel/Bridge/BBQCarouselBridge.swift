@@ -13,7 +13,6 @@ import RxSwift
 import RxDataSources
 import BBQCocoa
 import WLToolsKit
-import BBQCocoa
 
 public typealias BBQCarouselAction = (_ carouse: String) -> ()
 
@@ -83,7 +82,6 @@ extension BBQCarouselBridge {
                         
                         vc.collectionView.selectItem(at: IndexPath(item: index, section:0), animated: true, scrollPosition: .centeredHorizontally)
                     }
-                    
                 })
                 .disposed(by: disposed)
             

@@ -530,4 +530,100 @@ Pod::Spec.new do |spec|
       bridge.dependency 'BBQBridge/Base'
     end
   end
+  
+  # 评论 comment
+  spec.subspec 'Comment' do |comment|
+    
+    comment.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Comment/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQBean/Comment'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    comment.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Comment/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Comment/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQBean/Circle'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/Refresh'
+      bridge.dependency 'BBQBridge/Base'
+    end
+  end
+  
+  # Collections 列表
+  spec.subspec 'Collections' do |collections|
+    
+    collections.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Collections/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQBean/Circle'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    collections.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Collections/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Collections/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQCollection'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/Refresh'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQCache/Account'
+    end
+  end
+  
+  # 黑名单
+  spec.subspec 'Tables' do |tables|
+    
+    tables.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Tables/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQBean/Circle'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'BBQApi'
+      vm.dependency 'WLBaseResult'
+    end
+    
+    tables.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Tables/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Tables/VM'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/Refresh'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQCache/Account'
+    end
+  end
+  
+  # 轮播
+  spec.subspec 'Carousel' do |welcome|
+    
+    welcome.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/Carousel/VM/*.{swift}"
+      vm.dependency 'WLToolsKit/Common'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'RxCocoa'
+      vm.dependency 'RxSwift'
+    end
+    
+    welcome.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Carousel/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Carousel/VM'
+      bridge.dependency 'BBQCollection'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'RxDataSources'
+    end
+  end
 end

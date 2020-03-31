@@ -11,7 +11,6 @@ import WLBaseViewModel
 import RxCocoa
 import RxSwift
 import WLToolsKit
-import WLBaseResult
 
 @objc (BBQCarouselStyle)
 public enum BBQCarouselStyle: Int {

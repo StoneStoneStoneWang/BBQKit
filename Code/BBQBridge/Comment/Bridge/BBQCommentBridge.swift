@@ -1,5 +1,5 @@
 //
-//  ZCommentBridge.swift
+//  BBQCommentBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/9/11.
@@ -13,30 +13,34 @@ import BBQCocoa
 import BBQBean
 import BBQHud
 
-@objc (ZCommentBridge)
-public final class ZCommentBridge: BBQBaseBridge {
+@objc (BBQCommentBridge)
+public final class BBQCommentBridge: BBQBaseBridge {
     
-    typealias Section = ZAnimationSetionModel<ZCommentBean>
+    typealias Section = BBQAnimationSetionModel<BBQCommentBean>
     
     var dataSource: RxTableViewSectionedAnimatedDataSource<Section>!
     
-    var viewModel: ZCommentViewModel!
+    var viewModel: BBQCommentViewModel!
     
     weak var vc: BBQTableLoadingViewController!
-}
-extension ZCommentBridge {
     
-    @objc public func createComment(_ vc: BBQTableLoadingViewController,encode: String) {
+    var circleBean: BBQCircleBean!
+}
+extension BBQCommentBridge {
+    
+    @objc public func createComment(_ vc: BBQTableLoadingViewController,encode: String ,circle: BBQCircleBean) {
         
         self.vc = vc
         
-        let input = ZCommentViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(ZCommentBean.self),
+        self.circleBean = circle
+        
+        let input = BBQCommentViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQCommentBean.self),
                                               itemSelect: vc.tableView.rx.itemSelected,
                                               headerRefresh: vc.tableView.mj_header!.rx.refreshing.asDriver(),
                                               footerRefresh: vc.tableView.mj_footer!.rx.refreshing.asDriver(),
                                               encoded: encode)
         
-        viewModel = ZCommentViewModel(input, disposed: disposed)
+        viewModel = BBQCommentViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedAnimatedDataSource<Section>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .fade, reloadAnimation: .fade, deleteAnimation: .left),
@@ -64,7 +68,7 @@ extension ZCommentBridge {
                 case .fetchList:
                     vc.loadingStatus = .succ
                 case let .failed(msg):
-                    BBQHudUtil.showInfo(msg)
+                    BBQHud.showInfo(msg)
                     vc.loadingStatus = .fail
                     
                 case .empty:
@@ -107,7 +111,7 @@ extension ZCommentBridge {
             .setDelegate(self)
             .disposed(by: disposed)
     }
-    @objc public func addComment(_ comment: ZCommentBean) {
+    @objc public func insertComment(_ comment: BBQCommentBean) {
         
         var value = self.viewModel.output.tableData.value
         
@@ -133,35 +137,37 @@ extension ZCommentBridge {
         self.vc.tableView.scrollsToTop = true
 
     }
-    @objc public func addComment(_ encoded: String,content: String ,succ: @escaping (_ comment: ZCommentBean?) -> () ) {
+    @objc public func addComment(_ encoded: String,content: String ,commentAction: @escaping (_ comment: BBQCommentBean? ,_ circleBean: BBQCircleBean) -> () ) {
         
-        BBQHudUtil.show(withStatus: "发表评论中....")
+        BBQHud.show(withStatus: "发布评论中....")
         
-        ZCommentAddViewModel
+        BBQCommentViewModel
             .addComment(encoded, content: content)
-            .drive(onNext: { (result) in
+            .drive(onNext: { [unowned self](result) in
                 
-                BBQHudUtil.pop()
+                BBQHud.pop()
                 
                 switch result {
                 case .operation(let comment):
                     
-                    BBQHudUtil.showInfo("发表评论成功!")
+                    BBQHud.showInfo("发布评论成功!")
                     
-                    succ(comment as? ZCommentBean)
+                    self.circleBean.countComment += 1
+                    
+                    commentAction(comment as? BBQCommentBean ,self.circleBean)
+
                 case .failed(let msg):
                     
-                    BBQHudUtil.showInfo(msg)
+                    BBQHud.showInfo(msg)
                 default:
                     break
                 }
             })
             .disposed(by: disposed)
     }
-
 }
 
-extension ZCommentBridge: UITableViewDelegate {
+extension BBQCommentBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
