@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UITableViewCell *)configTableViewCell:(id)data forIndexPath:(NSIndexPath *)ip ;
 
+- (UIView *)configTableViewSectionHeader:(id)data forSection:(NSInteger)section ;
+
 - (CGFloat )caculateForCell:(id )data forIndexPath:(NSIndexPath *)ip;
 
 - (void)tableViewSelectData:(id)data forIndexPath:(NSIndexPath *)ip;

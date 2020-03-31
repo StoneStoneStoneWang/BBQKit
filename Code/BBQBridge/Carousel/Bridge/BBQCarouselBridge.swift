@@ -25,7 +25,7 @@ public final class BBQCarouselBridge: BBQBaseBridge {
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
     
-    var vc: BBQCollectionLoadingViewController!
+    var vc: BBQCollectionNoLoadingViewController!
     
     var style: BBQCarouselStyle = .one
 }
@@ -33,7 +33,7 @@ public final class BBQCarouselBridge: BBQBaseBridge {
 // MARK: skip item 101 pagecontrol 102
 extension BBQCarouselBridge {
     
-    @objc public func createCarousel(_ vc: BBQCollectionLoadingViewController ,canPageHidden: Bool ,images: [String],style: BBQCarouselStyle ,carouseAction: @escaping BBQCarouselAction) {
+    @objc public func createCarousel(_ vc: BBQCollectionNoLoadingViewController ,canPageHidden: Bool ,images: [String],style: BBQCarouselStyle ,carouseAction: @escaping BBQCarouselAction) {
         
         if let pageControl = vc.view.viewWithTag(102) as? UIPageControl {
             

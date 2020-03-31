@@ -626,4 +626,45 @@ Pod::Spec.new do |spec|
       bridge.dependency 'RxDataSources'
     end
   end
+  
+  # 1
+  spec.subspec 'CollectionSection' do |cs|
+    
+    cs.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/CollectionSection/VM/*.{swift}"
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'RxCocoa'
+      vm.dependency 'RxSwift'
+    end
+    
+    cs.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/CollectionSection/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/CollectionSection/VM'
+      bridge.dependency 'BBQCollection'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'RxDataSources'
+    end
+  end
+  
+  # 2
+  spec.subspec 'TableSection' do |cs|
+    
+    cs.subspec 'VM' do |vm|
+      vm.source_files = "Code/BBQBridge/TableSection/VM/*.{swift}"
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'RxCocoa'
+      vm.dependency 'RxSwift'
+    end
+    
+    cs.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/TableSection/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/TableSection/VM'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'RxDataSources'
+    end
+  end
+  
 end
