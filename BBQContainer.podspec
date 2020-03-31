@@ -149,4 +149,27 @@ Pod::Spec.new do |spec|
     feedBack.dependency 'JXTAlertManager'
     feedBack.dependency 'BBQTextField'
   end
+  
+  # 黑名单 black
+  spec.subspec 'Black' do |black|
+    
+    black.source_files = "Code/BBQContainer/Black/*.{h,m}"
+    black.dependency 'BBQConfig'
+    black.dependency 'BBQBridge/Black/Bridge'
+    black.dependency 'Masonry'
+    black.dependency 'BBQTable'
+    focus.dependency 'SDWebImage'
+    black.dependency 'JXTAlertManager'
+  end
+  # 关注 关注
+  spec.subspec 'Focus' do |focus|
+    
+    focus.source_files = "Code/BBQContainer/Black/*.{h,m}"
+    focus.dependency 'BBQConfig'
+    focus.dependency 'BBQBridge/Black/Bridge'
+    focus.dependency 'Masonry'
+    focus.dependency 'BBQTable'
+    focus.dependency 'SDWebImage'
+    focus.dependency 'JXTAlertManager'
+  end
 end

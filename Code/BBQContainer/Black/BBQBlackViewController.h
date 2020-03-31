@@ -17,10 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,strong) BBQBlackBean *black;
 
 @end
-
+typedef void(^BBQBlackBlock)(void);
 @interface BBQBlackViewController : BBQTableLoadingViewController
 
-+ (instancetype)createBlack;
++ (instancetype)createBlackWithBlock:(BBQBlackBlock) block;
 
 @end
 

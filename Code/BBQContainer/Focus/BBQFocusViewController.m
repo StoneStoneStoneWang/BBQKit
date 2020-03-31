@@ -1,18 +1,18 @@
 //
-//  BBQBlackViewController.m
+//  BBQFocusViewController.m
 //  BBQContainer
 //
 //  Created by 王磊 on 2020/3/31.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#import "BBQBlackViewController.h"
+#import "BBQFocusViewController.h"
 @import SToolsKit;
 @import Masonry;
 @import SDWebImage;
 @import JXTAlertManager;
 
-@interface BBQBlackTableViewCell()
+@interface BBQFocusTableViewCell()
 
 @property (nonatomic ,strong) UIImageView *iconImageView;
 
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation BBQBlackTableViewCell
+@implementation BBQFocusTableViewCell
 
 - (UIImageView *)iconImageView {
     
@@ -88,15 +88,13 @@
     
     [self.contentView addSubview:self.timeLabel];
 }
-
-- (void)setBlack:(BBQBlackBean *)black {
-//    _black = black;
+- (void)setFocus:(BBQFocusBean *)focus {
     
-    self.timeLabel.text = [[NSString stringWithFormat:@"%ld",black.intime / 1000] s_convertToDate:SDateTypeDateStyle];
+    self.timeLabel.text = [[NSString stringWithFormat:@"%ld",focus.intime / 1000] s_convertToDate:SDateTypeDateStyle];
     
-    self.nameLabel.text = black.users.nickname;
+    self.nameLabel.text = focus.users.nickname;
     
-    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?x-oss-process=image/resize,w_200,h_200",black.users.headImg]] placeholderImage:[UIImage imageNamed:@BBQLogoIcon] options:SDWebImageRefreshCached];
+    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?x-oss-process=image/resize,w_200,h_200",focus.users.headImg]] placeholderImage:[UIImage imageNamed:@BBQLogoIcon] options:SDWebImageRefreshCached];
 }
 
 - (void)layoutSubviews {
@@ -130,20 +128,20 @@
 }
 @end
 
-@interface BBQBlackViewController ()
+@interface BBQFocusViewController ()
 
-@property (nonatomic ,strong) BBQBlackBridge *bridge;
+@property (nonatomic ,strong) BBQFocusBridge *bridge;
 
-@property (nonatomic ,copy) BBQBlackBlock block;
+@property (nonatomic ,copy) BBQFocusBlock block;
 @end
 
-@implementation BBQBlackViewController
+@implementation BBQFocusViewController
 
-+ (instancetype)createBlackWithBlock:(BBQBlackBlock)block {
++ (instancetype)createBlackWithBlock:(BBQFocusBlock)block {
     
     return [[self alloc] initWithBlackBlock:block];
 }
-- (instancetype)initWithBlackBlock:(BBQBlackBlock)block {
+- (instancetype)initWithBlackBlock:(BBQFocusBlock)block {
     
     if (self = [super init]) {
         
@@ -154,16 +152,16 @@
 - (void)configOwnSubViews {
     [super configOwnSubViews];
     
-    [self.tableView registerClass:[BBQBlackTableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerClass:[BBQFocusTableViewCell class] forCellReuseIdentifier:@"cell"];
     
     [self.tableView.mj_header beginRefreshing];
 }
 
 - (UITableViewCell *)configTableViewCell:(id)data forIndexPath:(NSIndexPath *)ip {
     
-    BBQBlackTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+    BBQFocusTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    cell.black = data;
+    cell.focus = data;
     
     return cell;
 }
@@ -174,29 +172,31 @@
 }
 - (void)configViewModel {
     
-    self.bridge = [BBQBlackBridge new];
+    self.bridge = [BBQFocusBridge new];
     
     __weak typeof(self) weakSelf = self;
     
-    [self.bridge createBlack:self :^(BBQBlackBean * _Nonnull black, NSIndexPath * _Nonnull ip) {
+    [self.bridge createFocus:self :^(BBQFocusBean * _Nonnull focus, NSIndexPath * _Nonnull ip) {
         
-        [weakSelf alertShow:black andIp:ip];
-    }];
+        [weakSelf alertShow:focus andIp:ip];
+    }] ;
+    
 }
-- (void)alertShow:(BBQBlackBean *)black andIp:(NSIndexPath *)ip {
+- (void)alertShow:(BBQFocusBean *)focus andIp:(NSIndexPath *)ip {
     
     __weak typeof(self) weakSelf = self;
     
-    [self jxt_showAlertWithTitle:[NSString stringWithFormat:@"点击确定移除%@",black.users.nickname] message:nil appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+    [self jxt_showAlertWithTitle:[NSString stringWithFormat:@"点击确定取消对%@的关注",focus.users.nickname] message:nil appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
         
         alertMaker
         .addActionCancelTitle(@"取消")
         .addActionDefaultTitle(@"确定");
     } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-       
+        
         if ([action.title isEqualToString:@"确定"]) {
             
-            [weakSelf.bridge removeBlack:black :ip :weakSelf.block];
+            [weakSelf.bridge removeFocus:focus :ip :weakSelf.block ];
+            
         }
     }];
 }
@@ -209,5 +209,6 @@
     
     return true;
 }
+
 
 @end
