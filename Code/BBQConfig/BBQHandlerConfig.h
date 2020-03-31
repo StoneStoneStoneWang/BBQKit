@@ -68,7 +68,9 @@
 
 #define bbqPushFeedBack bbqPushFeedBack111
 
+#define bbqCreateCarousel bbqCreateCarousel1111
 
+#define bbqPushReport bbqPushReport111
 
 #define BBQLoginBlock BBQLoginBlock111
 
@@ -119,6 +121,28 @@
 #define BBQAboutTableHeaderView BBQAboutTableHeaderView111
 
 #define BBQAboutTableViewCell BBQAboutTableViewCell111
+
+#define BBQReportViewController BBQReportViewController111
+
+#define BBQReportTableViewCell BBQReportTableViewCell111
+
+#define BBQReportBlock BBQReportBlock111
+
+#define BBQCarouselViewController BBQCarouselViewController111
+
+#define BBQCarouselFormTwoLayout BBQCarouselFormTwoLayout111
+
+#define BBQCarouselFormOneLayout BBQCarouselFormOneLayout111
+
+#define BBQCarouselCollectionViewCell BBQCarouselCollectionViewCell111
+
+#define BBQUserCenterCollectionViewCell BBQUserCenterCollectionViewCell111
+
+#define BBQUserCentereBlock BBQUserCentereBlock111
+
+#define BBQUserCenterViewController BBQUserCenterViewController111
+
+#define createUserCenterWithBlock createUserCenterWithBlock111
 
 #pragma mark ---- 圈子类型
 #if BBQCONFIGURETYPECIRCLE

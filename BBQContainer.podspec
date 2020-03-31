@@ -117,7 +117,7 @@ Pod::Spec.new do |spec|
     userInfo.dependency 'JXTAlertManager'
     userInfo.dependency 'WLToolsKit/Image'
   end
-  # 个性签名 signature
+  # 设置 setting
   spec.subspec 'Setting' do |setting|
     
     setting.source_files = "Code/BBQContainer/Setting/*.{h,m}"
@@ -128,7 +128,7 @@ Pod::Spec.new do |spec|
     setting.dependency 'SDWebImage'
   end
   
-  # 个性签名 signature
+  # 关于我们 about
   spec.subspec 'About' do |about|
     
     about.source_files = "Code/BBQContainer/About/*.{h,m}"
@@ -138,7 +138,7 @@ Pod::Spec.new do |spec|
     about.dependency 'BBQTable'
   end
   
-  # 个性签名 signature
+  # 意见建议 feedBack
   spec.subspec 'FeedBack' do |feedBack|
     
     feedBack.source_files = "Code/BBQContainer/FeedBack/*.{h,m}"
@@ -161,7 +161,7 @@ Pod::Spec.new do |spec|
     black.dependency 'SDWebImage'
     black.dependency 'JXTAlertManager'
   end
-  # 关注 关注
+  # 关注 focus
   spec.subspec 'Focus' do |focus|
     
     focus.source_files = "Code/BBQContainer/Focus/*.{h,m}"
@@ -171,5 +171,26 @@ Pod::Spec.new do |spec|
     focus.dependency 'BBQTable'
     focus.dependency 'SDWebImage'
     focus.dependency 'JXTAlertManager'
+  end
+  
+  # 举报 举报
+  spec.subspec 'Report' do |report|
+    
+    report.source_files = "Code/BBQContainer/Report/*.{h,m}"
+    report.dependency 'BBQConfig'
+    report.dependency 'BBQBridge/Report/Bridge'
+    report.dependency 'Masonry'
+    report.dependency 'BBQTable'
+    report.dependency 'JXTAlertManager'
+  end
+  
+  # 轮播 carousel
+  spec.subspec 'Carousel' do |carousel|
+    
+    report.source_files = "Code/BBQContainer/Carousel/*.{h,m}"
+    report.dependency 'BBQConfig'
+    report.dependency 'BBQBridge/Carousel/Bridge'
+    report.dependency 'Masonry'
+    report.dependency 'BBQCollection'
   end
 end

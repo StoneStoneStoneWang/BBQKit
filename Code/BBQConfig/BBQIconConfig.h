@@ -14,6 +14,8 @@
 
 #define BBQWelcomeImgs @[@"引导1",@"引导2"]
 
+#define BBQCarouselImgs @[@"banner1",@"banner2",@"banner3"]
+
 #define BBQAboutIcon "关于我们"
 
 #define BBQContactUsIcon "联系我们"
@@ -59,7 +61,7 @@
 
 #define BBQFunSelectedIcon "点赞选中"
 
-#define ZReportKeyValues @[\
+#define BBQReportKeyValues @[\
 @{@"type": @"1",@"title": @"标题夸张",@"isSelected": @true} ,\
 @{@"type": @"2",@"title": @"低俗色情",@"isSelected": @false} ,\
 @{@"type": @"3",@"title": @"广告软文",@"isSelected": @false} ,\

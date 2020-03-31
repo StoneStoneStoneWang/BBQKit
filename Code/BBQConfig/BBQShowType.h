@@ -7,7 +7,7 @@
 //
 #import "BBQSignConfig.h"
 
-#define BBQColor "#50c9c3"
+#define BBQColor "#3e7bac"
 
 #pragma mark --- BBQBGNORMAL 背景正常 item正常 BBQBGFULL 背景全局色 item 正常 BBQBGITEMFULL 背景色正常 item 全橘色
 
@@ -61,3 +61,8 @@
 
 #define BBQMeEight 0
 
+#pragma mark ---bannerType
+
+#define BBQCarouselOne 0
+
+#define BBQCarouselTwo 1
