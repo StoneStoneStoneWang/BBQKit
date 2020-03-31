@@ -187,10 +187,10 @@ Pod::Spec.new do |spec|
   # 轮播 carousel
   spec.subspec 'Carousel' do |carousel|
     
-    report.source_files = "Code/BBQContainer/Carousel/*.{h,m}"
-    report.dependency 'BBQConfig'
-    report.dependency 'BBQBridge/Carousel/Bridge'
-    report.dependency 'Masonry'
-    report.dependency 'BBQCollection'
+    carousel.source_files = "Code/BBQContainer/Carousel/*.{h,m}"
+    carousel.dependency 'BBQConfig'
+    carousel.dependency 'BBQBridge/Carousel/Bridge'
+    carousel.dependency 'Masonry'
+    carousel.dependency 'BBQCollection'
   end
 end
