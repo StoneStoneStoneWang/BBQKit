@@ -1,5 +1,5 @@
 //
-//  BBQBlackBridge.swift
+//  BBQFocusBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/8/26.
@@ -13,36 +13,36 @@ import BBQCocoa
 import BBQBean
 import BBQHud
 
-public typealias BBQBlackAction = (_ blackBean: BBQBlackBean ,_ ip: IndexPath) -> ()
+public typealias BBQFocusAction = (_ blackBean: BBQFocusBean ,_ ip: IndexPath) -> ()
 
-@objc (BBQBlackBridge)
-public final class BBQBlackBridge: BBQBaseBridge {
+@objc (BBQFocusBridge)
+public final class BBQFocusBridge: BBQBaseBridge {
     
-    typealias Section = BBQAnimationSetionModel<BBQBlackBean>
+    typealias Section = BBQAnimationSetionModel<BBQFocusBean>
     
     var dataSource: RxTableViewSectionedAnimatedDataSource<Section>!
     
-    public var viewModel: BBQBlackViewModel!
+    public var viewModel: BBQFocusViewModel!
     
     weak var vc: BBQTableLoadingViewController!
     
-    var blackAction: BBQBlackAction!
+    var focusAction: BBQFocusAction!
 }
-extension BBQBlackBridge {
+extension BBQFocusBridge {
     
-    @objc public func createBlack(_ vc: BBQTableLoadingViewController ,_ blackAction:@escaping BBQBlackAction) {
+    @objc public func createFocus(_ vc: BBQTableLoadingViewController ,_ focusAction:@escaping BBQFocusAction) {
         
-        self.blackAction = blackAction
+        self.focusAction = focusAction
         
         self.vc = vc
         
         vc.tableView.mj_footer?.isHidden = true
         
-        let input = BBQBlackViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQBlackBean.self),
+        let input = BBQFocusViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQFocusBean.self),
                                               itemSelect: vc.tableView.rx.itemSelected,
                                               headerRefresh: vc.tableView.mj_header!.rx.refreshing.asDriver())
         
-        viewModel = BBQBlackViewModel(input, disposed: disposed)
+        viewModel = BBQFocusViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedAnimatedDataSource<Section>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .left),
@@ -99,7 +99,7 @@ extension BBQBlackBridge {
             .disposed(by: disposed)
     }
 }
-extension BBQBlackBridge: UITableViewDelegate {
+extension BBQFocusBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -114,7 +114,7 @@ extension BBQBlackBridge: UITableViewDelegate {
             
             guard let `self` = self else { return }
             
-            self.blackAction(self.dataSource[indexPath], ip)
+            self.focusAction(self.dataSource[indexPath], ip)
             
         }
         
@@ -125,12 +125,12 @@ extension BBQBlackBridge: UITableViewDelegate {
         return [cancel,delete]
     }
     
-    @objc public func removeBlack(_ blackBean: BBQBlackBean ,_ ip: IndexPath ,_ blackAction: @escaping () -> ()) {
+    @objc public func removeFocus(_ blackBean: BBQFocusBean ,_ ip: IndexPath ,_ focusAction: @escaping () -> ()) {
         
         BBQHud.show(withStatus: "移除\(blackBean.users.nickname)中...")
         
-        BBQBlackViewModel
-            .removeBlack(blackBean.identity)
+        BBQFocusViewModel
+            .removeFocus(blackBean.identity)
             .drive(onNext: { [weak self] (result) in
                 
                 guard let `self` = self else { return }
@@ -153,7 +153,7 @@ extension BBQBlackBridge: UITableViewDelegate {
                         self.vc.tableViewEmptyShow()
                     }
                     
-                    blackAction()
+                    focusAction()
                     
                 case .failed:
                     
