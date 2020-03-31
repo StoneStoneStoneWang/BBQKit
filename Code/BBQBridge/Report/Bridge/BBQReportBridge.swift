@@ -30,7 +30,7 @@ public final class BBQReportBridge: BBQBaseBridge {
 
 extension BBQReportBridge {
     
-    @objc public func createReport(_ vc: BBQTableNoLoadingViewConntroller ,reports: [[String: Any]],uid: String,encoded: String ,textView: UITextView) {
+    @objc public func createReport(_ vc: BBQTableNoLoadingViewConntroller ,reports: [[String: Any]],uid: String,encoded: String ,textView: UITextView ,reportAction: @escaping () -> ()) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton {
             
@@ -128,26 +128,7 @@ extension BBQReportBridge {
                         
                     case let .failed(msg): BBQHud.showInfo(msg)
                         
-                    case .ok:
-                        
-                        let alert = UIAlertController(title: "举报成功", message: "您的举报非常成功,我们会尽快调查.", preferredStyle: .alert)
-                        
-                        
-                        let cancel = UIAlertAction(title: "取消", style: .cancel) { (a) in
-                            
-                            
-                        }
-                        
-                        let confirm = UIAlertAction(title: "确认", style: .default) { (a) in
-                            
-                            vc.navigationController?.popViewController(animated: true)
-                        }
-                        
-                        alert.addAction(cancel)
-                        
-                        alert.addAction(confirm)
-                        
-                        vc.present(alert, animated: true, completion: nil)
+                    case .ok: reportAction()
                         
                     default: break
                     }
