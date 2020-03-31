@@ -1,5 +1,5 @@
 //
-//  ZReportViewModel.swift
+//  BBQReportViewModel.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/9/9.
@@ -14,10 +14,10 @@ import WLReqKit
 import WLBaseResult
 import ObjectMapper
 import RxDataSources
-import ZApi
-import ZRealReq
+import BBQApi
+import BBQRReq
 
-@objc public final class ZReportBean: NSObject,IdentifiableType ,Mappable {
+@objc public final class BBQReportBean: NSObject,IdentifiableType ,Mappable {
     public init?(map: Map) {
         
         
@@ -32,10 +32,10 @@ import ZRealReq
         type <- map["type"]
     }
     
-    
     public var identity: String = NSUUID().uuidString
     
     public typealias Identity = String
+    
     
     @objc public var title: String = ""
     
@@ -48,7 +48,7 @@ import ZRealReq
 }
 
 
-struct ZReportViewModel: WLBaseViewModel {
+struct BBQReportViewModel: WLBaseViewModel {
     
     var input: WLInput
     
@@ -58,7 +58,7 @@ struct ZReportViewModel: WLBaseViewModel {
         
         let reports: [[String: Any]]
         
-        let modelSelect: ControlEvent<ZReportBean>
+        let modelSelect: ControlEvent<BBQReportBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -76,9 +76,9 @@ struct ZReportViewModel: WLBaseViewModel {
     
     struct WLOutput {
         
-        let zip: Observable<(ZReportBean,IndexPath)>
+        let zip: Observable<(BBQReportBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[ZReportBean]> = BehaviorRelay<[ZReportBean]>(value: [])
+        let tableData: BehaviorRelay<[BBQReportBean]> = BehaviorRelay<[BBQReportBean]>(value: [])
         
         /* 完成中... 序列*/
         let completing: Driver<Void>
@@ -100,8 +100,8 @@ struct ZReportViewModel: WLBaseViewModel {
             .completeTaps
             .withLatestFrom(combine)
             .flatMapLatest {
-                
-                return onUserVoidResp(ZUserApi.report(input.uid, targetEncoded: input.encode, type: $0.0, content: $0.1))
+
+                return bbqVoidResp(BBQApi.report(input.uid, targetEncoded: input.encode, type: $0.0, content: $0.1))
                     .map({ _ in WLBaseResult.ok("举报成功") })
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
         }
@@ -110,7 +110,7 @@ struct ZReportViewModel: WLBaseViewModel {
         
         for item in input.reports {
             
-            let res = ZReportBean(JSON: item)
+            let res = BBQReportBean(JSON: item)
             
             output.tableData.accept( output.tableData.value + [res!])
         }

@@ -58,6 +58,15 @@
 #define BBQFunNormalIcon "点赞未选中"
 
 #define BBQFunSelectedIcon "点赞选中"
+
+#define ZReportKeyValues @[\
+@{@"type": @"1",@"title": @"标题夸张",@"isSelected": @true} ,\
+@{@"type": @"2",@"title": @"低俗色情",@"isSelected": @false} ,\
+@{@"type": @"3",@"title": @"广告软文",@"isSelected": @false} ,\
+@{@"type": @"4",@"title": @"内容不实",@"isSelected": @false} ,\
+@{@"type": @"5",@"title": @"涉嫌违法犯罪",@"isSelected": @false} ,\
+@{@"type": @"6",@"title": @"其他问题",@"isSelected": @false} ,\
+]
 #pragma mark ---- 商城类型
 #elif BBQCONFIGURETYPESTORE
 
@@ -82,6 +91,19 @@
 #define BBQFunNormalIcon "点赞未选中"
 
 #define BBQFunSelectedIcon "点赞选中"
+
+#define BBQNormalIcon "未选中"
+
+#define BBQSelectedIcon "选中"
+
+#define BBQReportKeyValues @[\
+@{@"type": @"1",@"title": @"标题粗俗夸张",@"isSelected": @true} ,\
+@{@"type": @"2",@"title": @"内容低俗色情",@"isSelected": @false} ,\
+@{@"type": @"3",@"title": @"含有广告软文",@"isSelected": @false} ,\
+@{@"type": @"4",@"title": @"内容不实",@"isSelected": @false} ,\
+@{@"type": @"5",@"title": @"涉嫌违法犯罪",@"isSelected": @false} ,\
+@{@"type": @"6",@"title": @"其他问题",@"isSelected": @false} ,\
+]
 
 #pragma mark ---- 地图类型
 #else

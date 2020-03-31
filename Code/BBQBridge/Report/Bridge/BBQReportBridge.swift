@@ -1,5 +1,5 @@
 //
-//  ZReportBridge.swift
+//  BBQReportBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2019/9/9.
@@ -7,36 +7,37 @@
 //
 
 import Foundation
-import ZTable
+import BBQTable
 import RxDataSources
-import ZCocoa
-import ZHud
+import BBQCocoa
+import BBQHud
 import RxCocoa
 import RxSwift
-import ZBridge
-@objc (ZReportBridge)
-public final class ZReportBridge: ZBaseBridge {
+
+@objc (BBQReportBridge)
+public final class BBQReportBridge: BBQBaseBridge {
     
-    typealias Section = ZSectionModel<(), ZReportBean>
+    typealias Section = BBQSectionModel<(), BBQReportBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: ZReportViewModel!
+    var viewModel: BBQReportViewModel!
     
-    weak var vc: ZTableNoLoadingViewConntroller!
+    weak var vc: BBQTableNoLoadingViewConntroller!
     
     var selectedReport: BehaviorRelay<String> = BehaviorRelay<String>(value: "1")
 }
-extension ZReportBridge {
+
+extension BBQReportBridge {
     
-    @objc public func createReport(_ vc: ZTableNoLoadingViewConntroller ,reports: [[String: Any]],uid: String,encoded: String ,textView: UITextView) {
+    @objc public func createReport(_ vc: BBQTableNoLoadingViewConntroller ,reports: [[String: Any]],uid: String,encoded: String ,textView: UITextView) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton {
             
             self.vc = vc
             
-            let input = ZReportViewModel.WLInput(reports: reports,
-                                                 modelSelect: vc.tableView.rx.modelSelected(ZReportBean.self),
+            let input = BBQReportViewModel.WLInput(reports: reports,
+                                                 modelSelect: vc.tableView.rx.modelSelected(BBQReportBean.self),
                                                  itemSelect: vc.tableView.rx.itemSelected,
                                                  completeTaps: completeItem.rx.tap.asSignal(),
                                                  uid: uid,
@@ -44,7 +45,7 @@ extension ZReportBridge {
                                                  report: selectedReport.asDriver(),
                                                  content: textView.rx.text.orEmpty.asDriver())
             
-            viewModel = ZReportViewModel(input, disposed: disposed)
+            viewModel = BBQReportViewModel(input, disposed: disposed)
             
             let dataSource = RxTableViewSectionedReloadDataSource<Section>(
                 configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)  })
@@ -110,7 +111,7 @@ extension ZReportBridge {
                     
                     vc.view.endEditing(true)
                     
-                    ZHudUtil.show(withStatus: "举报提交中...")
+                    BBQHud.show(withStatus: "举报提交中...")
                     
                 })
                 .disposed(by: disposed)
@@ -121,11 +122,11 @@ extension ZReportBridge {
                 .completed
                 .drive(onNext: {
                     
-                    ZHudUtil.pop()
+                    BBQHud.pop()
                     
                     switch $0 {
                         
-                    case let .failed(msg): ZHudUtil.showInfo(msg)
+                    case let .failed(msg): BBQHud.showInfo(msg)
                         
                     case .ok:
                         
@@ -156,7 +157,7 @@ extension ZReportBridge {
         
     }
 }
-extension ZReportBridge: UITableViewDelegate {
+extension BBQReportBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
