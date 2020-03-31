@@ -53,9 +53,9 @@ struct BBQFeedBackViewModel: WLBaseViewModel {
         
         let completed: Driver<WLBaseResult> = input.completTaps
             .withLatestFrom(ou)
-            .flatMapLatest({_ in
+            .flatMapLatest({
                 
-                return bbqArrayResp(BBQApi.fetchTags)
+                return bbqVoidResp(BBQApi.feedback("yuanxingfu1314@163.com", content: $0.0))
                     .map { _ in WLBaseResult.ok("意见建议提交成功")}
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) }) })
         
