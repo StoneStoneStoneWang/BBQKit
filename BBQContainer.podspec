@@ -164,9 +164,9 @@ Pod::Spec.new do |spec|
   # 关注 关注
   spec.subspec 'Focus' do |focus|
     
-    focus.source_files = "Code/BBQContainer/Black/*.{h,m}"
+    focus.source_files = "Code/BBQContainer/Focus/*.{h,m}"
     focus.dependency 'BBQConfig'
-    focus.dependency 'BBQBridge/Black/Bridge'
+    focus.dependency 'BBQBridge/Focus/Bridge'
     focus.dependency 'Masonry'
     focus.dependency 'BBQTable'
     focus.dependency 'SDWebImage'
