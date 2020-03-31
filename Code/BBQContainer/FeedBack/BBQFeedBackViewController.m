@@ -47,7 +47,7 @@
         
         [_textField bbq_returnKeyType:UIReturnKeyDone];
         
-        _textField.tag = 201;
+        _textField.tag = 203;
         
         _textField.backgroundColor = [UIColor whiteColor];
         
