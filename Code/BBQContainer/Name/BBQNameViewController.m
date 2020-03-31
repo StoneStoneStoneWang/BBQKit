@@ -148,24 +148,24 @@
 }
 - (void)configOwnProperties {
     
-#if BBQBGNORMAL || BBQBGITEMFULL
+#if BBQNameOne
     [super configOwnProperties];
     
-#elif BBQBGFULL
+#elif BBQNameTwo
     
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-#endif
-    
-#if BBQBGITEMFULL
-    
-    self.textField.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.textField.textColor = [UIColor whiteColor];
-    
-    self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入昵称" attributes:@{NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff50"],NSFontAttributeName: [UIFont systemFontOfSize:15]}];
+//    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
     
 #endif
+    
+//#if BBQBGITEMFULL
+//
+//    self.textField.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+//
+//    self.textField.textColor = [UIColor whiteColor];
+//
+//    self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入昵称" attributes:@{NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff50"],NSFontAttributeName: [UIFont systemFontOfSize:15]}];
+//
+//#endif
     
 }
 @end

@@ -47,7 +47,7 @@ import BBQSign
             
         } else {
             
-            for item in BBQSettingType.placeTypes {
+            for item in BBQSettingType.types {
                 
                 result += [BBQSettingBean.createSetting(item, title: item.title, sub: "")]
             }
@@ -119,7 +119,7 @@ extension BBQSettingType {
             }
         } else {
             
-            return [.space,.pwd,.space,.clear,.push]
+            return [.pwd,.clear,.push]
         }
     }
     

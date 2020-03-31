@@ -200,25 +200,25 @@
 }
 - (void)configOwnProperties {
     
-#if BBQBGNORMAL || BBQBGITEMFULL
+#if BBQNameOne
     [super configOwnProperties];
     
-#elif BBQBGFULL
+#elif BBQNameTwo
     
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-#endif
-    
-#if BBQBGITEMFULL
-    
-    self.whiteView.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.placeholder.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.placeholder.textColor = [UIColor whiteColor];
-    
-    self.signaturetv.textColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
     
 #endif
+    
+//#if BBQBGITEMFULL
+//
+//    self.whiteView.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+//
+//    self.placeholder.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+//
+//    self.placeholder.textColor = [UIColor whiteColor];
+//
+//    self.signaturetv.textColor = [UIColor whiteColor];
+//
+//#endif
 }
 @end

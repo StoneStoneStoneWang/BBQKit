@@ -53,16 +53,12 @@
     
     [self addSubview:self.titleLabel];
     
-#if BBQBGNORMAL || BBQBGFULL
     
+#if BBQAboutOne
     self.backgroundColor = [UIColor whiteColor];
-#elif BBQBGITEMFULL
-    
-    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.titleLabel.textColor = [UIColor whiteColor];
+#elif BBQAboutTwo
+    self.backgroundColor = [UIColor whiteColor];
 #endif
-    
 }
 
 - (void)layoutSubviews {
@@ -82,7 +78,6 @@
         
         make.top.equalTo(self.iconImageView.mas_bottom).offset(5);
     }];
-    
 }
 
 @end
@@ -157,16 +152,18 @@
         
         self.accessoryType = UITableViewCellAccessoryNone;
     }
-#if BBQBGNORMAL || BBQBGFULL
     
-#elif BBQBGITEMFULL
+#if BBQAboutOne
     
-    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+#elif BBQAboutTwo
     
-    self.titleLabel.textColor = [UIColor whiteColor];
-    
-    self.subTitleLabel.textColor = [UIColor whiteColor];
 #endif
+    
+    //    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    //
+    //    self.titleLabel.textColor = [UIColor whiteColor];
+    //
+    //    self.subTitleLabel.textColor = [UIColor whiteColor];
 }
 
 - (void)layoutSubviews {
@@ -215,7 +212,11 @@
     
     [self.tableView registerClass:[BBQAboutTableViewCell class] forCellReuseIdentifier:@"cell"];
     
+#if BBQAboutOne
     self.headerView = [[BBQAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 120)];
+#elif BBQAboutTwo
+    self.headerView = [[BBQAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 120)];
+#endif
     
     self.tableView.tableHeaderView = self.headerView;
     
@@ -250,13 +251,13 @@
 }
 - (void)configOwnProperties {
     
-#if BBQBGNORMAL || BBQBGITEMFULL
+#if BBQAboutOne
     [super configOwnProperties];
-    
-#elif BBQBGFULL
-    
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
+#elif BBQAboutTwo
+    [super configOwnProperties];
 #endif
+    
+    //    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    
 }
 @end

@@ -228,30 +228,30 @@
 }
 - (void)configOwnProperties {
     
-#if BBQBGNORMAL || BBQBGITEMFULL
+#if BBQNameOne
     [super configOwnProperties];
     
-#elif BBQBGFULL
+#elif BBQNameTwo
     
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+//    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
     
 #endif
     
-#if BBQBGITEMFULL
-    
-    self.whiteView.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.placeholder.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.placeholder.textColor = [UIColor whiteColor];
-    
-    self.signaturetv.textColor = [UIColor whiteColor];
-    
-    self.textField.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.textField.textColor = [UIColor whiteColor];
-    
-    self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:@{NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff90"],NSFontAttributeName: [UIFont systemFontOfSize:15]}];
-#endif
+//#if BBQBGITEMFULL
+//
+//    self.whiteView.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+//
+//    self.placeholder.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+//
+//    self.placeholder.textColor = [UIColor whiteColor];
+//
+//    self.signaturetv.textColor = [UIColor whiteColor];
+//
+//    self.textField.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+//
+//    self.textField.textColor = [UIColor whiteColor];
+//
+//    self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:@{NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff90"],NSFontAttributeName: [UIFont systemFontOfSize:15]}];
+//#endif
 }
 @end

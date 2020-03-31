@@ -9,17 +9,11 @@
 
 #define BBQColor "#3e7bac"
 
-#pragma mark --- BBQBGNORMAL 背景正常 item正常 BBQBGFULL 背景全局色 item 正常 BBQBGITEMFULL 背景色正常 item 全橘色
-
-#define BBQBGNORMAL 0
-
-#define BBQBGFULL 0
-
-#define BBQBGITEMFULL 1
+#pragma mark ---
 
 #define BBQCONTAINDRAWER 1
 
-#define BBQCONTAINERTAB 1
+#define BBQCONTAINERTAB 0
 
 #pragma mark ---welcome
 
@@ -47,7 +41,7 @@
 
 #pragma mark ---个人中心 1- 4 profile 5- 8 usercenter
 
-#define BBQMeOne 0
+#define BBQMeOne 1
 
 #define BBQMeTwo 0
 
@@ -55,7 +49,7 @@
 
 #define BBQMeFour 0
 
-#define BBQMeFive 1
+#define BBQMeFive 0
 
 #define BBQMeSix 0
 
@@ -68,3 +62,24 @@
 #define BBQCarouselOne 0
 
 #define BBQCarouselTwo 1
+
+
+#pragma mark ---setting userinfo one hasplace two no place
+
+#define BBQUserInfoOne 0
+
+#define BBQUserInfoTwo 1
+
+#pragma mark --- about
+
+#define BBQAboutOne 1
+
+#define BBQAboutTwo 0
+
+#pragma mark --- name signtrue feedback
+
+#define BBQNameOne 1
+
+#define BBQNameTwo 0
+
+

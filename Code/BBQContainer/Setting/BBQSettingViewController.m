@@ -118,16 +118,17 @@
     
     self.titleLabel.text = setting.title;
     
-#if BBQBGNORMAL || BBQBGFULL
+#if BBQSettinglOne
     
-#elif BBQBGITEMFULL
+#elif BBQSettinglTwo
     
-    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.titleLabel.textColor = [UIColor whiteColor];
-    
-    self.subTitleLabel.textColor = [UIColor whiteColor];
 #endif
+    
+    //    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    //
+    //    self.titleLabel.textColor = [UIColor whiteColor];
+    //
+    //    self.subTitleLabel.textColor = [UIColor whiteColor];
 }
 
 
@@ -221,13 +222,13 @@
     
     __weak typeof(self) weakSelf = self;
     
-#if BBQBGNORMAL || BBQBGITEMFULL
-    [self.bridge createSetting:self hasPlace:false settingAction:^(enum BBQSettingActionType actionType) {
+#if BBQSettinglOne
+    [self.bridge createSetting:self hasPlace:true settingAction:^(enum BBQSettingActionType actionType) {
         
         weakSelf.block(actionType, weakSelf);
     }];
-#elif BBQBGFULL
-    [self.bridge createSetting:self hasPlace:true settingAction:^(enum BBQSettingActionType actionType) {
+#elif BBQSettinglTwo
+    [self.bridge createSetting:self hasPlace:false settingAction:^(enum BBQSettingActionType actionType) {
         
         weakSelf.block(actionType, weakSelf);
     }];
@@ -237,24 +238,19 @@
 }
 
 - (void)updateTableData {
-#if BBQBGNORMAL || BBQBGITEMFULL
     
-    [self.bridge updateTableData:false];
-#elif BBQBGFULL
     [self.bridge updateTableData:true];
-#endif
     
     [self updateCache];
 }
 - (void)configOwnProperties {
-#if BBQBGNORMAL || BBQBGITEMFULL
+    
+#if BBQSettinglOne
     [super configOwnProperties];
-    
-#elif BBQBGFULL
-    
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
+#elif BBQSettinglTwo
+    [super configOwnProperties];
 #endif
+    
     
 }
 - (void)updateCache {

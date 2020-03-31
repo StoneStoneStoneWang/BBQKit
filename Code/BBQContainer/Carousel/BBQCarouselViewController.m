@@ -108,7 +108,7 @@
 #define LEFT_OFFSET 60
 @interface BBQCarouselFormTwoLayout : UICollectionViewFlowLayout
 
-
+#define BBQCarouselHeight KSSCREEN_WIDTH / 3
 @end
 @implementation BBQCarouselFormTwoLayout
 
@@ -117,7 +117,7 @@
     
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH - 80, KSSCREEN_WIDTH / 3);
+    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH - 80, BBQCarouselHeight);
     
     self.itemSize = itemSize;
     
@@ -239,15 +239,13 @@
     
     [self.collectionView registerClass:[BBQCarouselCollectionViewCell class] forCellWithReuseIdentifier:@"image"];
     
-    self.collectionView.backgroundColor = [UIColor redColor];
-    
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.right.mas_equalTo(0);
         
         make.top.mas_equalTo(0);
         
-        make.height.mas_equalTo( KSSCREEN_WIDTH / 3);
+        make.height.mas_equalTo( BBQCarouselHeight);
     }];
     
     [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -258,7 +256,7 @@
         
         make.height.mas_equalTo(20);
         
-        make.top.mas_equalTo((KSSCREEN_WIDTH / 3) - 40 );
+        make.top.mas_equalTo(BBQCarouselHeight - 40 );
     }];
 }
 - (void)configViewModel {

@@ -144,16 +144,12 @@
             break;
     }
     
-#if BBQBGNORMAL || BBQBGFULL
+#if BBQUserInfoOne
     
-#elif BBQBGITEMFULL
+#elif BBQUserInfoTwo
     
-    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
-    self.titleLabel.textColor = [UIColor whiteColor];
-    
-    self.subTitleLabel.textColor = [UIColor whiteColor];
 #endif
+    
 }
 
 - (void)layoutSubviews {
@@ -235,13 +231,10 @@
 }
 - (void)configOwnProperties {
     
-#if BBQBGNORMAL || BBQBGITEMFULL
+#if BBQUserInfoOne
     [super configOwnProperties];
-    
-#elif BBQBGFULL
-    
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    
+#elif BBQUserInfoTwo
+    [super configOwnProperties];
 #endif
     
 }
@@ -264,11 +257,12 @@
     
     self.bridge = [BBQUserInfoBridge new];
     
-#if BBQBGNORMAL || BBQBGITEMFULL
-    [self.bridge createUserInfo:self hasPlace:false];
-#elif BBQBGFULL
+#if BBQUserInfoOne
     [self.bridge createUserInfo:self hasPlace:true];
+#elif BBQUserInfoTwo
+    [self.bridge createUserInfo:self hasPlace:false];
 #endif
+    
 }
 
 - (void)configNaviItem {
