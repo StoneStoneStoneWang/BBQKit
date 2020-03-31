@@ -158,7 +158,7 @@ Pod::Spec.new do |spec|
     black.dependency 'BBQBridge/Black/Bridge'
     black.dependency 'Masonry'
     black.dependency 'BBQTable'
-    focus.dependency 'SDWebImage'
+    black.dependency 'SDWebImage'
     black.dependency 'JXTAlertManager'
   end
   # 关注 关注
