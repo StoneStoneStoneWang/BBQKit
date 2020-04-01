@@ -17,9 +17,11 @@
 #pragma mark ---- 商城类型
 #define BBQCONFIGURETYPESTORE 0
 #pragma mark ---- 游戏类型
-#define BBQCONFIGURETYPEGAME 1
+#define BBQCONFIGURETYPEGAME 0
 #pragma mark ---- 地图类型
 #define BBQCONFIGURETYPEMAP 0
+
+#define BBQCONFIGURETYPESTOREANDCIRCLE 1
 
 #if BBQCONFIGURETYPECIRCLE
 
@@ -32,10 +34,14 @@
 #elif BBQCONFIGURETYPEGAME
 
 #define BBQCONFIGURETYPE BBQConfigureTypeGame
+
+#elif BBQCONFIGURETYPESTOREANDCIRCLE
+
+#define BBQCONFIGURETYPE BBQConfigureTypeStoreAndCircle
+
 #else
 
 #define BBQCONFIGURETYPE BBQConfigureTypeMap
-
 #endif
 
 

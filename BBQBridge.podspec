@@ -380,68 +380,6 @@ Pod::Spec.new do |spec|
     end
   end
   
-  spec.subspec 'Area' do |area|
-    
-    area.subspec 'Manager' do |manager|
-      
-      manager.source_files = "Code/BBQBridge/Area/Manager/*.{swift}"
-      manager.dependency 'RxCocoa'
-      manager.dependency 'WLBaseViewModel'
-      manager.dependency 'BBQApi'
-      manager.dependency 'BBQRReq'
-      manager.dependency 'WLBaseResult'
-      manager.dependency 'BBQYYCache'
-      manager.dependency 'BBQBean/Area'
-    end
-    area.subspec 'VM' do |vm|
-      
-      vm.source_files = "Code/BBQBridge/Area/VM/*.{swift}"
-      vm.dependency 'RxCocoa'
-      vm.dependency 'WLBaseViewModel'
-      vm.dependency 'WLBaseResult'
-      vm.dependency 'BBQBean/Area'
-    end
-    
-    area.subspec 'Bridge' do |bridge|
-      bridge.source_files = "Code/BBQBridge/Area/Bridge/*.{swift}"
-      bridge.dependency 'BBQBridge/Area/VM'
-      bridge.dependency 'BBQBridge/Area/Manager'
-      bridge.dependency 'BBQTable'
-      bridge.dependency 'BBQCollection'
-      bridge.dependency 'BBQBridge/Base'
-      bridge.dependency 'BBQCocoa/SM'
-    end
-  end
-  
-  spec.subspec 'Address' do |address|
-    
-    address.subspec 'VM' do |vm|
-      
-      vm.source_files = "Code/BBQBridge/Address/VM/*.{swift}"
-      vm.dependency 'RxCocoa'
-      vm.dependency 'WLBaseViewModel'
-      vm.dependency 'ObjectMapper'
-      vm.dependency 'BBQApi'
-      vm.dependency 'BBQRReq'
-      vm.dependency 'WLBaseResult'
-      vm.dependency 'BBQBean/Area'
-      vm.dependency 'BBQBean/Address'
-      vm.dependency 'WLToolsKit/String'
-      
-    end
-    
-    address.subspec 'Bridge' do |bridge|
-      bridge.source_files = "Code/BBQBridge/Address/Bridge/*.{swift}"
-      bridge.dependency 'BBQBridge/Address/VM'
-      bridge.dependency 'ZTable'
-      bridge.dependency 'BBQBridge/Base'
-      bridge.dependency 'BBQHud'
-      bridge.dependency 'BBQCocoa/ASM'
-      bridge.dependency 'BBQCocoa/SM'
-      bridge.dependency 'BBQCocoa/Refresh'
-    end
-  end
-  
   spec.subspec 'Video' do |video|
     
     video.subspec 'VM' do |vm|
@@ -667,4 +605,65 @@ Pod::Spec.new do |spec|
     end
   end
   
+  spec.subspec 'Area' do |area|
+    
+    area.subspec 'Manager' do |manager|
+      
+      manager.source_files = "Code/BBQBridge/Area/Manager/*.{swift}"
+      manager.dependency 'RxCocoa'
+      manager.dependency 'WLBaseViewModel'
+      manager.dependency 'BBQApi'
+      manager.dependency 'BBQRReq'
+      manager.dependency 'WLBaseResult'
+      manager.dependency 'BBQYYCache'
+      manager.dependency 'BBQBean/Area'
+    end
+    area.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Area/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'BBQBean/Area'
+    end
+    
+    area.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Area/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Area/VM'
+      bridge.dependency 'BBQBridge/Area/Manager'
+      bridge.dependency 'BBQTable'
+      bridge.dependency 'BBQCollection'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQCocoa/SM'
+    end
+  end
+  
+  spec.subspec 'Address' do |address|
+    
+    address.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Address/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'ObjectMapper'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'BBQBean/Area'
+      vm.dependency 'BBQBean/Address'
+      vm.dependency 'WLToolsKit/String'
+      
+    end
+    
+    address.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Address/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Address/VM'
+      bridge.dependency 'ZTable'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQHud'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/SM'
+      bridge.dependency 'BBQCocoa/Refresh'
+    end
+  end
 end

@@ -65,6 +65,9 @@ NS_SWIFT_NAME(BBQPlayer)
 
 // 视频链接
 @property (nonatomic,strong) NSURL *mediaURL;
+
+@property (nonatomic ,assign) BOOL forceFullScreen;
+
 // 是否全屏
 @property (nonatomic,assign ,readonly) BOOL isFullscreenModel;
 

@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger ,BBQConfigureType) {
     BBQConfigureTypeGame NS_SWIFT_NAME(game) = 4,
     /** Mix  */
     BBQConfigureTypeMix NS_SWIFT_NAME(mix) = 5,
+    /** Mix  */
+    BBQConfigureTypeStoreAndCircle NS_SWIFT_NAME(storeAndCircle) = 6,
 };
 
 NS_ASSUME_NONNULL_BEGIN

@@ -1,5 +1,5 @@
 //
-//  ZVideoBridge.swift
+//  BBQVideoBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/22.
@@ -7,13 +7,12 @@
 //
 
 import Foundation
-import ZBridge
-import ZTransition
-import ZHud
-import ZCache
+import BBQTransition
+import BBQHud
+import BBQCache
 
-@objc(ZVideoActionType)
-public enum ZVideoActionType: Int ,Codable {
+@objc(BBQVideoActionType)
+public enum BBQVideoActionType: Int ,Codable {
     
     case myCircle = 0
     
@@ -38,83 +37,83 @@ public enum ZVideoActionType: Int ,Codable {
     case share = 10
 }
 
-public typealias ZVideoAction = (_ action: ZVideoActionType ,_ vc: ZTViewController) -> ()
+public typealias BBQVideoAction = (_ action: BBQVideoActionType) -> ()
 
-@objc (ZVideoBridge)
-public final class ZVideoBridge: ZBaseBridge {
+@objc (BBQVideoBridge)
+public final class BBQVideoBridge: BBQBaseBridge {
     
-    var viewModel: ZVideoViewModel!
+    var viewModel: BBQVideoViewModel!
     
-    weak var vc: ZTViewController!
+    weak var vc: BBQTViewController!
 }
-extension ZVideoBridge {
+extension BBQVideoBridge {
     
-    @objc public func createVideo(_ vc: ZTViewController) {
+    @objc public func createVideo(_ vc: BBQTViewController) {
         
         self.vc = vc
     }
 }
-extension ZVideoBridge {
+extension BBQVideoBridge {
     
-    @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,action: @escaping ZVideoAction) {
+    @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,action: @escaping BBQVideoAction) {
         
-        if !ZAccountCache.default.isLogin() {
+        if !BBQAccountCache.default.isLogin() {
             
-            action(.unLogin,self.vc)
+            action(.unLogin)
             
             return
         }
         
-        ZHudUtil.show(withStatus: "添加黑名单中...")
+        BBQHud.show(withStatus: "添加黑名单中...")
         
-        ZVideoViewModel
+        BBQVideoViewModel
             .addBlack(OUsEncoded, targetEncoded: targetEncoded, content: content)
             .drive(onNext: { (result) in
                 
-                ZHudUtil.pop()
+                BBQHud.pop()
                 
                 switch result {
                 case .ok(let msg):
                 
-                    ZHudUtil.showInfo(msg)
+                    BBQHud.showInfo(msg)
                     
-                    action(.black,self.vc)
+                    action(.black)
                     
                 case .failed(let msg):
                     
-                    ZHudUtil.showInfo(msg)
+                    BBQHud.showInfo(msg)
                 default:
                     break
                 }
             })
             .disposed(by: disposed)
     }
-    @objc public func focus(_ uid: String ,encode: String ,isFocus: Bool,action: @escaping ZVideoAction) {
+    @objc public func focus(_ uid: String ,encode: String ,isFocus: Bool,action: @escaping BBQVideoAction) {
         
-        if !ZAccountCache.default.isLogin() {
+        if !BBQAccountCache.default.isLogin() {
             
-            action(.unLogin,self.vc)
+            action(.unLogin)
             
             return
         }
         
-        ZHudUtil.show(withStatus: isFocus ? "取消关注中..." : "关注中...")
+        BBQHud.show(withStatus: isFocus ? "取消关注中..." : "关注中...")
         
-        ZVideoViewModel
+        BBQVideoViewModel
             .focus(uid, encode: encode)
             .drive(onNext: { (result) in
                 
-                ZHudUtil.pop()
+                BBQHud.pop()
                 
                 switch result {
                 case .ok:
                     
-                    action(.focus,self.vc)
+                    action(.focus)
                     
-                    ZHudUtil.showInfo(isFocus ? "取消关注成功" : "关注成功")
+                    BBQHud.showInfo(isFocus ? "取消关注成功" : "关注成功")
                 case .failed(let msg):
                     
-                    ZHudUtil.showInfo(msg)
+                    BBQHud.showInfo(msg)
                 default:
                     break
                 }
@@ -123,32 +122,32 @@ extension ZVideoBridge {
         
     }
 
-    @objc public func like(_ encoded: String,isLike: Bool,action: @escaping ZVideoAction) {
+    @objc public func like(_ encoded: String,isLike: Bool,action: @escaping BBQVideoAction) {
         
-        if !ZAccountCache.default.isLogin() {
+        if !BBQAccountCache.default.isLogin() {
             
-            action(.unLogin,self.vc)
+            action(.unLogin)
             
             return
         }
         
-        ZHudUtil.show(withStatus: isLike ? "取消点赞中..." : "点赞中...")
+        BBQHud.show(withStatus: isLike ? "取消点赞中..." : "点赞中...")
         
-        ZVideoViewModel
+        BBQVideoViewModel
             .like(encoded, isLike: !isLike)
             .drive(onNext: { [unowned self] (result) in
                 
-                ZHudUtil.pop()
+                BBQHud.pop()
                 
                 switch result {
                 case .ok(let msg):
                 
-                    action(.like,self.vc)
+                    action(.like)
                     
-                    ZHudUtil.showInfo(msg)
+                    BBQHud.showInfo(msg)
                 case .failed(let msg):
                     
-                    ZHudUtil.showInfo(msg)
+                    BBQHud.showInfo(msg)
                 default:
                     break
                 }
