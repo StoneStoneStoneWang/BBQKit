@@ -6,7 +6,7 @@
 //  Copyright © 2020 王磊. All rights reserved.
 //
 #import "BBQConfig.h"
-#if BBQCONFIGURETYPEGAME
+#if BBQCONFIGURETYPECIRCLE
 
 @import BBQTable;
 @import BBQBridge;

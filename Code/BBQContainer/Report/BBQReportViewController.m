@@ -6,7 +6,7 @@
 //  Copyright © 2020 王磊. All rights reserved.
 //
 #import "BBQReportViewController.h"
-#if BBQCONFIGURETYPEGAME
+#if BBQCONFIGURETYPECIRCLE
 
 @import JXTAlertManager;
 @import Masonry;
