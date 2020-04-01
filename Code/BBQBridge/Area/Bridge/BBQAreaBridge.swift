@@ -47,8 +47,8 @@ extension BBQAreaBridge {
         self.type = type
         
         let input = BBQAreaViewModel.WLInput(areas: areas,
-                                           modelSelect: vc.tableView.rx.modelSelected(BBQAreaBean.self),
-                                           itemSelect: vc.tableView.rx.itemSelected)
+                                             modelSelect: vc.tableView.rx.modelSelected(BBQAreaBean.self),
+                                             itemSelect: vc.tableView.rx.itemSelected)
         
         viewModel = BBQAreaViewModel(input, disposed: disposed)
         
@@ -125,6 +125,18 @@ extension BBQAreaBridge {
                 default:
                     break
                 }
+            })
+            .disposed(by: disposed)
+    }
+    
+    @objc public func fetchAreas() {
+        
+        BBQAreaManager
+            .default
+            .fetchAreas()
+            .drive(onNext: { (result) in
+                
+                
             })
             .disposed(by: disposed)
     }

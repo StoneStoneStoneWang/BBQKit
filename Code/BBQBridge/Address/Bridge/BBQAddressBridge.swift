@@ -169,7 +169,7 @@ extension BBQAddressBridge {
         
         var values = viewModel.output.tableData.value
         
-        values.replaceSubrange(ip.row..<ip.row+1, with: [address])
+        values.replaceSubrange(ip.section..<ip.section+1, with: [address])
         
         viewModel.output.tableData.accept(values)
         

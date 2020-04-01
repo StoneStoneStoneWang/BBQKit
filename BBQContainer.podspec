@@ -193,4 +193,25 @@ Pod::Spec.new do |spec|
     carousel.dependency 'Masonry'
     carousel.dependency 'BBQCollection'
   end
+  # 地址 address
+  spec.subspec 'Address' do |address|
+    
+    address.source_files = "Code/BBQContainer/Address/*.{h,m}"
+    address.dependency 'BBQConfig'
+    address.dependency 'BBQBridge/Address/Bridge'
+    address.dependency 'Masonry'
+    address.dependency 'BBQTable'
+    address.dependency 'JXTAlertManager'
+  end
+  # 地址 area
+  spec.subspec 'Area' do |area|
+    
+    area.source_files = "Code/BBQContainer/Area/*.{h,m}"
+    area.dependency 'BBQConfig'
+    area.dependency 'BBQBridge/Area/Bridge'
+    area.dependency 'Masonry'
+    area.dependency 'BBQTable'
+    area.dependency 'BBQCollection'
+    area.dependency 'JXTAlertManager'
+  end
 end
