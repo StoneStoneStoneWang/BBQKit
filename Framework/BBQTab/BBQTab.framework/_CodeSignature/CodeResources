@@ -8,6 +8,10 @@
 		<data>
 		mF6QQCclGhV1Bw018y1ig9PL4gM=
 		</data>
+		<key>Headers/BBQTabBarController.h</key>
+		<data>
+		wdY26e/XcUMxgCXK/T21S8ac5wM=
+		</data>
 		<key>Info.plist</key>
 		<data>
 		o2rOLkEVjFMbatLHcl6bhuwBG+s=
@@ -28,6 +32,17 @@
 			<key>hash2</key>
 			<data>
 			1nLVFA4qy6C6th5efb5PL+4FfB6L1oIxynP3bA9kUMU=
+			</data>
+		</dict>
+		<key>Headers/BBQTabBarController.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			wdY26e/XcUMxgCXK/T21S8ac5wM=
+			</data>
+			<key>hash2</key>
+			<data>
+			cWbjxfzWJ9PBtfqLo5jk6Co2yPPG7aF4Egp9g9UBvNA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -14,11 +14,11 @@ import RxCocoa
 @objc (BBQCollectionSectionBean)
 public final class BBQCollectionSectionBean: NSObject {
     
-    @objc var sTag: Int = 0
+    @objc public var sTag: Int = 0
     
-    @objc var items: [BBQCollectionItemBean] = []
+    @objc public var items: [BBQCollectionItemBean] = []
     
-    @objc var title: String = ""
+    @objc public var title: String = ""
     
     @objc public static func createSection(_ sTag: Int,title: String ,items: [BBQCollectionItemBean]) -> BBQCollectionSectionBean {
         
@@ -38,11 +38,11 @@ public final class BBQCollectionSectionBean: NSObject {
 @objc (BBQCollectionItemBean)
 public final class BBQCollectionItemBean: NSObject {
     
-    @objc var iTag: Int = 0
+    @objc public var iTag: Int = 0
     
-    @objc var title: String = ""
+    @objc public var title: String = ""
     
-    @objc var icon: String = ""
+    @objc public var icon: String = ""
     
     @objc public static func createSection(_ iTag: Int,title: String ,icon: String) -> BBQCollectionItemBean {
         

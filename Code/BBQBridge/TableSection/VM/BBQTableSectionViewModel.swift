@@ -14,11 +14,11 @@ import RxCocoa
 @objc (BBQTableSectionBean)
 public final class BBQTableSectionBean: NSObject {
     
-    @objc var sTag: Int = 0
+    @objc public var sTag: Int = 0
     
-    @objc var items: [BBQTableRowBean] = []
+    @objc public var items: [BBQTableRowBean] = []
     
-    @objc var title: String = ""
+    @objc public var title: String = ""
     
     @objc public static func createSection(_ sTag: Int,title: String ,items: [BBQTableRowBean]) -> BBQTableSectionBean {
         
@@ -38,11 +38,11 @@ public final class BBQTableSectionBean: NSObject {
 @objc (BBQTableRowBean)
 public final class BBQTableRowBean: NSObject {
     
-    @objc var iTag: Int = 0
+    @objc public var iTag: Int = 0
     
-    @objc var title: String = ""
+    @objc public var title: String = ""
     
-    @objc var icon: String = ""
+    @objc public var icon: String = ""
     
     @objc public static func createSection(_ iTag: Int,title: String ,icon: String) -> BBQTableRowBean {
         

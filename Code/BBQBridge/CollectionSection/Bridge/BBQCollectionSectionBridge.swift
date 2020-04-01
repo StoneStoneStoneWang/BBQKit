@@ -41,7 +41,7 @@ extension BBQCollectionSectionBridge {
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<Section>(
             configureCell: { ds, cv, ip, item in return vc.configCollectionViewCell(item, for: ip) },
-            configureSupplementaryView: { ds, cv, kind, ip in return vc.configCollectionViewHeader(ds[ip], for: ip)})
+            configureSupplementaryView: { ds, cv, kind, ip in return vc.configCollectionViewHeader(self.viewModel.output.collectionData.value[ip.section], for: ip)})
         
         self.dataSource = dataSource
         

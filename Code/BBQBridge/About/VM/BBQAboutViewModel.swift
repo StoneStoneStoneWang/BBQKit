@@ -1,6 +1,6 @@
 //
 //  BBQAboutViewModel.swift
-//  ZBridge
+//  BBQBridge
 //
 //  Created by three stone 王 on 2019/8/27.
 //  Copyright © 2019 three stone 王. All rights reserved.
@@ -45,13 +45,15 @@ public enum BBQAboutType: Int {
     case wechat
     
     case space
+    
+    case check
 }
 
 extension BBQAboutType {
     
     static var types: [BBQAboutType] {
         
-        return [.space,.version,.email,.wechat]
+        return [.space,.version,.email,.wechat,.check]
     }
     
     var cellHeight: CGFloat {
@@ -71,7 +73,9 @@ extension BBQAboutType {
             
         case .email: return "官方邮箱"
             
-        case .wechat: return "客服微信"
+        case .wechat: return "官方微信"
+            
+        case .check: return "检查更新"
             
         case .space: return ""
         }
@@ -89,12 +93,13 @@ extension BBQAboutType {
             
             return (info["CFBundleDisplayName"] as? String ?? "").transformToPinYin() + "@163.com"
             
-        case .wechat:
+        case .wechat: return ""
             
-            guard let info = Bundle.main.infoDictionary else { return "" }
+//            guard let info = Bundle.main.infoDictionary else { return "" }
+//
+//            return info["CFBundleDisplayName"] as? String ?? ""
             
-            return info["CFBundleDisplayName"] as? String ?? ""
-            
+        case .check: return ""
         case .space: return ""
         }
     }

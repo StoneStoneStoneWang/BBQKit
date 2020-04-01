@@ -1,6 +1,6 @@
 //
 //  BBQCarouselViewModel.swift
-//  ZBridge
+//  BBQBridge
 //
 //  Created by three stone 王 on 2020/3/12.
 //  Copyright © 2020 three stone 王. All rights reserved.

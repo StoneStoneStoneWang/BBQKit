@@ -118,9 +118,9 @@
     
     self.titleLabel.text = setting.title;
     
-#if BBQSettinglOne
+#if BBQUserInfoOne
     
-#elif BBQSettinglTwo
+#elif BBQUserInfoTwo
     
 #endif
     
@@ -222,12 +222,12 @@
     
     __weak typeof(self) weakSelf = self;
     
-#if BBQSettinglOne
+#if BBQUserInfoOne
     [self.bridge createSetting:self hasPlace:true settingAction:^(enum BBQSettingActionType actionType) {
         
         weakSelf.block(actionType, weakSelf);
     }];
-#elif BBQSettinglTwo
+#elif BBQUserInfoTwo
     [self.bridge createSetting:self hasPlace:false settingAction:^(enum BBQSettingActionType actionType) {
         
         weakSelf.block(actionType, weakSelf);
@@ -245,9 +245,9 @@
 }
 - (void)configOwnProperties {
     
-#if BBQSettinglOne
+#if BBQUserInfoOne
     [super configOwnProperties];
-#elif BBQSettinglTwo
+#elif BBQUserInfoTwo
     [super configOwnProperties];
 #endif
     
