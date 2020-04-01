@@ -44,6 +44,8 @@ public enum BBQProfileActionType: Int ,Codable {
     case characters
     
     case unLogin
+    
+    case feedBack
 }
 
 public typealias BBQProfileAction = (_ action: BBQProfileActionType ) -> ()
@@ -135,7 +137,7 @@ extension BBQProfileBridge {
                 case .focus: profileAction(isLogin ? .focus : .unLogin)
                 case .characters: profileAction(isLogin ? .characters : .unLogin)
                 case .myCircle: profileAction(isLogin ? .myCircle : .unLogin)
-                    
+                case .feedBack: profileAction(.feedBack)
                 case .contactUS:
                     
                     vc.tableViewSelectData(type, for: ip)
