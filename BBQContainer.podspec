@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
   BBQContainer是欢迎界面
   DESC
   
-  spec.homepage     = "https://github.com/StoneStoneStoneWang/ZStoreKit.git"
+  spec.homepage     = "https://github.com/StoneStoneStoneWang/BBQKit.git"
   spec.license      = { :type => "MIT", :file => "LICENSE.md" }
   spec.author             = { "StoneStoneStoneWang" => "yuanxingfu1314@163.com" }
   spec.platform     = :ios, "10.0"
@@ -21,7 +21,7 @@ Pod::Spec.new do |spec|
   
   spec.frameworks = 'UIKit', 'Foundation'
   
-  spec.source = { :git => "https://github.com/StoneStoneStoneWang/ZStoreKit.git", :tag => "#{spec.version}" }
+  spec.source = { :git => "https://github.com/StoneStoneStoneWang/BBQKit.git", :tag => "#{spec.version}" }
   
   # 翻译
   spec.subspec 'Welcome' do |welcome|
