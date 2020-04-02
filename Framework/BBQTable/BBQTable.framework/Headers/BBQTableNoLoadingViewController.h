@@ -1,5 +1,5 @@
 //
-//  BBQTableNoLoadingViewConntroller.h
+//  BBQTableNoLoadingViewController.h
 //  ZContainer
 //
 //  Created by three stone 王 on 2019/8/22.
@@ -10,7 +10,7 @@
 #import "BBQTableHeaderView.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BBQTableNoLoadingViewConntroller : BBQTViewController
+@interface BBQTableNoLoadingViewController : BBQTViewController
 
 @property (nonatomic ,strong) UITableView *tableView;
 

@@ -14,7 +14,7 @@
 
 #define BBQWelcomeImgs @[@"引导1",@"引导2"]
 
-#define BBQCarouselImgs @[@"banner1",@"banner2",@"banner3"]
+#define BBQCarouselImgs @[@"banner1",@"banner2",@"banner3",@"banner4"]
 
 #define BBQAboutIcon "关于我们"
 

@@ -19,7 +19,7 @@ FOUNDATION_EXPORT const unsigned char BBQTableVersionString[];
 
 #import <BBQTable/BBQTableLoadingViewController.h>
 
-#import <BBQTable/BBQTableNoLoadingViewConntroller.h>
+#import <BBQTable/BBQTableNoLoadingViewController.h>
 
 #import <BBQTable/BBQBaseTableViewCell.h>
 

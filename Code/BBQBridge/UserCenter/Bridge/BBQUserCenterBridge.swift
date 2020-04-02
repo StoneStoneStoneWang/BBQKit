@@ -132,7 +132,7 @@ extension BBQUserCenterBridge {
                 case .focus: centerAction(isLogin ? .focus : .unLogin)
                 case .characters: centerAction(isLogin ? .characters : .unLogin)
                 case .myCircle: centerAction(isLogin ? .myCircle : .unLogin)
-                case .feedBack: centerAction(isLogin ? .feedBack : .unLogin)
+                case .feedBack: centerAction(.feedBack)
                 case .contactUS:
                     
                     vc.collectionViewSelectData(type, for: ip)

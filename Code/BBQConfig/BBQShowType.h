@@ -7,7 +7,7 @@
 //
 #import "BBQSignConfig.h"
 
-#define BBQColor "#3e7bac"
+#define BBQColor "#333333"
 
 #pragma mark ---
 
@@ -31,9 +31,9 @@
 
 #pragma mark ---login
 
-#define BBQLoginOne 1
+#define BBQLoginOne 0
 
-#define BBQLoginTwo 0
+#define BBQLoginTwo 1
 
 #define BBQLoginThree 0
 
@@ -41,7 +41,7 @@
 
 #pragma mark ---个人中心 1- 4 profile 5- 8 usercenter
 
-#define BBQMeOne 1
+#define BBQMeOne 0
 
 #define BBQMeTwo 0
 
@@ -49,7 +49,7 @@
 
 #define BBQMeFour 0
 
-#define BBQMeFive 0
+#define BBQMeFive 1
 
 #define BBQMeSix 0
 

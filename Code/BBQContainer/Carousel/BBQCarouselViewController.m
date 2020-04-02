@@ -206,7 +206,7 @@
         
         _pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@BBQColor]];
         
-        _pageControl.numberOfPages = 3;
+        _pageControl.numberOfPages = BBQCarouselImgs.count;
         
         _pageControl.currentPage = 0;
         
