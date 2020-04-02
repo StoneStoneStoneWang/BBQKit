@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, BBQUserInfoActionType) {
 
 typedef void(^BBQUserInfoBlock)(BBQUserInfoActionType actionType ,BBQBaseViewController *from);
 
-@interface BBQUserInfoViewController : BBQTableNoLoadingViewConntroller
+@interface BBQUserInfoViewController : BBQTableNoLoadingViewController
 
 + (instancetype)createUserInfoWithBlock:(BBQUserInfoBlock )block;
 

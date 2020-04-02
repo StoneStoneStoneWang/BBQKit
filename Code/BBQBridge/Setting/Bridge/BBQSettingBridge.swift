@@ -38,11 +38,11 @@ public final class BBQSettingBridge: BBQBaseBridge {
     
     var viewModel: BBQSettingViewModel!
     
-    weak var vc: BBQTableNoLoadingViewConntroller!
+    weak var vc: BBQTableNoLoadingViewController!
 }
 extension BBQSettingBridge {
     
-    @objc public func createSetting(_ vc: BBQTableNoLoadingViewConntroller ,hasPlace: Bool,settingAction: @escaping BBQSettingAction) {
+    @objc public func createSetting(_ vc: BBQTableNoLoadingViewController ,hasPlace: Bool,settingAction: @escaping BBQSettingAction) {
         
         self.vc = vc
         

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 typedef void(^BBQReportBlock)(BBQBaseViewController *from);
-@interface BBQReportViewController : BBQTableNoLoadingViewConntroller
+@interface BBQReportViewController : BBQTableNoLoadingViewController
 
 + (instancetype)createReportWithUid:(NSString *)uid andEncode:(NSString *)encode andBlock:(BBQReportBlock) block;
 

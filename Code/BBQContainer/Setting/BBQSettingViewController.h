@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^BBQSettingBlock)(BBQSettingActionType actionType ,BBQBaseViewController *from);
 
-@interface BBQSettingViewController : BBQTableNoLoadingViewConntroller
+@interface BBQSettingViewController : BBQTableNoLoadingViewController
 
 + (instancetype)createSettingWithBlock:(BBQSettingBlock) block;
 

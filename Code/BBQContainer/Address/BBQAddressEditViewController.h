@@ -26,7 +26,7 @@ typedef void(^BBQAddressEditBlock)(BBQBaseViewController *from,BBQAddressEditAct
 
 @end
 
-@interface BBQAddressEditViewController : BBQTableNoLoadingViewConntroller
+@interface BBQAddressEditViewController : BBQTableNoLoadingViewController
 
 + (instancetype)creatAddressEditWithAddressBean:(BBQAddressBean *_Nullable)addressBean andAddressEditBlock:(BBQAddressEditBlock) block ;
 

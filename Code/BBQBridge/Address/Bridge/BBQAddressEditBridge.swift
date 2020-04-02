@@ -26,7 +26,7 @@ public final class BBQAddressEditBridge: BBQBaseBridge {
     
     var viewModel: BBQAddressEditViewModel!
     
-    var vc: BBQTableNoLoadingViewConntroller!
+    var vc: BBQTableNoLoadingViewController!
     
     let name: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     
@@ -45,7 +45,7 @@ public final class BBQAddressEditBridge: BBQBaseBridge {
 
 extension BBQAddressEditBridge {
     
-    @objc public func createAddressEdit(_ vc: BBQTableNoLoadingViewConntroller,temp: BBQAddressBean? ,editAction: @escaping ZCharactersEditAction) {
+    @objc public func createAddressEdit(_ vc: BBQTableNoLoadingViewController,temp: BBQAddressBean? ,editAction: @escaping ZCharactersEditAction) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton {
             

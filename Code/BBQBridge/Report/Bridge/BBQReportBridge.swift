@@ -23,14 +23,14 @@ public final class BBQReportBridge: BBQBaseBridge {
     
     var viewModel: BBQReportViewModel!
     
-    weak var vc: BBQTableNoLoadingViewConntroller!
+    weak var vc: BBQTableNoLoadingViewController!
     
     var selectedReport: BehaviorRelay<String> = BehaviorRelay<String>(value: "1")
 }
 
 extension BBQReportBridge {
     
-    @objc public func createReport(_ vc: BBQTableNoLoadingViewConntroller ,reports: [[String: Any]],uid: String,encoded: String ,textView: UITextView ,reportAction: @escaping () -> ()) {
+    @objc public func createReport(_ vc: BBQTableNoLoadingViewController ,reports: [[String: Any]],uid: String,encoded: String ,textView: UITextView ,reportAction: @escaping () -> ()) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton {
             

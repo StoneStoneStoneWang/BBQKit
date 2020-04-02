@@ -29,12 +29,12 @@ public final class BBQUserInfoBridge: BBQBaseBridge {
     
     var viewModel: BBQUserInfoViewModel!
     
-    weak var vc: BBQTableNoLoadingViewConntroller!
+    weak var vc: BBQTableNoLoadingViewController!
 }
 
 extension BBQUserInfoBridge {
     
-    @objc public func createUserInfo(_ vc: BBQTableNoLoadingViewConntroller ,hasPlace: Bool) {
+    @objc public func createUserInfo(_ vc: BBQTableNoLoadingViewController ,hasPlace: Bool) {
         
         self.vc = vc
         

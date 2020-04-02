@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface BBQAboutViewController : BBQTableNoLoadingViewConntroller
+@interface BBQAboutViewController : BBQTableNoLoadingViewController
 
 + (instancetype)createAbout;
 

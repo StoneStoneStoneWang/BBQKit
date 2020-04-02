@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^BBQAreaBlock)(BBQBaseViewController *from ,BBQAreaBean *selectedArea ,BBQAreaType type ,BOOL hasNext);
 
-@interface BBQAreaViewController : BBQTableNoLoadingViewConntroller
+@interface BBQAreaViewController : BBQTableNoLoadingViewController
 
 + (instancetype)createAreaWithType:(BBQAreaType )type andAreaBlock:(BBQAreaBlock) block;
 

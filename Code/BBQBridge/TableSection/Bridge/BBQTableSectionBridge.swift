@@ -24,14 +24,14 @@ public final class BBQTableSectionBridge: BBQBaseBridge {
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var vc: BBQTableNoLoadingViewConntroller!
+    var vc: BBQTableNoLoadingViewController!
     
 }
 
 // MARK: skip item 101 pagecontrol 102
 extension BBQTableSectionBridge {
     
-    @objc public func createCarousel(_ vc: BBQTableNoLoadingViewConntroller ,sections: [BBQTableSectionBean],sectionAction: @escaping BBQTableSectionAction) {
+    @objc public func createCarousel(_ vc: BBQTableNoLoadingViewController ,sections: [BBQTableSectionBean],sectionAction: @escaping BBQTableSectionAction) {
         
         let input = BBQTableSectionViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQTableRowBean.self),
                                                      itemSelect: vc.tableView.rx.itemSelected,

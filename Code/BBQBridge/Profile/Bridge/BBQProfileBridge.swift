@@ -84,12 +84,12 @@ public final class BBQProfileBridge: BBQBaseBridge {
     
     var viewModel: BBQProfileViewModel!
     
-    weak var vc: BBQTableNoLoadingViewConntroller!
+    weak var vc: BBQTableNoLoadingViewController!
 }
 
 extension BBQProfileBridge {
     
-    @objc public func createProfile(_ vc: BBQTableNoLoadingViewConntroller,hasPlace: Bool,profileAction:@escaping BBQProfileAction) {
+    @objc public func createProfile(_ vc: BBQTableNoLoadingViewController,hasPlace: Bool,profileAction:@escaping BBQProfileAction) {
         
         let input = BBQProfileViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQProfileBean.self),
                                               itemSelect: vc.tableView.rx.itemSelected,

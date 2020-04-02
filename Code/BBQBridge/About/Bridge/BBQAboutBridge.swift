@@ -23,7 +23,7 @@ public final class BBQAboutBridge: BBQBaseBridge {
 
 extension BBQAboutBridge {
     
-    @objc public func createAbout(_ vc: BBQTableNoLoadingViewConntroller) {
+    @objc public func createAbout(_ vc: BBQTableNoLoadingViewController) {
         
         let input = BBQAboutViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQAboutType.self),
                                             itemSelect: vc.tableView.rx.itemSelected)

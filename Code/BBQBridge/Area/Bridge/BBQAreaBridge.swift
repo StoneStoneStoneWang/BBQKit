@@ -42,7 +42,7 @@ public final class BBQAreaBridge: BBQBaseBridge {
 
 extension BBQAreaBridge {
     
-    @objc public func createArea(_ vc: BBQTableNoLoadingViewConntroller ,type: BBQAreaType,areaAction: @escaping BBQAreaAction) {
+    @objc public func createArea(_ vc: BBQTableNoLoadingViewController ,type: BBQAreaType,areaAction: @escaping BBQAreaAction) {
         
         self.type = type
         
