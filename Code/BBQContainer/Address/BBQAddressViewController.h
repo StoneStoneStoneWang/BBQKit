@@ -19,6 +19,9 @@ typedef void(^BBQAddressBlock)(BBQAddressActionType actionType,BBQAddressBean *_
 + (instancetype)createAddressWithBlock:(BBQAddressBlock) addressBlock;
 
 - (void)updateAddress:(BBQAddressBean *)addressBean andIp:(NSIndexPath *)ip;
+
+- (void)insertAddress:(BBQAddressBean *)addressBean;
+
 @end
 
 NS_ASSUME_NONNULL_END

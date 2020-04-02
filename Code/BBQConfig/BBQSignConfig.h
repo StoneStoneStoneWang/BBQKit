@@ -8,20 +8,20 @@
 
 #pragma mark ---- BBQSign
 
-#define BBQAPPKEY "bba638da2d304260a17381511d8e4ba5"
+#define BBQAPPKEY "55ef021231234a768c64351f31137389"
 
 #define BBQDOMAIN "http://zhihw.ecsoi.com/"
 
 #pragma mark ---- 圈子类型
 #define BBQCONFIGURETYPECIRCLE 0
 #pragma mark ---- 商城类型
-#define BBQCONFIGURETYPESTORE 0
+#define BBQCONFIGURETYPESTORE 1
 #pragma mark ---- 游戏类型
 #define BBQCONFIGURETYPEGAME 0
 #pragma mark ---- 地图类型
 #define BBQCONFIGURETYPEMAP 0
 
-#define BBQCONFIGURETYPESTOREANDCIRCLE 1
+#define BBQCONFIGURETYPESTOREANDCIRCLE 0
 
 #if BBQCONFIGURETYPECIRCLE
 

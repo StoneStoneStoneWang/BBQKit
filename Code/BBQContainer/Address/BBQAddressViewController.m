@@ -323,6 +323,7 @@
     
     [self.tableView.mj_header beginRefreshing];
 }
+
 - (void)alertShow:(BBQAddressBean *)address andIp:(NSIndexPath *)ip {
     
     __weak typeof(self) weakSelf = self;
@@ -344,6 +345,14 @@
     
     [self.bridge updateAddress:addressBean ip:ip];
 }
+- (void)insertAddress:(BBQAddressBean *)addressBean {
+    
+    [self.bridge insertAddress:addressBean addressAction:^(enum BBQAddressActionType actionType, NSIndexPath * _Nullable ip, BBQAddressBean * _Nullable address) {
+       
+        
+    }];
+}
+
 - (void)onReloadItemClick {
     [super onReloadItemClick];
     

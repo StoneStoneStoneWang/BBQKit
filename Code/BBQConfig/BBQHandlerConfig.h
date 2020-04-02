@@ -72,6 +72,49 @@
 
 #define bbqPushReport bbqPushReport111
 
+#if BBQCONFIGURETYPEGAME
+
+#define bbqPushCharacters bbqPushCharacters111
+
+#endif
+
+#if BBQCONFIGURETYPESTORE
+
+#define bbqPushAddress bbqPushAddress111
+
+#define bbqPushAddressSelected bbqPushAddressSelected111
+
+#define bbqPushAddressEdit bbqPushAddressEdit111
+
+#define bbqPushAddressEditAdd bbqPushAddressEditAdd111
+
+#define bbqPushArea bbqPushArea111
+
+#define BBQAddressViewController BBQAddressViewController111
+
+#define createAddressWithBlock createAddressWithBlock1111
+
+#define BBQAddressBlock BBQAddressBlock111
+
+#define BBQAddressSelectedViewController BBQAddressSelectedViewController111
+
+#define BBQAddressSelectedBlock BBQAddressSelectedBlock111
+
+#define createAddressSelectedWithBlock createAddressSelectedWithBlock111
+
+#define BBQAddressTableViewCell BBQAddressTableViewCell111
+
+#define BBQAddressSelectedTableViewCell BBQAddressSelectedTableViewCell111
+#define updateAddress updateAddress111
+#define insertAddress insertAddress111
+#define BBQAddressEditBlock BBQAddressEditBlock111
+#define BBQAddressEditActionType BBQAddressEditActionType111
+#define BBQAddressEditViewController BBQAddressEditViewController111
+#define creatAddressEditWithAddressBean creatAddressEditWithAddressBean111
+#define updateAddressEditArea updateAddressEditArea111
+#endif
+
+
 #define BBQLoginBlock BBQLoginBlock111
 
 #define createLoginWithBlock createLoginWithBlock111
