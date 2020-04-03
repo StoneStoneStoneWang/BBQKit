@@ -28,10 +28,11 @@ public final class BBQTableSectionBridge: BBQBaseBridge {
     
 }
 
-// MARK: skip item 101 pagecontrol 102
 extension BBQTableSectionBridge {
     
-    @objc public func createCarousel(_ vc: BBQTableNoLoadingViewController ,sections: [BBQTableSectionBean],sectionAction: @escaping BBQTableSectionAction) {
+    @objc public func createTableSection(_ vc: BBQTableNoLoadingViewController ,sections: [BBQTableSectionBean],sectionAction: @escaping BBQTableSectionAction) {
+        
+        self.vc = vc
         
         let input = BBQTableSectionViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQTableRowBean.self),
                                                      itemSelect: vc.tableView.rx.itemSelected,
@@ -61,5 +62,16 @@ extension BBQTableSectionBridge {
             })
             .disposed(by: disposed)
         
+        vc.tableView.rx.setDelegate(self).disposed(by: disposed)
+        
+    }
+}
+extension BBQTableSectionBridge: UITableViewDelegate {
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        guard let dataSource = dataSource else { return 0}
+        
+        return vc.caculate(forCell: dataSource[indexPath], for: indexPath)
     }
 }

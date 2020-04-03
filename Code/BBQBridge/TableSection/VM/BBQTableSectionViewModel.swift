@@ -44,7 +44,13 @@ public final class BBQTableRowBean: NSObject {
     
     @objc public var icon: String = ""
     
-    @objc public static func createSection(_ iTag: Int,title: String ,icon: String) -> BBQTableRowBean {
+    @objc public var value: String = ""
+    
+    @objc public var placeholder: String = ""
+    
+    @objc public var isSelected: Bool = false
+    
+    @objc public static func createRow(_ iTag: Int,title: String ,icon: String) -> BBQTableRowBean {
         
         let item = BBQTableRowBean()
         
@@ -53,6 +59,22 @@ public final class BBQTableRowBean: NSObject {
         item.title = title
         
         item.icon = icon
+        
+        return item
+    }
+    @objc public static func createRow(_ iTag: Int,title: String ,icon: String ,isSelected: Bool ,placeholder: String) -> BBQTableRowBean {
+        
+        let item = BBQTableRowBean()
+        
+        item.iTag = iTag
+        
+        item.title = title
+        
+        item.icon = icon
+        
+        item.isSelected = isSelected
+        
+        item.placeholder = placeholder
         
         return item
     }

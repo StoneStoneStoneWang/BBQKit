@@ -44,7 +44,9 @@ public final class BBQCollectionItemBean: NSObject {
     
     @objc public var icon: String = ""
     
-    @objc public static func createSection(_ iTag: Int,title: String ,icon: String) -> BBQCollectionItemBean {
+    @objc public var isSelected: Bool = false
+    
+    @objc public static func createItem(_ iTag: Int,title: String ,icon: String) -> BBQCollectionItemBean {
         
         let item = BBQCollectionItemBean()
         

@@ -56,7 +56,7 @@ public final class BBQCollectionsBridge: BBQBaseBridge {
 
 extension BBQCollectionsBridge {
     
-    @objc public func createFocus(_ vc: BBQCollectionLoadingViewController ,isMy: Bool ,tag: String ,collectionsAction: @escaping BBQCollectionsAction) {
+    @objc public func createCollections(_ vc: BBQCollectionLoadingViewController ,isMy: Bool ,tag: String ,collectionsAction: @escaping BBQCollectionsAction) {
         
         self.vc = vc
         

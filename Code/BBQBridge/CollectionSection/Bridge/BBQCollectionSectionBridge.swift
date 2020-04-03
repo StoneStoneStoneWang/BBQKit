@@ -31,7 +31,7 @@ public final class BBQCollectionSectionBridge: BBQBaseBridge {
 // MARK: skip item 101 pagecontrol 102
 extension BBQCollectionSectionBridge {
     
-    @objc public func createCarousel(_ vc: BBQCollectionNoLoadingViewController ,sections: [BBQCollectionSectionBean],sectionAction: @escaping BBQCollectionSectionAction) {
+    @objc public func createCollectionSection(_ vc: BBQCollectionNoLoadingViewController ,sections: [BBQCollectionSectionBean],sectionAction: @escaping BBQCollectionSectionAction) {
         
         let input = BBQCollectionSectionViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(BBQCollectionItemBean.self),
                                                           itemSelect: vc.collectionView.rx.itemSelected,

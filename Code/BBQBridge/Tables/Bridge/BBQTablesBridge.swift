@@ -57,7 +57,7 @@ public final class BBQTablesBridge: BBQBaseBridge {
 }
 extension BBQTablesBridge {
     
-    @objc public func createTList(_ vc: BBQTableLoadingViewController ,isMy: Bool ,tag: String ,tablesAction: @escaping BBQTablesAction) {
+    @objc public func createTables(_ vc: BBQTableLoadingViewController ,isMy: Bool ,tag: String ,tablesAction: @escaping BBQTablesAction) {
         
         self.vc = vc
         
@@ -186,7 +186,7 @@ extension BBQTablesBridge: UITableViewDelegate {
             
             self.tablesAction(.remove,self.dataSource[indexPath] ,indexPath)
         }
-        let cancel = UITableViewRowAction(style: .destructive, title: "取消") { (a, ip) in
+        let cancel = UITableViewRowAction(style: .default, title: "取消") { (a, ip) in
     
         }
         
