@@ -1,5 +1,5 @@
 //
-//  BBQUserInfoViewModel.swift
+//  BBQUserInfoBridge.swift
 //  BBQBridge
 //
 //  Created by three stone 王 on 2019/8/28.
@@ -7,258 +7,157 @@
 //
 
 import Foundation
-import WLBaseViewModel
-import RxCocoa
-import RxSwift
-import WLReqKit
-import WLBaseResult
-import BBQCache
-import BBQApi
-import BBQRReq
+import BBQTable
+import BBQHud
 import BBQBean
+import RxCocoa
+import BBQCache
+import RxSwift
+import RxDataSources
+import BBQCocoa
+import BBQRReq
+import BBQUpload
 
-@objc public final class BBQUserInfoBean: NSObject {
+public typealias BBQUserInfoAction = () -> ()
+
+@objc (BBQUserInfoBridge)
+public final class BBQUserInfoBridge: BBQBaseBridge {
     
-    @objc public var type: BBQUserInfoType = .header
+    typealias Section = BBQSectionModel<(), BBQUserInfoBean>
     
-    @objc public var img: UIImage!
+    var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    @objc public var subtitle: String = ""
+    var viewModel: BBQUserInfoViewModel!
     
-    @objc public var title: String {
-        
-        return type.title;
-    }
+    weak var vc: BBQTableNoLoadingViewController!
+}
+
+extension BBQUserInfoBridge {
     
-    static func createUserInfo(_ type: BBQUserInfoType) -> BBQUserInfoBean {
+    @objc public func createUserInfo(_ vc: BBQTableNoLoadingViewController ,hasPlace: Bool) {
         
-        let userInfo = BBQUserInfoBean()
+        self.vc = vc
         
-        userInfo.type = type
+        let input = BBQUserInfoViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(BBQUserInfoBean.self),
+                                                 itemSelect: vc.tableView.rx.itemSelected,
+                                                 hasPlace: hasPlace)
         
-        return userInfo
-    }
-    
-    static func createUserInfoTypes(_ hasPlace: Bool) -> [BBQUserInfoBean] {
+        viewModel = BBQUserInfoViewModel(input, disposed: disposed)
         
-        var result: [BBQUserInfoBean] = []
+        let dataSource = RxTableViewSectionedReloadDataSource<Section>(
+            configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)})
         
-        if hasPlace {
-            
-            for item in BBQUserInfoType.placeTypes {
+        viewModel
+            .output
+            .tableData
+            .asDriver()
+            .map({ [Section(model: (), items: $0)]  })
+            .drive(vc.tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposed)
+        
+        self.dataSource = dataSource
+        
+        viewModel
+            .output
+            .zip
+            .subscribe(onNext: { (type,ip) in
                 
-                result += [BBQUserInfoBean.createUserInfo(item)]
-            }
-            
-        } else {
-            
-            for item in BBQUserInfoType.types {
+                vc.tableView.deselectRow(at: ip, animated: true)
                 
-                result += [BBQUserInfoBean.createUserInfo(item)]
-            }
-        }
-        
-        return result
-    }
-    
-    static var types: [BBQUserInfoBean] {
-        
-        let space = BBQUserInfoBean()
-        
-        space.type = .space
-        
-        let header = BBQUserInfoBean()
-        
-        header.type = .header
-        
-        let name = BBQUserInfoBean()
-        
-        name.type = .name
-        
-        let phone = BBQUserInfoBean()
-        
-        phone.type = .phone
-        
-        let sex = BBQUserInfoBean()
-        
-        sex.type = .sex
-        
-        let birth = BBQUserInfoBean()
-        
-        birth.type = .birth
-        
-        let signature = BBQUserInfoBean()
-        
-        signature.type = .signature
-        
-        return [space ,header ,name ,phone ,space ,sex ,birth ,signature]
-    }
-}
-
-@objc (BBQUserInfoType)
-public enum BBQUserInfoType: Int {
-    
-    case header
-    
-    case name
-    
-    case phone
-    
-    case sex
-    
-    case signature
-    
-    case birth
-    
-    case space
-}
-
-
-extension BBQUserInfoType {
-    
-    static var placeTypes: [BBQUserInfoType] {
-        
-        return [.space ,.header ,.name ,.phone ,.space ,.sex ,.birth ,.signature]
-    }
-    static var types: [BBQUserInfoType] {
-        
-        return [.header ,.name ,.phone ,.sex ,.birth ,.signature]
-    }
-    
-    var title: String {
-        
-        switch self {
-            
-        case .header: return "头像"
-            
-        case .name: return "昵称"
-            
-        case .phone: return "手机号"
-            
-        case .sex: return "性别"
-            
-        case .signature: return "个性签名"
-            
-        case .birth: return "生日"
-            
-        case .space: return ""
-            
-        }
-    }
-    
-    var cellHeight: CGFloat {
-        switch self {
-        case .space: return 10
-            
-        case .header: return 80
-            
-        default: return 55
-            
-        }
-    }
-    
-    var updateKey: String {
-        
-        switch self {
-        case .name: return "users.nickname"
-            
-        case .birth: return "users.birthday"
-            
-        case .signature: return "users.signature"
-            
-        case .sex: return "users.sex"
-            
-        case .header: return "users.headImg"
-        default: return ""
-            
-        }
-    }
-}
-
-public struct BBQUserInfoViewModel: WLBaseViewModel {
-    
-    public var input: WLInput
-    
-    public var output: WLOutput
-    
-    public struct WLInput {
-        
-        let modelSelect: ControlEvent<BBQUserInfoBean>
-        
-        let itemSelect: ControlEvent<IndexPath>
-        
-        let hasPlace: Bool
-    }
-    public struct WLOutput {
-        
-        let zip: Observable<(BBQUserInfoBean,IndexPath)>
-        
-        let tableData: BehaviorRelay<[BBQUserInfoBean]> = BehaviorRelay<[BBQUserInfoBean]>(value: [])
-    }
-    public init(_ input: WLInput ,disposed: DisposeBag) {
-        
-        self.input = input
-        
-        let zip = Observable.zip(input.modelSelect,input.itemSelect)
-        
-        let output = WLOutput(zip: zip)
-        
-        output.tableData.accept(BBQUserInfoBean.createUserInfoTypes(input.hasPlace))
-        
-        BBQUserInfoCache.default
+                vc.tableViewSelectData(type, for: ip)
+            })
+            .disposed(by: disposed)
+        vc
+            .tableView
             .rx
-            .observe(BBQUserBean.self, "userBean")
-            .subscribe(onNext: { (user) in
+            .setDelegate(self)
+            .disposed(by: disposed)
+    }
+    
+    @objc public func updateUserInfo(_ type: BBQUserInfoType,value: String ) {
+        
+        let values =  viewModel.output.tableData.value
+        
+        if let idx = values.firstIndex(where: { $0.type == type}) {
+            
+            self.vc.tableView.reloadRows(at: [IndexPath(row: idx, section: 0)], with: .fade)
+        }
+    }
+    
+    @objc public func updateUserInfo(type: BBQUserInfoType,value: String,action: @escaping BBQUserInfoAction) {
+        
+        BBQHud.show(withStatus: "修改\(type.title)中...")
+        
+        BBQUserInfoViewModel
+            .updateUserInfo(type: type, value: value)
+            .drive(onNext: { (result) in
                 
-                if let user = user {
+                BBQHud.pop()
+                switch result {
                     
-                    let values =  output.tableData.value
+                case .ok(_):
                     
-                    if let headIdx = values.firstIndex(where: { $0.type == .header}) {
-                        
-                        output.tableData.value[headIdx].subtitle = user.headImg
-                    }
-                    if let nameIdx = values.firstIndex(where: { $0.type == .name}) {
-                        
-                        output.tableData.value[nameIdx].subtitle = user.nickname
-                    }
-                    if let phoneIdx = values.firstIndex(where: { $0.type == .phone}) {
-                        
-                        output.tableData.value[phoneIdx].subtitle = user.phone
-                    }
-                    if let sexIdx = values.firstIndex(where: { $0.type == .sex}) {
-                        
-                        output.tableData.value[sexIdx].subtitle = user.gender.gender
-                    }
+                    action()
                     
-                    if let birthIdx = values.firstIndex(where: { $0.type == .birth}) {
-                        
-                        output.tableData.value[birthIdx].subtitle = user.birthday
-                    }
-                    if let signtureIdx = values.firstIndex(where: { $0.type == .signature}) {
-                        
-                        output.tableData.value[signtureIdx].subtitle = user.signature
-                    }
+                    BBQHud.showInfo(type == .header ? "上传头像成功" : "修改\(type.title)成功")
+                    
+                case .failed(let msg): BBQHud.showInfo(msg)
+                default: break
                 }
             })
             .disposed(by: disposed)
-        
-        self.output = output
     }
-    
-    public static func updateUserInfo(type: BBQUserInfoType,value: String) -> Driver<WLBaseResult>{
+    @objc public func updateHeader(_ data: Data ,action: @escaping BBQUserInfoAction) {
         
-        return bbqDictResp(BBQApi.updateUserInfo(type.updateKey, value: value))
-            .mapObject(type: BBQUserBean.self)
-            .map({ BBQUserInfoCache.default.saveUser(data: $0) })
-            .map { _ in WLBaseResult.ok("")}
-            .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
+        BBQHud.show(withStatus: "上传头像中...")
+        
+        BBQUserInfoViewModel
+            .fetchAliToken()
+            .drive(onNext: { (result) in
+                
+                switch result {
+                case .fetchSomeObject(let obj):
+                    
+                    DispatchQueue.global().async {
+                        
+                        bbqUploadImgResp(data, file: "headerImg", param: obj as! BBQALCredentialsBean)
+                            .subscribe(onNext: { [weak self] (value) in
+                                
+                                guard let `self` = self else { return }
+                                
+                                DispatchQueue.main.async {
+                                    
+                                    self.updateUserInfo(type: BBQUserInfoType.header, value: value, action: action)
+                                }
+                                
+                                }, onError: { (error) in
+                                    
+                                    BBQHud.pop()
+                                    
+                                    BBQHud.showInfo("上传头像失败")
+                            })
+                            .disposed(by: self.disposed)
+                    }
+                    
+                case let .failed(msg):
+                    
+                    BBQHud.pop()
+                    
+                    BBQHud.showInfo(msg)
+                    
+                default: break
+                    
+                }
+            })
+            .disposed(by: disposed)
     }
+}
+extension BBQUserInfoBridge: UITableViewDelegate {
     
-    public static func fetchAliToken() -> Driver<WLBaseResult> {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return bbqAlitResp(BBQApi.aliToken)
-            .map { WLBaseResult.fetchSomeObject($0 as AnyObject)}
-            .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
+        guard let datasource = dataSource else { return 0}
+        
+        return datasource[indexPath].type.cellHeight
     }
 }
