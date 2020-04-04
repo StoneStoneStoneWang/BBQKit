@@ -8,7 +8,7 @@
 
 #pragma mark ---- BBQSign
 
-#define BBQAPPKEY "55ef021231234a768c64351f31137389"
+#define BBQAPPKEY "0710462304994b6a848f6ae1ec460548"
 
 #define BBQDOMAIN "http://zhihw.ecsoi.com/"
 

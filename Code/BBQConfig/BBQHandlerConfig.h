@@ -12,144 +12,145 @@
 
 #else
 
-#define BBQWelcomeCollectionViewCell qVbxKO2vyUhp
+#define BBQWelcomeCollectionViewCell xc6Ymp0eCN
 
-#define BBQWelcomeViewController ouQcQQzdjTM
+#define BBQWelcomeViewController f8EfNw7hKcv
 
-#define BBQRootManager KDaGHDQ85X4P
+#define BBQRootManager aITSSDGJZjc
 
-#define BBQNavigationConfigImpl NN1ner0c1Rmj
+#define BBQNavigationConfigImpl Ls7sfEJmll
 
-#define RootManager prJRK44KJkeZ
+#define RootManager qGBEKAvJCD
 
-#define makeRoot BFZ6BTxTGirc
+#define makeRoot voVGsvVi5xl4
 
-#define bbqSkipTap BPyfWZpNF_U
+#define bbqSkipTap yMXTauTSz_e
 
-#define rootShared HkCcYhT4XDg
+#define rootShared kTtRRs1tV0
 
-#define bbqUnLogin u7EIcz7K7t
+#define bbqUnLogin CAocVuwI0y
 
-#define bbqPresentLogin HdD4EyRCzkI
+#define bbqPresentLogin JuitCnI6nA
 
-#define bbqRootViewController WKN4JVWIvC
+#define bbqRootViewController Pz8xh6O9Kw
 
-#define bbqPushReg lcx_QE4ng16M
+#define bbqPushReg JHYfV_s3x0C
 
-#define bbqPushProtocol t8Jg5RMXoFOA
+#define bbqPushProtocol eI4O2ddSInm
 
-#define bbqPushFindPassword LKR9TAA_jps6
+#define bbqPushFindPassword B2ep1qOulb
 
-#define bbqPushModifyPassword PvQt4DtICo
+#define bbqPushModifyPassword KRiVSWFUxtSl
 
-#define bbqPushSetting UaRUlUTyJG
+#define bbqPushSetting xl_4HffsAE
 
-#define bbqPushUserInfo eSqmHwlCxR
+#define bbqPushUserInfo Y89zlXHb11
 
-#define bbqPushName GwnoB68iXI
+#define bbqPushName Dub0lgEFm3iQ
 
-#define bbqPushSignature cEp5WFkV3bK
+#define bbqPushSignature fqtqJVHbRlaI
 
-#define bbqLogout MzfzqslEliA
+#define bbqLogout OvokfDD4fL
 
-#define bbqDismiss wj0OV2prWXl
+#define bbqDismiss oLPdEir01sBo
 
-#define bbqPop gnAwDnsJRBqh
+#define bbqPop U3GGf44scHH
 
-#define bbqTokenInvalid CZrqniZ16nd
+#define bbqTokenInvalid IkM7osFn0nh
 
-#define bbqCheckLogin VJ6DzczxB8u
+#define bbqCheckLogin sYiKEOZ2EIj
 
-#define bbqCreateProfile KtJXHTeTHw
+#define bbqCreateProfile W14l6mcozzr
 
-#define bbqPushPrivacy zJf_rmrENwB
+#define bbqPushPrivacy ApusFuJoJYh
 
-#define bbqPushAbout CBtKIvmPF5a
+#define bbqPushAbout BoV8aWiJXA5
 
-#define bbqPushFeedBack udxuRXznPiG
+#define bbqPushFeedBack WhEOfS1hCd
 
-#define bbqCreateCarousel kBqksRb79qsU
+#define bbqCreateCarousel OFUyOjETehQY
 
-#define bbqPushReport mCgK4OSexLCW
+#define bbqPushReport B6CqzXMKlWo
+
 
 #if BBQCONFIGURETYPEGAME
 
-#define bbqPushCharacters MazkayBn3dHN
+#define bbqPushCharacters vrdtX_JRGAl
 
 #endif
 
 
-#define BBQLoginBlock P6z_uxs4wM
+#define BBQLoginBlock SbL_KTOKKA5
 
-#define createLoginWithBlock mWpO52E8LgT
+#define createLoginWithBlock zFUaFBeXxjot
 
-#define BBQLoginViewController eweVJWsUBl
+#define BBQLoginViewController JDQlFpK9Ew
 
-#define BBQRegBlock ZBiphXE2y0nh
+#define BBQRegBlock iLMhr2ZPcS
 
-#define BBQRegViewController qlsRfTdEA5z
+#define BBQRegViewController mj6qVYYIcXs
 
-#define createRegWithBlock iC8N4_9gmmK3
+#define createRegWithBlock SjjwaJkMUv
 
-#define BBQProtocolViewController f8rQPFWeu2
+#define BBQProtocolViewController zFf3vUOY1Z
 
-#define BBQFindPassworBlock fZFpeQntSs
+#define BBQFindPassworBlock hG7PVcCA9gMi
 
-#define BBQFindPasswordViewController _nQf1mt63NfS
+#define BBQFindPasswordViewController bAeYwDtX29j0
 
-#define createPasswordWithBlock fVBBj8T_hGug
+#define createPasswordWithBlock WLiw6kxt_0Nw
 
-#define BBQModifyPasswordBlock SQ_kWqv2r56
+#define BBQModifyPasswordBlock Evp4rW7_X0
 
-#define BBQModifyPasswordViewController PKuiCwr1O2SN
+#define BBQModifyPasswordViewController L_FC4lY0vUJN
 
-#define BBQSettingTableViewCell IZFjSJiHpd
+#define BBQSettingTableViewCell HjnZH4XtsGvH
 
-#define BBQSettingBlock dE_7DdJ21g
+#define BBQSettingBlock N0cO5qic3Za
 
-#define BBQSettingViewController Ue85A4UepHAM
+#define BBQSettingViewController BbF4qGKLqh
 
-#define createSettingWithBlock D3w2lE2P7XXX
+#define createSettingWithBlock zJyqSwSECi
 
-#define BBQUserInfoActionType aTzJZ86xD85t
+#define BBQUserInfoActionType fHVqyVN1wf
 
-#define BBQUserInfoBlock TyF0Lz2rUxs
+#define BBQUserInfoBlock GmExNNdqpF0
 
-#define BBQUserInfoViewController SxQTO5Wrx3
+#define BBQUserInfoViewController ISLzvppxCJA
 
-#define BBQUserInfoTableViewCell HPUQP3VDb0Z
+#define BBQUserInfoTableViewCell lj3OyVFQBnWW
 
-#define createUserInfoWithBlock SvCcByusWOIW
+#define createUserInfoWithBlock mRT9AfpJNCM
 
-#define BBQFeedBackViewController qVzK4xetYy94
+#define BBQFeedBackViewController MUJ2E3mkkkCe
 
-#define BBQAboutViewController mRPdDJFgCAUm
+#define BBQAboutViewController RJIWSbTivJ
 
-#define BBQAboutTableHeaderView KmPz2THHyM
+#define BBQAboutTableHeaderView drUyO6fos9
 
-#define BBQAboutTableViewCell CfbfcEiMETky
+#define BBQAboutTableViewCell T2DIL5S9rLPx
 
-#define BBQReportViewController RYJFiInV0iu
+#define BBQReportViewController onIQaGXkuj
 
-#define BBQReportTableViewCell VKoCgSgNx5p
+#define BBQReportTableViewCell w971hgwyRRWX
 
-#define BBQReportBlock _Jqz9Voxj2
+#define BBQReportBlock ZDqKd2tjzq6
 
-#define BBQCarouselViewController iwy_kjtqyl
+#define BBQCarouselViewController xgCvMX1ru0Pf
 
-#define BBQCarouselFormTwoLayout wU04lKrqkq9y
+#define BBQCarouselFormTwoLayout UPc6v7ecWIqL
 
-#define BBQCarouselFormOneLayout RuzCcJ5Pgol
+#define BBQCarouselFormOneLayout E8ETt_4EuB7_
 
-#define BBQCarouselCollectionViewCell acLPFIBGBc
+#define BBQCarouselCollectionViewCell MbzbIcSI00
 
-#define BBQUserCenterCollectionViewCell fUAHkFTSGGq
+#define BBQUserCenterCollectionViewCell VQnVErBcd_PB
 
-#define BBQUserCentereBlock yoMV3z57D97
+#define BBQUserCentereBlock h4ZUI60cRKS
 
-#define BBQUserCenterViewController qxVLrX2g47S
+#define BBQUserCenterViewController QCinvUJ00yhf
 
-#define createUserCenterWithBlock iWPx8BC9fCSr
+#define createUserCenterWithBlock tQG4h2m5yeRs
 
 #pragma mark ---- 圈子类型
 #if BBQCONFIGURETYPECIRCLE
@@ -157,77 +158,77 @@
 #pragma mark ---- 商城类型
 #elif BBQCONFIGURETYPESTORE
 
-#define bbqPushOrder P16emZ8bdtmM
+#define bbqPushOrder HXXaojggqI
 
-#define bbqPushAddress MCKLWDGIwiFx
+#define bbqPushAddress LLjEyBqxDk5h
 
-#define bbqPushAddressSelected oCQ6XLvJf6
+#define bbqPushAddressSelected i25rO1SV1Hit
 
-#define bbqPushAddressEdit ASYM3bVSza
+#define bbqPushAddressEdit Kv8F3YWIwg6v
 
-#define bbqPushAddressEditAdd zhwTkfGNZ_F
+#define bbqPushAddressEditAdd EwWTB1UL3AX
 
-#define bbqPushArea XU6KDxZurz
+#define bbqPushArea mdduzNqFn_PK
 
-#define BBQAddressViewController SKwBjTZjE4Kb
+#define BBQAddressViewController yuUqZQ74nAn
 
-#define createAddressWithBlock X97zWsf8As6V
+#define createAddressWithBlock OouyFNzZSG
 
-#define BBQAddressBlock lHUhpxCn0od
+#define BBQAddressBlock _NesmHWUG8cr
 
-#define BBQAddressSelectedViewController rlcGoROZX7tA
+#define BBQAddressSelectedViewController slcZrOJDI5v_
 
-#define BBQAddressSelectedBlock ppZ4b4KDjoTZ
+#define BBQAddressSelectedBlock QcpzhYiDBJ
 
-#define createAddressSelectedWithBlock yqfbZmszCy
+#define createAddressSelectedWithBlock pNg9yrNnali
 
-#define BBQAddressTableViewCell npN6bm84LP
+#define BBQAddressTableViewCell vokrrdiOs30q
 
-#define BBQAddressSelectedTableViewCell CKIrgate48i
+#define BBQAddressSelectedTableViewCell YzPUmDnd6l
 
-#define BBQAddressEditBlock gVRImrdTVR
+#define BBQAddressEditBlock PxNqRfz0yA
 
-#define BBQAddressEditActionType zNYea5P5gVer
+#define BBQAddressEditActionType mgf36ntITbdG
 
-#define BBQAddressEditViewController TXU4Dtwflks
+#define BBQAddressEditViewController CXDD7nE3N7_v
 
-#define creatAddressEditWithAddressBean UYR0fLyXra
+#define creatAddressEditWithAddressBean npxmcvdhiL
 
-#define updateAddressEditArea qaJjTA3xu69X
+#define updateAddressEditArea F7qeIBdiFvPj
 
-#define BBQOrderViewController JNzJCmdPhmm
+#define BBQOrderViewController hXgv4s7WvP
 
-#define BBQJoinUsViewController CviOtZyKrFF
+#define BBQJoinUsViewController bK4TwbJvMH
 
-#define BBQNewsViewController uuNIYpmlMjB
+#define BBQNewsViewController _GoseySRwV
 
-#define BBQEpidemicViewController UqiG8chRhe
+#define BBQEpidemicViewController EanTbIA3p9_c
 
-#define BBQEpidemicContentViewController gzhpmaRGqk4M
+#define BBQEpidemicContentViewController n1IHEs7foj
 
-#define BBQOfficialViewController S2GVQMkcbyN
+#define BBQOfficialViewController G8Oym7SaoV
 
-#define BBQOfficialContentViewController IEh2ZSVRIThH
+#define BBQOfficialContentViewController rcR28mBPGgF
 
-#define BBQTrashViewController PjQuZDoHsr
+#define BBQTrashViewController n3dviFfXBe
 
-#define BBQKindViewController pVVEqqlZQn
+#define BBQKindViewController GWMTjGDO0G
 
-#define BBQOrderViewController JNzJCmdPhmm
+#define BBQOrderViewController hXgv4s7WvP
 
-#define BBQSubCatagoryViewController GgnVPThiErTz
+#define BBQSubCatagoryViewController OzyFbYpC697
 
-#define BBQJoinersViewController mAQbIi0lWEs
+#define BBQJoinersViewController qRuMAJv6B_
 
-#define BBQHomeItemViewController CbsrdgbevF
+#define BBQHomeItemViewController eYU4SETzQGqB
 
-#define BBQHomeItemHeaderView zcGR5FzC_pU
+#define BBQHomeItemHeaderView nMHxMgt8bzW
 
-#define BBQHomeItemCell n4FCE6GzZx
+#define BBQHomeItemCell xdnRdyBalwz
 
-#define BBQTradeViewController nmInTM2f61t
+#define BBQTradeViewController vgC9uRNy1VFs
 
-#define BBQHomeViewController cHkE_VgWOz
+#define BBQHomeViewController _VJzQrikHfHk
 
 #pragma mark ---- 游戏类型
 #elif BBQCONFIGURETYPEGAME
