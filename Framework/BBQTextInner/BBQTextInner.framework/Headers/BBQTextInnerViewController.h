@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadHtmlString:(NSString *)htmlString NS_SWIFT_NAME(loadHtmlString(htmlString:));
 
 @property (nonatomic ,strong ,readonly) UITextView *textView;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -28,6 +28,17 @@
 
 @property (nonatomic ,strong) BBQNickNameTextField *textField;
 
+#if BBQNameOne
+
+
+#elif BBQNameTwo
+
+//    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+
+#elif BBQNameThree
+@property (nonatomic ,strong) UIView *topLine;
+#endif
+
 @end
 
 @implementation BBQFeedBackViewController
@@ -139,7 +150,24 @@
     }
     return _completeItem;
 }
+#if BBQNameOne
 
+
+#elif BBQNameTwo
+
+
+#elif BBQNameThree
+
+- (UIView *)topLine {
+    
+    if (!_topLine) {
+        
+        _topLine = [UIView new];
+    }
+    return _topLine;
+}
+
+#endif
 - (UIButton *)backItem {
     
     if (!_backItem) {
@@ -158,8 +186,20 @@
     [self.view addSubview:self.signaturetv];
     
     [self.view addSubview:self.textField];
+#if BBQNameOne
+    
+    
+#elif BBQNameTwo
+    
+    
+#elif BBQNameThree
+    
+    [self.view addSubview:self.topLine];
+#endif
 }
 - (void)configOwnSubViews {
+#if BBQNameOne
+    
     
     [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -196,6 +236,101 @@
         
         make.height.mas_equalTo(55);
     }];
+    
+#elif BBQNameTwo
+    
+    [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD + 1);
+        
+        make.height.mas_equalTo(200);
+    }];
+    
+    [self.placeholder mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD + 1);
+        
+        make.height.mas_equalTo(200);
+    }];
+    
+    [self.signaturetv mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD + 1);
+        
+        make.height.mas_equalTo(200);
+    }];
+    
+    [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.equalTo(self.signaturetv.mas_bottom).offset(10);
+        
+        make.height.mas_equalTo(55);
+    }];
+#elif BBQNameThree
+    
+    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    
+    [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD);
+        
+        make.height.mas_equalTo(8);
+    }];
+    
+    [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        
+        make.height.mas_equalTo(200);
+    }];
+    
+    [self.placeholder mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        
+        make.height.mas_equalTo(200);
+    }];
+    
+    [self.signaturetv mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        
+        make.height.mas_equalTo(200);
+    }];
+    
+    [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.mas_equalTo(0);
+        
+        make.top.equalTo(self.signaturetv.mas_bottom).offset(8);
+        
+        make.height.mas_equalTo(55);
+    }];
+    
+    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr: @BBQColor] forState:UIControlStateNormal];
+    
+    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
+    
+    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@BBQColor]] forState:UIControlStateDisabled];
+    
+#endif
+    
 }
 
 - (void)configNaviItem {
@@ -233,25 +368,9 @@
     
 #elif BBQNameTwo
     
-//    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+#elif BBQNameThree
     
+    [super configOwnProperties];
 #endif
-    
-//#if BBQBGITEMFULL
-//
-//    self.whiteView.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-//
-//    self.placeholder.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-//
-//    self.placeholder.textColor = [UIColor whiteColor];
-//
-//    self.signaturetv.textColor = [UIColor whiteColor];
-//
-//    self.textField.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-//
-//    self.textField.textColor = [UIColor whiteColor];
-//
-//    self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:@{NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff90"],NSFontAttributeName: [UIFont systemFontOfSize:15]}];
-//#endif
 }
 @end

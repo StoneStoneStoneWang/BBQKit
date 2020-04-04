@@ -68,7 +68,9 @@
 
 
 
-#if BBQCarouselOne
+#if BBQCarouselOne || BBQCarouselThree
+
+#define BBQCarouselHeight KSSCREEN_WIDTH / 3
 
 @interface BBQCarouselFormOneLayout : UICollectionViewFlowLayout
 
@@ -224,8 +226,9 @@
 #elif BBQCarouselOne
     
     BBQCarouselFormOneLayout *layout = [BBQCarouselFormOneLayout new];
+#elif BBQCarouselThree
+    BBQCarouselFormOneLayout *layout = [BBQCarouselFormOneLayout new];
 #endif
-    
     
     UICollectionView *collectionView = [self createCollectionWithLayout:layout];
     
@@ -248,6 +251,8 @@
         make.height.mas_equalTo( BBQCarouselHeight);
     }];
     
+#if BBQCarouselTwo
+    
     [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.width.mas_equalTo(80);
@@ -258,6 +263,32 @@
         
         make.top.mas_equalTo(BBQCarouselHeight - 40 );
     }];
+#elif BBQCarouselOne
+    
+    [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.width.mas_equalTo(80);
+        
+        make.centerX.mas_equalTo(0);
+        
+        make.height.mas_equalTo(20);
+        
+        make.top.mas_equalTo(BBQCarouselHeight - 40 );
+    }];
+#elif BBQCarouselThree
+    [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.width.mas_equalTo(80);
+        
+        make.right.mas_equalTo(-15);
+        
+        make.height.mas_equalTo(20);
+        
+        make.top.mas_equalTo(BBQCarouselHeight - 40 );
+    }];
+#endif
+    
+    
 }
 - (void)configViewModel {
     
@@ -269,7 +300,7 @@
         
         
     }];
-#elif BBQCarouselOne
+#elif BBQCarouselOne || BBQCarouselThree
     
     [bridge createCarousel:self canPageHidden:false images:BBQCarouselImgs style:BBQCarouselStyleOne carouseAction:^(NSString * _Nonnull banner) {
         

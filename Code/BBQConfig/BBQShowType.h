@@ -63,21 +63,15 @@
 
 #define BBQCarouselTwo 0
 
-#define BBQCarouselTwo 1
+#define BBQCarouselThree 1
 
 #pragma mark ---setting userinfo one hasplace two no place
 
-#define BBQUserInfoOne 1
+#define BBQUserInfoOne 0
 
 #define BBQUserInfoTwo 0
 
-#pragma mark --- about
-
-#define BBQAboutOne 0
-
-#define BBQAboutTwo 0
-
-#define BBQAboutThree 1
+#define BBQUserInfoThree 1
 
 #pragma mark --- name signtrue feedback
 

@@ -53,6 +53,11 @@ extension BBQAboutType {
     
     static var types: [BBQAboutType] {
         
+        return [.version,.email,.wechat,.check]
+    }
+    
+    static var placeTypes: [BBQAboutType] {
+        
         return [.space,.version,.email,.wechat,.check]
     }
     
@@ -116,12 +121,14 @@ struct BBQAboutViewModel: WLBaseViewModel {
         let modelSelect: ControlEvent<BBQAboutType>
         
         let itemSelect: ControlEvent<IndexPath>
+        
+        let hasPlace: Bool
     }
     struct WLOutput {
         
         let zip: Observable<(BBQAboutType,IndexPath)>
         
-        let tableData: BehaviorRelay<[BBQAboutType]> = BehaviorRelay<[BBQAboutType]>(value: BBQAboutType.types)
+        let tableData: BehaviorRelay<[BBQAboutType]> = BehaviorRelay<[BBQAboutType]>(value: [])
     }
     init(_ input: WLInput) {
         
@@ -130,5 +137,7 @@ struct BBQAboutViewModel: WLBaseViewModel {
         let zip = Observable.zip(input.modelSelect,input.itemSelect)
         
         self.output = WLOutput(zip: zip)
+        
+        self.output.tableData.accept(input.hasPlace ? BBQAboutType.placeTypes : BBQAboutType.types)
     }
 }

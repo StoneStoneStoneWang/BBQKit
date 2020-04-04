@@ -35,6 +35,10 @@
         _iconImageView.layer.cornerRadius = 5;
         
         _iconImageView.layer.masksToBounds = true;
+        
+        _iconImageView.layer.borderWidth = 1;
+        
+        _iconImageView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
     }
     return _iconImageView;
 }
@@ -148,6 +152,16 @@
     
 #elif BBQUserInfoTwo
     
+#elif BBQUserInfoThree
+    
+    if (userInfo.type == BBQUserInfoTypeSpace) {
+        
+        self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    } else {
+        
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    
 #endif
     
 }
@@ -200,7 +214,16 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+#if BBQUserInfoOne
     [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+#elif BBQUserInfoTwo
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+#elif BBQUserInfoThree
+    
+    
+    
+#endif
+    
     
 }
 + (instancetype)createUserInfoWithBlock:(BBQUserInfoBlock )block {
@@ -235,6 +258,8 @@
     [super configOwnProperties];
 #elif BBQUserInfoTwo
     [super configOwnProperties];
+#elif BBQUserInfoThree
+    [super configOwnProperties];
 #endif
     
 }
@@ -261,6 +286,8 @@
     [self.bridge createUserInfo:self hasPlace:true];
 #elif BBQUserInfoTwo
     [self.bridge createUserInfo:self hasPlace:false];
+#elif BBQUserInfoThree
+    [self.bridge createUserInfo:self hasPlace:true];
 #endif
     
 }

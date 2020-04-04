@@ -122,13 +122,18 @@
     
 #elif BBQUserInfoTwo
     
-#endif
+#elif BBQUserInfoThree
     
-    //    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    //
-    //    self.titleLabel.textColor = [UIColor whiteColor];
-    //
-    //    self.subTitleLabel.textColor = [UIColor whiteColor];
+    if (setting.type == BBQSettingTypeSpace) {
+        
+        self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    } else {
+        
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    
+#endif
+
 }
 
 
@@ -197,7 +202,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+#if BBQUserInfoOne
     [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+#elif BBQUserInfoTwo
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+#elif BBQUserInfoThree
+    
+    
+    
+#endif
     
 }
 
@@ -232,6 +245,12 @@
         
         weakSelf.block(actionType, weakSelf);
     }];
+#elif BBQUserInfoThree
+    
+    [self.bridge createSetting:self hasPlace:true settingAction:^(enum BBQSettingActionType actionType) {
+        
+        weakSelf.block(actionType, weakSelf);
+    }];
 #endif
     
     [self updateCache];
@@ -248,6 +267,8 @@
 #if BBQUserInfoOne
     [super configOwnProperties];
 #elif BBQUserInfoTwo
+    [super configOwnProperties];
+#elif BBQUserInfoThree
     [super configOwnProperties];
 #endif
     

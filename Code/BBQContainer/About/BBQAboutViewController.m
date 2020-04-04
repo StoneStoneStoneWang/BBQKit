@@ -14,9 +14,46 @@
 @property (nonatomic ,strong) UIImageView *iconImageView;
 
 @property (nonatomic ,strong) UILabel *titleLabel;
+#if BBQUserInfoOne
+
+#elif BBQUserInfoTwo
+
+#elif BBQUserInfoThree
+
+@property (nonatomic ,strong) UIView *topLine;
+
+@property (nonatomic ,strong) UIView *bottomLine;
+#endif
+
+
 @end
 
 @implementation BBQAboutTableHeaderView
+
+#if BBQUserInfoOne
+
+#elif BBQUserInfoTwo
+
+#elif BBQUserInfoThree
+
+- (UIView *)topLine {
+    
+    if (!_topLine) {
+        
+        _topLine = [UIView new];
+    }
+    return _topLine;
+}
+- (UIView *)bottomLine {
+    
+    if (!_bottomLine) {
+        
+        _bottomLine = [UIView new];
+    }
+    return _bottomLine;
+}
+#endif
+
 
 - (UIImageView *)iconImageView {
     
@@ -54,16 +91,27 @@
     [self addSubview:self.titleLabel];
     
     
-#if BBQAboutOne
+#if BBQUserInfoOne
     self.backgroundColor = [UIColor whiteColor];
-#elif BBQAboutTwo
+#elif BBQUserInfoTwo
     self.backgroundColor = [UIColor whiteColor];
+#elif BBQUserInfoThree
+    self.backgroundColor = [UIColor whiteColor];
+    
+    [self addSubview:self.topLine];
+    
+    [self addSubview:self.bottomLine];
+    
+    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
+    
+    self.bottomLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
 #endif
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+#if BBQUserInfoOne
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerX.centerY.equalTo(self);
@@ -78,6 +126,63 @@
         
         make.top.equalTo(self.iconImageView.mas_bottom).offset(5);
     }];
+#elif BBQUserInfoTwo
+    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.centerY.equalTo(self);
+        
+        make.width.height.mas_equalTo(60);
+        
+    }];
+    
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(self);
+        
+        make.top.equalTo(self.iconImageView.mas_bottom).offset(5);
+    }];
+#elif BBQUserInfoThree
+    
+    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.width.height.mas_equalTo(@60);
+        
+        make.centerX.equalTo(self);
+        
+        make.top.mas_equalTo(15);
+    }];
+    
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(self);
+        
+        make.bottom.equalTo(self);
+        
+        make.top.equalTo(self.iconImageView.mas_bottom);
+    }];
+    
+    [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(8);
+        
+        make.top.equalTo(self);
+        
+        make.left.mas_equalTo(15);
+        
+        make.right.mas_equalTo(-15);
+    }];
+    
+    [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(8);
+        
+        make.bottom.equalTo(self);
+        
+        make.left.mas_equalTo(15);
+        
+        make.right.mas_equalTo(-15);
+    }];
+#endif
 }
 
 @end
@@ -153,17 +258,15 @@
         self.accessoryType = UITableViewCellAccessoryNone;
     }
     
-#if BBQAboutOne
+#if BBQUserInfoOne
     
-#elif BBQAboutTwo
+#elif BBQUserInfoTwo
+    
+#elif BBQUserInfoThree
+    
     
 #endif
     
-    //    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
-    //
-    //    self.titleLabel.textColor = [UIColor whiteColor];
-    //
-    //    self.subTitleLabel.textColor = [UIColor whiteColor];
 }
 
 - (void)layoutSubviews {
@@ -204,17 +307,24 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+#if BBQUserInfoOne
     [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+#elif BBQUserInfoTwo
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+#elif BBQUserInfoThree
     
+#endif
 }
 - (void)configOwnSubViews {
     [super configOwnSubViews];
     
     [self.tableView registerClass:[BBQAboutTableViewCell class] forCellReuseIdentifier:@"cell"];
     
-#if BBQAboutOne
+#if BBQUserInfoOne
     self.headerView = [[BBQAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 120)];
-#elif BBQAboutTwo
+#elif BBQUserInfoTwo
+    self.headerView = [[BBQAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 120)];
+#elif BBQUserInfoThree
     self.headerView = [[BBQAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 120)];
 #endif
     
@@ -236,8 +346,14 @@
 - (void)configViewModel {
     
     self.bridge = [BBQAboutBridge new];
+#if BBQUserInfoOne
+    [self.bridge createAbout:self hasPlace:true];
+#elif BBQUserInfoTwo
+    [self.bridge createAbout:self hasPlace:true];
+#elif BBQUserInfoThree
+    [self.bridge createAbout:self hasPlace:false];
+#endif
     
-    [self.bridge createAbout:self];
 }
 
 - (void)configNaviItem {
@@ -251,13 +367,13 @@
 }
 - (void)configOwnProperties {
     
-#if BBQAboutOne
+#if BBQUserInfoOne
     [super configOwnProperties];
-#elif BBQAboutTwo
+#elif BBQUserInfoTwo
+    [super configOwnProperties];
+#elif BBQUserInfoThree
     [super configOwnProperties];
 #endif
-    
-    //    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
     
 }
 @end
