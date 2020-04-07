@@ -30,9 +30,9 @@ extension BBQUserInfoCache {
     
     public func saveUser(data: BBQUserBean) -> BBQUserBean {
         
-        if !data.encoded.isEmpty {
+        if BBQAccountCache.default.uid != "" {
             
-            BBQYYCahce.shared().saveObj(data, withKey: "user_" + data.encoded)
+            BBQYYCahce.shared().saveObj(data, withKey: "user_" + BBQAccountCache.default.uid)
             
             userBean = data
         }
@@ -42,7 +42,7 @@ extension BBQUserInfoCache {
     
     public func queryUser() -> BBQUserBean  {
         
-        if !BBQAccountCache.default.uid.isEmpty {
+        if BBQAccountCache.default.uid != "" {
             
             if let user = BBQYYCahce.shared().fetchObj("user_" + BBQAccountCache.default.uid) {
                 
