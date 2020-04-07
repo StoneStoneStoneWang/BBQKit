@@ -28,7 +28,7 @@
 
 #define BBQSettingIcon "设置"
 
-#define BBQZPhoneNum "+0314-8032560"
+#define BBQZPhoneNum "+0314-8081025"
 
 #define BBQPhoneIcon "手机号"
 
