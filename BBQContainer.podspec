@@ -215,4 +215,11 @@ Pod::Spec.new do |spec|
     area.dependency 'BBQCollection'
     area.dependency 'JXTAlertManager'
   end
+  
+  # 地址 area
+  spec.subspec 'AMapViewOntroller' do |amap|
+    amap.vendored_frameworks = 'Framework/BBQAMapViewController/BBQAMapViewController.framework'
+    amap.dependency 'BBQTransition'
+  end
+
 end

@@ -1,0 +1,6 @@
+framework module BBQAMapViewController {
+  umbrella header "BBQAMapViewController.h"
+
+  export *
+  module * { export * }
+}
