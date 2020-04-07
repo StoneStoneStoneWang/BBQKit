@@ -1,0 +1,6 @@
+framework module BBQAMap {
+  umbrella header "BBQAMap.h"
+
+  export *
+  module * { export * }
+}
