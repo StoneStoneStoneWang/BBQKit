@@ -46,6 +46,10 @@ public final class BBQCollectionItemBean: NSObject {
     
     @objc public var isSelected: Bool = false
     
+    @objc public var placeholder: String = ""
+    
+    @objc public var value: String = ""
+    
     @objc public static func createItem(_ iTag: Int,title: String ,icon: String) -> BBQCollectionItemBean {
         
         let item = BBQCollectionItemBean()
@@ -58,6 +62,7 @@ public final class BBQCollectionItemBean: NSObject {
         
         return item
     }
+    
     private override init() { }
 }
 

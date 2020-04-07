@@ -28,24 +28,30 @@ public final class BBQUserInfoCache: NSObject {
 
 extension BBQUserInfoCache {
     
-   public func saveUser(data: BBQUserBean) -> BBQUserBean {
+    public func saveUser(data: BBQUserBean) -> BBQUserBean {
         
-        BBQYYCahce.shared().saveObj(data, withKey: "user_" + data.encoded)
-    
-        userBean = data
+        if !data.encoded.isEmpty {
+            
+            BBQYYCahce.shared().saveObj(data, withKey: "user_" + data.encoded)
+            
+            userBean = data
+        }
         
         return data
     }
     
     public func queryUser() -> BBQUserBean  {
         
-        if let user = BBQYYCahce.shared().fetchObj("user_" + BBQAccountCache.default.uid) {
-
-            userBean = user as! BBQUserBean
-
-            return userBean
+        if !BBQAccountCache.default.uid.isEmpty {
+            
+            if let user = BBQYYCahce.shared().fetchObj("user_" + BBQAccountCache.default.uid) {
+                
+                userBean = user as! BBQUserBean
+                
+                return userBean
+            }
         }
-        
+    
         return BBQUserBean()
     }
 }

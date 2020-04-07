@@ -16,11 +16,59 @@
 
 @property (nonatomic ,strong )UIImageView *iconImageView;
 
+#if BBQCarouselTwo
+
+#elif BBQCarouselOne
+
+#elif BBQCarouselThree
+
+@property (nonatomic ,strong) UILabel *titleLabel;
+
+@property (nonatomic ,strong) UIView *titleLabelBackground;
+
+- (void)setTitle:(NSString *)title;
+
+#endif
+
 - (void)commitInit;
 
 @end
 
 @implementation BBQCarouselCollectionViewCell
+
+#if BBQCarouselTwo
+
+#elif BBQCarouselOne
+
+#elif BBQCarouselThree
+
+- (UILabel *)titleLabel {
+    
+    if (!_titleLabel) {
+        
+        _titleLabel = [UILabel new];
+        
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        
+        _titleLabel.textColor = [UIColor whiteColor];
+        
+        _titleLabel.font = [UIFont systemFontOfSize:13];
+    }
+    return _titleLabel;
+}
+- (UIView *)titleLabelBackground {
+    
+    if (!_titleLabelBackground) {
+        
+        _titleLabelBackground = [UIView new];
+        
+        _titleLabelBackground.backgroundColor = [UIColor blackColor];
+        
+        _titleLabelBackground.alpha = 0.5;
+    }
+    return _titleLabelBackground;
+}
+#endif
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
@@ -51,18 +99,63 @@
     
     self.iconImageView.image = [UIImage imageNamed:image];
 }
+#if BBQCarouselTwo
 
+#elif BBQCarouselOne
+
+#elif BBQCarouselThree
+
+- (void)setTitle:(NSString *)title {
+    
+    self.titleLabel.text = title;
+}
+
+#endif
 - (void)commitInit {
     
     self.backgroundColor = [UIColor whiteColor];
     
     [self.contentView addSubview:self.iconImageView];
+#if BBQCarouselTwo
     
+#elif BBQCarouselOne
+    
+#elif BBQCarouselThree
+    
+    [self addSubview:self.titleLabelBackground];
+    
+    [self addSubview:self.titleLabel];
+    
+#endif
 }
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
     self.iconImageView.frame = self.bounds;
+    
+#if BBQCarouselTwo
+    
+#elif BBQCarouselOne
+    
+#elif BBQCarouselThree
+    
+    [self.titleLabelBackground mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.bottom.equalTo(self);
+        
+        make.height.mas_equalTo(30);
+    }];
+    
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.bottom.equalTo(self);
+        
+        make.left.mas_equalTo(15);
+        
+        make.height.mas_equalTo(30);
+    }];
+#endif
 }
 @end
 
@@ -85,7 +178,7 @@
     
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH, KSSCREEN_WIDTH / 2);
+    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH, KSSCREEN_WIDTH / 3);
     
     self.itemSize = itemSize;
     
@@ -98,8 +191,6 @@
 }
 
 @end
-
-
 
 #elif BBQCarouselTwo
 
@@ -182,22 +273,53 @@
 
 #endif
 
-
-
 @interface BBQCarouselViewController ()
 
 @property (nonatomic ,strong) UIPageControl *pageControl;
 
 @property (nonatomic ,strong) BBQCarouselBridge *bridge;
 
+#if BBQCarouselTwo
+
+#elif BBQCarouselOne
+
+#elif BBQCarouselThree
+
+@property (nonatomic ,copy) NSString *carouselTitle;
+
+#endif
 @end
 
 @implementation BBQCarouselViewController
+
+#if BBQCarouselTwo
 
 + (instancetype)createCarousel {
     
     return [self new];
 }
+#elif BBQCarouselOne
+
++ (instancetype)createCarousel {
+    
+    return [self new];
+}
+#elif BBQCarouselThree
++ (instancetype)createCarouselWithTitle:(NSString *)title {
+    
+    return [[self alloc] initWithCarouseTitle:title];
+}
+- (instancetype)initWithCarouseTitle:(NSString *)title {
+    
+    if (self = [super init]) {
+        
+        self.carouselTitle = title;
+    }
+    return self;
+}
+#endif
+
+
 - (UIPageControl *)pageControl {
     
     if (!_pageControl) {
@@ -275,16 +397,22 @@
         
         make.top.mas_equalTo(BBQCarouselHeight - 40 );
     }];
+    
 #elif BBQCarouselThree
+    
+    self.pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
+    
+    self.pageControl.pageIndicatorTintColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+    
     [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.width.mas_equalTo(80);
         
         make.right.mas_equalTo(-15);
         
-        make.height.mas_equalTo(20);
+        make.height.mas_equalTo(30);
         
-        make.top.mas_equalTo(BBQCarouselHeight - 40 );
+        make.top.mas_equalTo(BBQCarouselHeight - 30);
     }];
 #endif
     
@@ -314,7 +442,14 @@
     BBQCarouselCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"image" forIndexPath:ip ];
     
     [cell setImage:data ];
+#if BBQCarouselTwo
     
+#elif BBQCarouselOne
+    
+#elif BBQCarouselThree
+    
+    [cell setTitle:self.carouselTitle];
+#endif
     return cell;
 }
 

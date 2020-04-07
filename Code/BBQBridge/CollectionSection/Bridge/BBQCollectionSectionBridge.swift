@@ -62,4 +62,18 @@ extension BBQCollectionSectionBridge {
             .disposed(by: disposed)
         
     }
+    
+    @objc public func fetchCollectionDatas() -> [BBQCollectionItemBean] {
+        
+        guard let viewModel = viewModel else { return [] }
+        
+        var mutable: [BBQCollectionItemBean] = []
+        
+        for item in viewModel.output.collectionData.value {
+            
+            mutable += item.items
+        }
+        
+        return mutable
+    }
 }

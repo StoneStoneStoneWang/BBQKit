@@ -136,6 +136,13 @@ extension BBQCollectionsBridge {
 
 extension BBQCollectionsBridge {
     
+    @objc public func fetchObj(_ ip: IndexPath) -> BBQCircleBean? {
+        
+        guard let dataSource = dataSource else { return nil }
+        
+        return dataSource[ip]
+    }
+    
     @objc public func fetchIp(_ circle: BBQCircleBean) -> IndexPath {
         
         let values = viewModel.output.collectionData.value

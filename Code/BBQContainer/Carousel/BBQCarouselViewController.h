@@ -12,7 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BBQCarouselViewController : BBQCollectionNoLoadingViewController
 
+#if BBQCarouselTwo
+
 + (instancetype)createCarousel;
+#elif BBQCarouselOne
+
++ (instancetype)createCarousel;
+#elif BBQCarouselThree
++ (instancetype)createCarouselWithTitle:(NSString *)title;
+#endif
+
 
 @end
 
