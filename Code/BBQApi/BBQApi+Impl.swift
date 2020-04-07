@@ -90,13 +90,13 @@ extension BBQApi: WLObserverReq {
     public var params: Dictionary<String, Any> {
         
         switch self {
-        case let .login(phone, password: password): return ["phone": phone,"password": password,"platform": "1" ,"deviceId": DeviceId]
+        case let .login(phone, password: password): return ["phone": phone,"password": password,"platform": "1" ,"deviceId": DeviceId,"deviceModel": DeviceModel]
             
         case let .smsCode(phone): return ["phone": phone,"signName":BBQConfigure.fetchSmsSign(),"templateCode":BBQConfigure.fetchSmsLogin()]
             
-        case let .swiftLogin(phone, code): return ["phone":phone,"code":code,"platform":"1"]
+        case let .swiftLogin(phone, code): return ["phone":phone,"code":code,"platform":"1","deviceModel": DeviceModel]
             
-        case let .reg(phone, password: password, code: code): return ["phone": phone,"password": password,"platform": "1","code": code,"openid": ""]
+        case let .reg(phone, password: password, code: code): return ["phone": phone,"password": password,"platform": "1","code": code,"openid": "","deviceModel": DeviceModel]
             
         case let .feedback(email, content: content): return ["fb.email": email,"fb.content": content]
             
@@ -106,9 +106,9 @@ extension BBQApi: WLObserverReq {
             
         case let .smsPassword(phone): return ["phone": phone,"signName":BBQConfigure.fetchSmsSign(),"templateCode":BBQConfigure.fetchSmsPwd()]
             
-        case let .resettingPassword(phone, password: password, code: code): return ["phone": phone,"password": password,"platform": "1","code": code]
+        case let .resettingPassword(phone, password: password, code: code): return ["phone": phone,"password": password,"platform": "1","code": code,"deviceModel": DeviceModel]
             
-        case let .modifyPassword(oldPassword, password: password): return ["oldPassword": oldPassword,"password": password]
+        case let .modifyPassword(oldPassword, password: password): return ["oldPassword": oldPassword,"password": password,"deviceModel": DeviceModel]
             
         case .fetchBlackList: return ["projectId":BBQConfigure.fetchAppKey()]
             
