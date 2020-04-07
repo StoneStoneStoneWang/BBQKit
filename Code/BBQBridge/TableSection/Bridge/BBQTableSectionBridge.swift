@@ -13,7 +13,7 @@ import RxSwift
 import RxDataSources
 import BBQCocoa
 
-public typealias BBQTableSectionAction = (_ item: BBQTableRowBean) -> ()
+public typealias BBQTableSectionAction = (_ item: BBQTableRowBean ,_ ip: IndexPath) -> ()
 
 @objc (BBQTableSectionBridge)
 public final class BBQTableSectionBridge: BBQBaseBridge {
@@ -30,7 +30,7 @@ public final class BBQTableSectionBridge: BBQBaseBridge {
 
 extension BBQTableSectionBridge {
     
-    @objc public func createTableSection(_ vc: BBQTableNoLoadingViewController ,sections: [BBQTableSectionBean],sectionAction: @escaping BBQTableSectionAction) {
+    @objc public func createTableSection(_ vc: BBQTableNoLoadingViewController ,sections: [BBQTableSectionBean],sectionAction: @escaping BBQTableSectionAction ) {
         
         self.vc = vc
         
@@ -58,7 +58,7 @@ extension BBQTableSectionBridge {
             .zip
             .subscribe(onNext: { (item,ip) in
                 
-                sectionAction(item)
+                sectionAction(item, ip)
             })
             .disposed(by: disposed)
         

@@ -373,4 +373,7 @@
     [super configOwnProperties];
 #endif
 }
+
+- (BOOL)canPanResponse { return true;}
+
 @end

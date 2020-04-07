@@ -1,24 +1,23 @@
 //
-//  BBQProtocolViewController.m
+//  BBQPrivacyViewController.m
 //  BBQContainer
 //
 //  Created by 王磊 on 2020/3/29.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#import "BBQProtocolViewController.h"
+#import "BBQPrivacyViewController.h"
 @import SToolsKit;
-@interface BBQProtocolViewController ()
+@interface BBQPrivacyViewController ()
 
-@property (nonatomic ,strong) BBQProtocolBridge *bridge;
-
-
-#if BBQLoginOne
+@property (nonatomic ,strong) BBQPrivacyBridge *bridge;
 
 
-#elif BBQLoginTwo
+#if BBQUserInfoOne
 
-#elif BBQLoginThree
+#elif BBQUserInfoTwo
+
+#elif BBQUserInfoThree
 
 @property (nonatomic ,strong) UIView *topLine;
 #else
@@ -27,29 +26,26 @@
 #endif
 @end
 
-@implementation BBQProtocolViewController
+@implementation BBQPrivacyViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-#if BBQLoginOne
-    
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] ];
-#elif BBQLoginTwo
-    
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor] ];
-    
-#else
+#if BBQUserInfoOne
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+#elif BBQUserInfoTwo
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+#elif BBQUserInfoThree
     
     
 #endif
 }
-#if BBQLoginOne
+#if BBQUserInfoOne
 
 
-#elif BBQLoginTwo
+#elif BBQUserInfoTwo
 
-#elif BBQLoginThree
+#elif BBQUserInfoThree
 
 - (UIView *)topLine {
     if (!_topLine) {
@@ -62,46 +58,33 @@
 
 
 #endif
-+ (instancetype)createProtocol {
++ (instancetype)createPrivacy {
     
     return [self new];
 }
 
 - (void)configViewModel {
     
-    self.bridge = [BBQProtocolBridge new];
+    self.bridge = [BBQPrivacyBridge new];
     
-    [self.bridge createProtocol:self] ;
+    [self.bridge createPrivacy:self] ;
 }
 - (void)addOwnSubViews {
     [super addOwnSubViews];
     
-#if BBQLoginOne
-    
-    
-#elif BBQLoginTwo
-    
-#elif BBQLoginThree
-    
     [self.view addSubview:self.topLine];
-#else
     
-    
-#endif
 }
 - (void)configOwnSubViews {
     [super configOwnSubViews];
     
     
-#if BBQLoginOne
+#if BBQUserInfoOne
     
-#elif BBQLoginTwo
+#elif BBQUserInfoTwo
     
-    self.textView.textColor = [UIColor whiteColor];
     
-    self.textView.editable = false;
-    
-#elif BBQLoginThree
+#elif BBQUserInfoThree
     
     self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
     
@@ -132,17 +115,17 @@
 - (void)configOwnProperties {
     [super configOwnProperties];
     
-#if BBQLoginOne
+#if BBQUserInfoOne
     
-#elif BBQLoginTwo
+#elif BBQUserInfoTwo
     
-    self.textView.backgroundColor = [UIColor whiteColor];
+    self.textView.backgroundColor = [UIColor clearColor];
     
     self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
     
     self.textView.layer.masksToBounds = false;
     
-#elif BBQLoginThree
+#elif BBQUserInfoThree
     
     
 #else

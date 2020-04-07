@@ -47,10 +47,11 @@ Pod::Spec.new do |spec|
     
     privacy.source_files = "Code/BBQContainer/Privacy/*.{h,m}"
     privacy.dependency 'BBQConfig'
-    privacy.dependency 'BBQBridge/Privacy/Bridge'
+    privacy.dependency 'BBQBridge/Protocol/Bridge'
     privacy.dependency 'SToolsKit'
     privacy.dependency 'Masonry'
   end
+  
   # 登陆 login
   spec.subspec 'Login' do |login|
     
