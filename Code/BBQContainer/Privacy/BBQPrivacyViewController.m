@@ -10,7 +10,7 @@
 @import SToolsKit;
 @interface BBQPrivacyViewController ()
 
-@property (nonatomic ,strong) BBQPrivacyBridge *bridge;
+@property (nonatomic ,strong) BBQProtocolBridge *bridge;
 
 
 #if BBQUserInfoOne
@@ -65,14 +65,25 @@
 
 - (void)configViewModel {
     
-    self.bridge = [BBQPrivacyBridge new];
+    self.bridge = [BBQProtocolBridge new];
     
-    [self.bridge createPrivacy:self] ;
+    [self.bridge createProtocol:self] ;
 }
 - (void)addOwnSubViews {
     [super addOwnSubViews];
+#if BBQUserInfoOne
+    
+    
+#elif BBQUserInfoTwo
+    
+#elif BBQUserInfoThree
     
     [self.view addSubview:self.topLine];
+#else
+    
+    
+#endif
+    
     
 }
 - (void)configOwnSubViews {
@@ -119,7 +130,7 @@
     
 #elif BBQUserInfoTwo
     
-    self.textView.backgroundColor = [UIColor clearColor];
+    self.textView.backgroundColor = [UIColor whiteColor];
     
     self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
     
