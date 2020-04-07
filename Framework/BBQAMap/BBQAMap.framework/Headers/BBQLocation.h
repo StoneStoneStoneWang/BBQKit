@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^BBQLocationBlock)(CLLocation *location);
+typedef void(^BBQLocationBlock)(CLLocation *_Nullable location);
 
 @interface BBQLocation : NSObject
 
