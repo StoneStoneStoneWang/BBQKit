@@ -37,6 +37,10 @@
     [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
 #elif BBQUserInfoThree
     
+#if BBQCONTAINDRAWER
+    
+    [self.navigationController setNavigationBarHidden:false];
+#endif
     
 #endif
 }

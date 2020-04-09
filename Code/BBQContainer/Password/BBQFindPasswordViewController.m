@@ -1,29 +1,28 @@
 //
-//  BBQFindPasswordViewController.m
+//  BBQModifyPasswordViewController.m
 //  BBQContainer
 //
 //  Created by 王磊 on 2020/3/29.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#import "BBQFindPasswordViewController.h"
+#import "BBQModifyPasswordViewController.h"
 @import BBQTextField;
 @import SToolsKit;
 @import Masonry;
 
-@interface BBQFindPasswordViewController ()
+@interface BBQModifyPasswordViewController ()
+@property (nonatomic ,strong) BBQModifyPasswordBridge *bridge;
 
-@property (nonatomic ,strong) BBQFindPasswordBridge *bridge;
-
-@property (nonatomic ,strong) BBQLeftImageTextField *phone;
-
-@property (nonatomic ,strong) BBQVCodeImageTextField *vcode;
+@property (nonatomic ,strong) BBQPasswordImageTextFiled *oldpassword;
 
 @property (nonatomic ,strong) BBQPasswordImageTextFiled *password;
 
+@property (nonatomic ,strong) BBQPasswordImageTextFiled *againpassword;
+
 @property (nonatomic ,strong) UIButton *completeItem;
 
-@property (nonatomic ,copy) BBQFindPassworBlock block;
+@property (nonatomic ,copy) BBQModifyPasswordBlock block;
 #if BBQLoginOne
 
 @property (nonatomic ,strong) UIView *topView;
@@ -42,18 +41,42 @@
 
 @property (nonatomic ,strong) UIView *bottomLine;
 
+#elif BBQLoginFour
+
+@property (nonatomic ,strong) UIImageView *logoImgView;
+
+@property (nonatomic ,strong) UIImageView *backgroundImageView;
+
 #else
 
 #endif
 @end
 
-@implementation BBQFindPasswordViewController
+@implementation BBQModifyPasswordViewController
 
-+ (instancetype)createPasswordWithBlock:(BBQFindPassworBlock)block {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+#if BBQLoginOne
+    
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor] ];
+#elif BBQLoginTwo
+    
+#elif BBQLoginThree
+    
+#elif BBQLoginFour
+    
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+#else
+    
+#endif
+}
+
++ (instancetype)createPasswordWithBlock:(BBQModifyPasswordBlock)block {
     
     return [[self alloc] initWithBlock:block];
 }
-- (instancetype)initWithBlock:(BBQFindPassworBlock)block {
+- (instancetype)initWithBlock:(BBQModifyPasswordBlock)block {
     
     if (self = [super init]) {
         
@@ -61,63 +84,49 @@
     }
     return self;
 }
-- (BBQLeftImageTextField *)phone {
+- (BBQPasswordImageTextFiled *)oldpassword {
     
-    if (!_phone) {
+    if (!_oldpassword) {
         
-        _phone = [[BBQLeftImageTextField alloc] initWithFrame:CGRectZero];
+        _oldpassword = [[BBQPasswordImageTextFiled alloc] initWithFrame:CGRectZero];
         
-        _phone.tag = 201;
+        _oldpassword.tag = 201;
         
-        _phone.leftImageName = @BBQPhoneIcon;
+        _oldpassword.leftImageName = @BBQPasswordIcon;
         
-        _phone.placeholder = @"请输入11位手机号";
+        _oldpassword.placeholder = @"请输入6-18位旧密码";
         
-        [_phone set_editType:BBQTextFiledEditTypePhone];
+        _oldpassword.normalIcon = @BBQPasswordNormalIcon;
         
-        [_phone set_maxLength:11];
+        _oldpassword.selectedIcon = @BBQPasswordSelectIcon;
         
-        [_phone set_bottomLineColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+        _oldpassword.leftImageName = @BBQPasswordIcon;
+        
+        [_oldpassword set_editType:BBQTextFiledEditTypeSecret];
+        
+        [_oldpassword set_maxLength:18];
+        
+        [_oldpassword set_bottomLineColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
     }
-    return _phone;
+    return _oldpassword;
 }
-
-- (BBQVCodeImageTextField *)vcode {
-    
-    if (!_vcode) {
-        
-        _vcode = [[BBQVCodeImageTextField alloc] initWithFrame:CGRectZero];
-        
-        _vcode.tag = 202;
-        
-        _vcode.leftImageName = @BBQVCodeIcon;
-        
-        _vcode.placeholder = @"请输入6位验证码";
-        
-        [_vcode set_editType:BBQTextFiledEditTypeVcode_length6];
-        
-        [_vcode set_maxLength:6];
-        
-        [_vcode set_bottomLineColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
-    }
-    return _vcode;
-}
-
 - (BBQPasswordImageTextFiled *)password {
     
     if (!_password) {
         
         _password = [[BBQPasswordImageTextFiled alloc] initWithFrame:CGRectZero];
         
-        _password.tag = 203;
+        _password.tag = 202;
+        
+        _password.leftImageName = @BBQPasswordIcon;
+        
+        _password.placeholder = @"请输入6-18位新密码";
         
         _password.normalIcon = @BBQPasswordNormalIcon;
         
         _password.selectedIcon = @BBQPasswordSelectIcon;
         
         _password.leftImageName = @BBQPasswordIcon;
-        
-        _password.placeholder = @"请输入6-18位密码";
         
         [_password set_editType:BBQTextFiledEditTypeSecret];
         
@@ -127,6 +136,34 @@
     }
     return _password;
 }
+
+- (BBQPasswordImageTextFiled *)againpassword {
+    
+    if (!_againpassword) {
+        
+        _againpassword = [[BBQPasswordImageTextFiled alloc] initWithFrame:CGRectZero];
+        
+        _againpassword.tag = 203;
+        
+        _againpassword.leftImageName = @BBQPasswordIcon;
+        
+        _againpassword.placeholder = @"请输入6-18位确认密码";
+        
+        _againpassword.normalIcon = @BBQPasswordNormalIcon;
+        
+        _againpassword.selectedIcon = @BBQPasswordSelectIcon;
+        
+        _againpassword.leftImageName = @BBQPasswordIcon;
+        
+        [_againpassword set_editType:BBQTextFiledEditTypeSecret];
+        
+        [_againpassword set_maxLength:18];
+        
+        [_againpassword set_bottomLineColor:[UIColor s_transformToColorByHexColorStr:@BBQColor]];
+    }
+    return _againpassword;
+}
+
 
 - (UIButton *)completeItem {
     
@@ -140,9 +177,9 @@
         
         [_completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
         
-        [_completeItem setTitle:@"完成" forState: UIControlStateNormal];
+        [_completeItem setTitle:@"修改密码" forState: UIControlStateNormal];
         
-        [_completeItem setTitle:@"完成" forState: UIControlStateHighlighted];
+        [_completeItem setTitle:@"修改密码" forState: UIControlStateHighlighted];
         
         [_completeItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
@@ -159,11 +196,11 @@
 
 - (void)addOwnSubViews {
     
-    [self.view addSubview:self.phone];
-    
-    [self.view addSubview:self.vcode];
+    [self.view addSubview:self.oldpassword];
     
     [self.view addSubview:self.password];
+    
+    [self.view addSubview:self.againpassword];
     
     [self.view addSubview:self.completeItem];
     
@@ -173,6 +210,7 @@
     
     [self.view addSubview:self.logoImgView];
 #elif BBQLoginTwo
+    
     [self.view addSubview:self.logoImgView];
 #elif BBQLoginThree
     [self.view addSubview:self.logoImgView];
@@ -180,6 +218,13 @@
     [self.view addSubview:self.topLine];
     
     [self.view addSubview:self.bottomLine];
+#elif BBQLoginFour
+    
+    [self.view addSubview:self.logoImgView];
+    
+    [self.view insertSubview:self.backgroundImageView atIndex:0];
+    
+    
 #else
     
 #endif
@@ -266,6 +311,33 @@
     }
     return _bottomLine;
 }
+#elif BBQLoginFour
+- (UIImageView *)backgroundImageView {
+    
+    if (!_backgroundImageView) {
+        
+        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@BBQBackground]];
+        
+        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _backgroundImageView;
+}
+- (UIImageView *)logoImgView {
+    
+    if (!_logoImgView) {
+        
+        _logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@BBQLogoIcon]];
+        
+        _logoImgView.layer.cornerRadius = 40;
+        
+        _logoImgView.layer.masksToBounds = true;
+        
+        _logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
+        
+        _logoImgView.layer.borderWidth = 1;
+    }
+    return _logoImgView;
+}
 #else
 
 #endif
@@ -278,12 +350,13 @@
     self.title = @"忘记密码";
     
 #elif BBQLoginTwo
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
     
     self.title = @"忘记密码";
+    
 #elif BBQLoginThree
     
     self.title = @"忘记密码";
+    
 #else
     
 #endif
@@ -310,7 +383,7 @@
         make.width.height.mas_equalTo(@80);
     }];
     
-    [self.phone mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.oldpassword mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.topView.mas_bottom).offset(10);
         
@@ -321,65 +394,45 @@
         make.height.mas_equalTo(@48);
     }];
     
-    [self.phone set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
-    
-    [self.vcode mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(self.phone.mas_bottom).offset(10);
-        
-        make.left.mas_equalTo(self.phone.mas_left);
-        
-        make.right.mas_equalTo(self.phone.mas_right);
-        
-        make.height.mas_equalTo(self.phone.mas_height);
-    }];
-    
-    UIButton *vcodeItem = (UIButton *)self.vcode.rightView;
-    
-    [vcodeItem setTitle:@"获取验证码" forState:UIControlStateNormal];
-    
-    [vcodeItem sizeToFit];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] forState:UIControlStateNormal];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#999999"] forState:UIControlStateSelected];
-    
-    [self.vcode setRightView:vcodeItem];
-    
-    [self.vcode set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
+    [self.oldpassword set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
     
     [self.password mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.vcode.mas_bottom).offset(10);
+        make.top.mas_equalTo(self.oldpassword.mas_bottom).offset(10);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.left.mas_equalTo(self.oldpassword.mas_left);
         
-        make.right.mas_equalTo(self.phone.mas_right);
+        make.right.mas_equalTo(self.oldpassword.mas_right);
         
-        make.height.mas_equalTo(self.phone.mas_height);
+        make.height.mas_equalTo(self.oldpassword.mas_height);
     }];
     
     [self.password set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
     
-    [self.completeItem mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.againpassword mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.password.mas_bottom).offset(30);
+        make.top.mas_equalTo(self.password.mas_bottom).offset(10);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.left.mas_equalTo(self.oldpassword.mas_left);
         
-        make.right.mas_equalTo(self.phone.mas_right);
+        make.right.mas_equalTo(self.oldpassword.mas_right);
         
-        make.height.mas_equalTo(self.phone.mas_height);
-        
+        make.height.mas_equalTo(self.oldpassword.mas_height);
     }];
     
-    [_vcode setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    [self.againpassword set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
     
-    [_phone setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
-    
-    [_password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    [self.completeItem mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.againpassword.mas_bottom).offset(30);
+        
+        make.left.mas_equalTo(self.oldpassword.mas_left);
+        
+        make.right.mas_equalTo(self.oldpassword.mas_right);
+        
+        make.height.mas_equalTo(self.oldpassword.mas_height);
+        
+    }];
     
 #elif BBQLoginTwo
     
@@ -394,7 +447,7 @@
         make.width.height.mas_equalTo(@80);
     }];
     
-    [self.phone mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.oldpassword mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.logoImgView.mas_bottom).offset(60);
         
@@ -405,56 +458,23 @@
         make.height.mas_equalTo(@48);
     }];
     
-    self.phone.backgroundColor = [UIColor whiteColor];
+    self.oldpassword.backgroundColor = [UIColor whiteColor];
     
-    self.phone.layer.cornerRadius = 24;
+    self.oldpassword.layer.cornerRadius = 24;
     
-    self.phone.layer.masksToBounds = true;
+    self.oldpassword.layer.masksToBounds = true;
     
-    [self.phone set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
-    
-    [self.vcode mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(self.phone.mas_bottom).offset(10);
-        
-        make.left.mas_equalTo(self.phone.mas_left);
-        
-        make.right.mas_equalTo(self.phone.mas_right);
-        
-        make.height.mas_equalTo(self.phone.mas_height);
-    }];
-    
-    UIButton *vcodeItem = (UIButton *)self.vcode.rightView;
-    
-    [vcodeItem setTitle:@"获取验证码" forState:UIControlStateNormal];
-    
-    [vcodeItem sizeToFit];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] forState:UIControlStateNormal];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#999999"] forState:UIControlStateSelected];
-    
-    [self.vcode setRightView:vcodeItem];
-    
-    self.vcode.backgroundColor = [UIColor whiteColor];
-    
-    self.vcode.layer.cornerRadius = 24;
-    
-    self.vcode.layer.masksToBounds = true;
-    
-    [self.vcode set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
+    [self.oldpassword set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
     
     [self.password mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.vcode.mas_bottom).offset(10);
+        make.top.mas_equalTo(self.oldpassword.mas_bottom).offset(10);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.left.mas_equalTo(self.oldpassword.mas_left);
         
-        make.right.mas_equalTo(self.phone.mas_right);
+        make.right.mas_equalTo(self.oldpassword.mas_right);
         
-        make.height.mas_equalTo(self.phone.mas_height);
+        make.height.mas_equalTo(self.oldpassword.mas_height);
     }];
     
     self.password.backgroundColor = [UIColor whiteColor];
@@ -465,15 +485,34 @@
     
     [self.password set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
     
+    [self.againpassword mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.password.mas_bottom).offset(10);
+        
+        make.left.mas_equalTo(self.oldpassword.mas_left);
+        
+        make.right.mas_equalTo(self.oldpassword.mas_right);
+        
+        make.height.mas_equalTo(self.oldpassword.mas_height);
+    }];
+    
+    self.againpassword.backgroundColor = [UIColor whiteColor];
+    
+    self.againpassword.layer.cornerRadius = 24;
+    
+    self.againpassword.layer.masksToBounds = true;
+    
+    [self.againpassword set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
+    
     [self.completeItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.password.mas_bottom).offset(30);
+        make.top.mas_equalTo(self.againpassword.mas_bottom).offset(30);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.left.mas_equalTo(self.oldpassword.mas_left);
         
-        make.right.mas_equalTo(self.phone.mas_right);
+        make.right.mas_equalTo(self.oldpassword.mas_right);
         
-        make.height.mas_equalTo(self.phone.mas_height);
+        make.height.mas_equalTo(self.oldpassword.mas_height);
         
     }];
     
@@ -485,11 +524,11 @@
     
     [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
     
-    [_vcode setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    [self.oldpassword setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     
-    [_phone setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    [self.password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     
-    [_password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    [self.againpassword setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
 #elif BBQLoginThree
     
     self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@BBQColor];
@@ -531,7 +570,7 @@
         make.top.equalTo(self.logoImgView.mas_bottom).offset(25);
     }];
     
-    [self.phone mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.oldpassword mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.bottomLine.mas_bottom).offset(15);
         
@@ -542,60 +581,25 @@
         make.height.mas_equalTo(@48);
     }];
     
-    self.phone.backgroundColor = [UIColor whiteColor];
+    self.oldpassword.backgroundColor = [UIColor whiteColor];
     
-    self.phone.layer.cornerRadius = 24;
+    self.oldpassword.layer.cornerRadius = 24;
     
-    self.phone.layer.masksToBounds = true;
+    self.oldpassword.layer.masksToBounds = true;
     
-    self.phone.layer.borderWidth = 1;
+    self.oldpassword.layer.borderWidth = 1;
     
-    self.phone.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
-    
-    [self.vcode mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(self.phone.mas_bottom).offset(10);
-        
-        make.left.mas_equalTo(self.phone.mas_left);
-        
-        make.right.mas_equalTo(self.phone.mas_right);
-        
-        make.height.mas_equalTo(self.phone.mas_height);
-    }];
-    
-    UIButton *vcodeItem = (UIButton *)self.vcode.rightView;
-    
-    [vcodeItem setTitle:@"获取验证码" forState:UIControlStateNormal];
-    
-    [vcodeItem sizeToFit];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] forState:UIControlStateNormal];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
-    
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#999999"] forState:UIControlStateSelected];
-    
-    [self.vcode setRightView:vcodeItem];
-    
-    self.vcode.backgroundColor = [UIColor whiteColor];
-    
-    self.vcode.layer.cornerRadius = 24;
-    
-    self.vcode.layer.masksToBounds = true;
-    
-    self.vcode.layer.borderWidth = 1;
-    
-    self.vcode.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
+    self.oldpassword.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
     
     [self.password mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.vcode.mas_bottom).offset(10);
+        make.top.mas_equalTo(self.oldpassword.mas_bottom).offset(10);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.left.mas_equalTo(self.oldpassword.mas_left);
         
-        make.right.mas_equalTo(self.phone.mas_right);
+        make.right.mas_equalTo(self.oldpassword.mas_right);
         
-        make.height.mas_equalTo(self.phone.mas_height);
+        make.height.mas_equalTo(self.oldpassword.mas_height);
     }];
     
     self.password.backgroundColor = [UIColor whiteColor];
@@ -608,31 +612,149 @@
     
     self.password.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
     
+    [self.againpassword mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.password.mas_bottom).offset(10);
+        
+        make.left.mas_equalTo(self.oldpassword.mas_left);
+        
+        make.right.mas_equalTo(self.oldpassword.mas_right);
+        
+        make.height.mas_equalTo(self.oldpassword.mas_height);
+    }];
+    
+    self.againpassword.backgroundColor = [UIColor whiteColor];
+    
+    self.againpassword.layer.cornerRadius = 24;
+    
+    self.againpassword.layer.masksToBounds = true;
+    
+    self.againpassword.layer.borderWidth = 1;
+    
+    self.againpassword.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
+    
     [self.completeItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.password.mas_bottom).offset(30);
+        make.top.mas_equalTo(self.againpassword.mas_bottom).offset(30);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.left.mas_equalTo(self.oldpassword.mas_left);
         
-        make.right.mas_equalTo(self.phone.mas_right);
+        make.right.mas_equalTo(self.oldpassword.mas_right);
         
-        make.height.mas_equalTo(self.phone.mas_height);
+        make.height.mas_equalTo(self.oldpassword.mas_height);
         
     }];
     
-    [self.completeItem setBackgroundImage:[UIImage s_transformFromHexColor:@BBQColor] forState:UIControlStateNormal];
+    [self.completeItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
     
-    [self.completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
+    [self.completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
     
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] forState:UIControlStateNormal];
     
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
     
-    [_vcode setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    [self.oldpassword setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     
-    [_phone setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    [self.password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     
-    [_password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    [self.againpassword setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+#elif BBQLoginFour
+    
+    self.backgroundImageView.frame = self.view.bounds;
+    
+    CGFloat w = CGRectGetWidth(self.view.bounds);
+    
+    [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.mas_equalTo(self.view);
+        
+        make.top.mas_equalTo(60);
+        
+        make.width.height.mas_equalTo(@80);
+    }];
+    
+    [self.oldpassword mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.logoImgView.mas_bottom).offset(60);
+        
+        make.left.mas_equalTo(@15);
+        
+        make.right.mas_equalTo(@-15);
+        
+        make.height.mas_equalTo(@48);
+    }];
+    
+    self.oldpassword.backgroundColor = [UIColor whiteColor];
+    
+    self.oldpassword.layer.cornerRadius = 24;
+    
+    self.oldpassword.layer.masksToBounds = true;
+    
+    [self.oldpassword set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
+    
+    [self.password mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.oldpassword.mas_bottom).offset(10);
+        
+        make.left.mas_equalTo(self.oldpassword.mas_left);
+        
+        make.right.mas_equalTo(self.oldpassword.mas_right);
+        
+        make.height.mas_equalTo(self.oldpassword.mas_height);
+    }];
+    
+    self.password.backgroundColor = [UIColor whiteColor];
+    
+    self.password.layer.cornerRadius = 24;
+    
+    self.password.layer.masksToBounds = true;
+    
+    [self.password set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
+    
+    [self.againpassword mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.password.mas_bottom).offset(10);
+        
+        make.left.mas_equalTo(self.oldpassword.mas_left);
+        
+        make.right.mas_equalTo(self.oldpassword.mas_right);
+        
+        make.height.mas_equalTo(self.oldpassword.mas_height);
+    }];
+    
+    self.againpassword.backgroundColor = [UIColor whiteColor];
+    
+    self.againpassword.layer.cornerRadius = 24;
+    
+    self.againpassword.layer.masksToBounds = true;
+    
+    [self.againpassword set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
+    
+    [self.completeItem mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.againpassword.mas_bottom).offset(30);
+        
+        make.left.mas_equalTo(self.oldpassword.mas_left);
+        
+        make.right.mas_equalTo(self.oldpassword.mas_right);
+        
+        make.height.mas_equalTo(self.oldpassword.mas_height);
+        
+    }];
+    
+    [self.completeItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    
+    [self.completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    
+    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] forState:UIControlStateNormal];
+    
+    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
+    
+    [self.oldpassword setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    
+    [self.password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    
+    [self.againpassword setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
 #else
     
 #endif
@@ -651,13 +773,14 @@
 #elif BBQLoginThree
     
     self.view.backgroundColor = [UIColor whiteColor];
+#elif BBQLoginFour
 #else
     
 #endif
 }
 - (void)configViewModel {
     
-    self.bridge = [BBQFindPasswordBridge new];
+    self.bridge = [BBQModifyPasswordBridge new];
     
     __weak typeof(self) weakSelf = self;
     
@@ -665,13 +788,11 @@
         
         weakSelf.block(weakSelf);
     }];
-    
 }
 
 - (BOOL)canPanResponse {
     
     return true ;
 }
-
 
 @end

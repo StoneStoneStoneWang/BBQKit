@@ -44,6 +44,8 @@
 
 #define BBQSelectedIcon "选中"
 
+#define BBQBackground "background"
+
 #pragma mark ---- 圈子类型
 #if BBQCONFIGURETYPECIRCLE
 

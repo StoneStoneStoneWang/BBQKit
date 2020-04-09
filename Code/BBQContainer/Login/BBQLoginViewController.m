@@ -44,6 +44,12 @@
 @property (nonatomic ,strong) UIView *topLine;
 
 @property (nonatomic ,strong) UIView *bottomLine;
+#elif BBQLoginFour
+
+@property (nonatomic ,strong) UIImageView *logoImgView;
+
+@property (nonatomic ,strong) UIImageView *backgroundImageView;
+
 #else
 
 #endif
@@ -52,6 +58,16 @@
 @end
 
 @implementation BBQLoginViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+#if BBQLoginFour
+    
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+    
+#endif
+}
 
 + (instancetype)createLoginWithBlock:(BBQLoginBlock)block {
     
@@ -223,6 +239,11 @@
     [self.view addSubview:self.topLine];
     
     [self.view addSubview:self.bottomLine];
+#elif BBQLoginFour
+    
+    [self.view addSubview:self.logoImgView];
+    
+    [self.view insertSubview:self.backgroundImageView atIndex:0];
 #else
     
 #endif
@@ -309,7 +330,34 @@
     }
     return _bottomLine;
 }
-#else 
+#elif BBQLoginFour
+- (UIImageView *)backgroundImageView {
+    
+    if (!_backgroundImageView) {
+        
+        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@BBQBackground]];
+        
+        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _backgroundImageView;
+}
+- (UIImageView *)logoImgView {
+    
+    if (!_logoImgView) {
+        
+        _logoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@BBQLogoIcon]];
+        
+        _logoImgView.layer.cornerRadius = 40;
+        
+        _logoImgView.layer.masksToBounds = true;
+        
+        _logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
+        
+        _logoImgView.layer.borderWidth = 1;
+    }
+    return _logoImgView;
+}
+#else
 
 #endif
 - (void)configNaviItem {
@@ -333,6 +381,21 @@
 #elif BBQLoginThree
     
     self.title = @"登陆";
+    
+#elif BBQLoginFour
+    
+    UILabel *titleLabel = [UILabel new];
+    
+    titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    
+    titleLabel.textColor = [UIColor whiteColor];
+    
+    titleLabel.text = @"登陆";
+    
+    [titleLabel sizeToFit];
+    
+    self.navigationItem.titleView = titleLabel;
+
 #else
     
 #endif
@@ -611,7 +674,7 @@
     self.password.layer.borderWidth = 1;
     
     self.password.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@BBQColor].CGColor;
-
+    
     [self.forgetItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.password.mas_bottom).offset(10);
@@ -665,7 +728,112 @@
     [_password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     
     [_phone setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+#elif BBQLoginFour
     
+    self.backgroundImageView.frame = self.view.bounds;
+    
+    CGFloat w = CGRectGetWidth(self.view.bounds);
+    
+    [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.mas_equalTo(self.view);
+        
+        make.top.mas_equalTo(60);
+        
+        make.width.height.mas_equalTo(@80);
+    }];
+    
+    [self.phone mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.logoImgView.mas_bottom).offset(60);
+        
+        make.left.mas_equalTo(@15);
+        
+        make.right.mas_equalTo(@-15);
+        
+        make.height.mas_equalTo(@48);
+    }];
+    
+    self.phone.backgroundColor = [UIColor whiteColor];
+    
+    self.phone.layer.cornerRadius = 24;
+    
+    self.phone.layer.masksToBounds = true;
+    
+    [self.phone set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
+    
+    [self.password mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.phone.mas_bottom).offset(10);
+        
+        make.left.mas_equalTo(self.phone.mas_left);
+        
+        make.right.mas_equalTo(self.phone.mas_right);
+        
+        make.height.mas_equalTo(self.phone.mas_height);
+    }];
+    
+    self.password.backgroundColor = [UIColor whiteColor];
+    
+    self.password.layer.cornerRadius = 24;
+    
+    self.password.layer.masksToBounds = true;
+    
+    [self.password set_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
+    
+    [self.forgetItem mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.password.mas_bottom).offset(10);
+        
+        make.left.mas_equalTo(self.phone.mas_left);
+        
+        make.height.mas_equalTo(self.phone.mas_height);
+        
+    }];
+    
+    [self.forgetItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    
+    [self.forgetItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    
+    [self.loginItem mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.forgetItem.mas_bottom).offset(10);
+        
+        make.left.mas_equalTo(self.phone.mas_left);
+        
+        make.right.mas_equalTo(self.phone.mas_right);
+        
+        make.height.mas_equalTo(self.phone.mas_height);
+        
+    }];
+    
+    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    
+    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    
+    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@BBQColor] forState:UIControlStateNormal];
+    
+    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@BBQColor]] forState:UIControlStateHighlighted];
+    
+    [self.swiftLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.password.mas_bottom).offset(10);
+        
+        make.right.mas_equalTo(self.phone.mas_right);
+        
+        make.height.mas_equalTo(self.phone.mas_height);
+        
+    }];
+    
+    self.swiftLoginItem.layer.borderColor = [UIColor clearColor].CGColor;
+    
+    [self.swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    
+    [self.swiftLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    
+    [_password setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
+    
+    [_phone setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
 #else
     
     
@@ -686,6 +854,9 @@
 #elif BBQLoginThree
     
     self.view.backgroundColor = [UIColor whiteColor];
+#elif BBQLoginFour
+    
+    
 #else
     
     

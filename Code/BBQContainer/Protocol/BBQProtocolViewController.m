@@ -21,6 +21,11 @@
 #elif BBQLoginThree
 
 @property (nonatomic ,strong) UIView *topLine;
+
+#elif BBQLoginFour
+
+@property (nonatomic ,strong) UIImageView *backgroundImageView;
+
 #else
 
 
@@ -39,6 +44,8 @@
     
     [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor] ];
     
+#elif BBQLoginFour
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor] ];
 #else
     
     
@@ -57,6 +64,18 @@
         _topLine = [UIView new];
     }
     return _topLine;
+}
+
+#elif BBQLoginFour
+- (UIImageView *)backgroundImageView {
+    
+    if (!_backgroundImageView) {
+        
+        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@BBQBackground]];
+        
+        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _backgroundImageView;
 }
 #else
 
@@ -84,6 +103,10 @@
 #elif BBQLoginThree
     
     [self.view addSubview:self.topLine];
+#elif BBQLoginFour
+    
+    [self.view insertSubview:self.backgroundImageView atIndex:0];
+    
 #else
     
     
@@ -123,6 +146,9 @@
     CGRect finalFrame = CGRectOffset(initFrame, 0, 8);
     
     self.textView.frame = finalFrame;
+#elif BBQLoginFour
+    
+    self.backgroundImageView.frame = self.view.bounds;
     
 #else
     

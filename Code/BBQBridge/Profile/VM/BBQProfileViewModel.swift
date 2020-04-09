@@ -96,7 +96,7 @@ extension BBQProfileType {
             return [.space,userInfo,.order,.address,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
         } else if BBQConfigure.fetchPType() == .map {
             
-            return [.space,userInfo,.order,.focus,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
+            return [.space,userInfo,.space,.order,.contactUS,.privacy,.about,.space,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .game {
             
@@ -135,7 +135,7 @@ extension BBQProfileType {
             return [userInfo,.order,.address,.contactUS,.privacy,.about,.feedBack,.setting]
         } else if BBQConfigure.fetchPType() == .map {
             
-            return [userInfo,.order,.focus,.contactUS,.privacy,.about,.feedBack,.setting]
+            return [userInfo,.order,.contactUS,.privacy,.about,.feedBack,.setting]
             
         } else if BBQConfigure.fetchPType() == .game {
             
