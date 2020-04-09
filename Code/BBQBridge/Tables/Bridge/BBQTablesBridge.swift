@@ -196,6 +196,15 @@ extension BBQTablesBridge: UITableViewDelegate {
 
 extension BBQTablesBridge {
     
+    @objc public func insertObj(_ obj: BBQCircleBean) {
+        
+        var values = viewModel.output.tableData.value
+        
+        values.insert(obj, at: 0)
+        
+        viewModel.output.tableData.accept(values)
+    }
+    
     @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,tablesAction: @escaping BBQTablesAction) {
         
         if !BBQAccountCache.default.isLogin() {

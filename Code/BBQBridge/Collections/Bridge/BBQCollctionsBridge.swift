@@ -136,6 +136,15 @@ extension BBQCollectionsBridge {
 
 extension BBQCollectionsBridge {
     
+    @objc public func insertObj(_ obj: BBQCircleBean) {
+        
+        var values = viewModel.output.collectionData.value
+        
+        values.insert(obj, at: 0)
+        
+        viewModel.output.collectionData.accept(values)
+    }
+
     @objc public func fetchObj(_ ip: IndexPath) -> BBQCircleBean? {
         
         guard let dataSource = dataSource else { return nil }

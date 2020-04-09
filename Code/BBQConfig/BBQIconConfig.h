@@ -110,6 +110,8 @@
 ]
 
 #pragma mark ---- 地图类型
+#elif BBQCONFIGURETYPEMAP
+#define BBQOrderIcon "我的订单"
 #else
 
 
