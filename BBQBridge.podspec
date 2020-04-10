@@ -658,7 +658,7 @@ Pod::Spec.new do |spec|
     address.subspec 'Bridge' do |bridge|
       bridge.source_files = "Code/BBQBridge/Address/Bridge/*.{swift}"
       bridge.dependency 'BBQBridge/Address/VM'
-      bridge.dependency 'ZTable'
+      bridge.dependency 'BBQTable'
       bridge.dependency 'BBQBridge/Base'
       bridge.dependency 'BBQHud'
       bridge.dependency 'BBQCocoa/ASM'

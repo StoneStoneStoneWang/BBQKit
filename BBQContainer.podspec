@@ -220,6 +220,7 @@ Pod::Spec.new do |spec|
   spec.subspec 'AMapViewOntroller' do |amap|
     amap.vendored_frameworks = 'Framework/BBQAMapViewController/BBQAMapViewController.framework'
     amap.dependency 'BBQTransition'
+    amap.dependency 'BBQAMap'
   end
 
 end
