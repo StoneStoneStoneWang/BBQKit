@@ -14,13 +14,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol BBQNavigationConfig <NSObject>
 
-@property (nonatomic ,assign) CGFloat fontSize;
+@property (nonatomic ,assign) CGFloat BBQFontSize;
 
-@property (nonatomic ,strong) UIColor *titleColor;
+@property (nonatomic ,strong) UIColor *BBQNormalTitleColor;
 
-@property (nonatomic ,strong) UIColor *backgroundColor;
+@property (nonatomic ,strong) UIColor *BBQLoginTitleColor;
 
-@property (nonatomic ,copy) NSString *backImage;
+@property (nonatomic ,strong) UIColor *BBQNormalBackgroundColor;
+
+@property (nonatomic ,strong) UIColor *BBQLoginBackgroundColor;
+
+@property (nonatomic ,copy) NSString *BBQNormalBackImage;
+
+@property (nonatomic ,copy) NSString *BBQLoginBackImage;
 
 @end
 
