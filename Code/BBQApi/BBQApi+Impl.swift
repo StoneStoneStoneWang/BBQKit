@@ -79,11 +79,16 @@ extension BBQApi: WLObserverReq {
             
         case .deleteMyCircle: return "mob/circleFriends_mobDelCircleFriends?"
             
-        case .analysis: return "mob/location_mobAddLocation?"
+        case .analysis: return "mob/loBBQion_mobAddLoBBQion?"
             
         case .fetchTags: return "mob/circleFriends_mobListTag?"
             
         case .updateCircle: return "mob/circleFriends_mobUpdateCircleFriends?"
+        case .fetchFirstMsg: return "mob/logs_mobListLogs?"
+            
+        case .fetchSystemMsg: return "mob/logs_mobListLogs?"
+            
+        case .readMsg: return "mob/logs_mobReadLogs?"
         }
     }
     
@@ -190,6 +195,15 @@ extension BBQApi: WLObserverReq {
         case .updateCircle(let tag, content: let content, encode: let encode):
             
             return ["cfs.tag":tag,"cfs.projectId":BBQConfigure.fetchAppKey(),"cfs.content":content,"cfs.encoded": encode]
+        case .fetchSystemMsg(let page):
+            
+            return ["projectId":BBQConfigure.fetchAppKey(),"page":page,"limit":"10"]
+        case .fetchFirstMsg:
+            
+            return ["projectId":BBQConfigure.fetchAppKey(),"page":"1","limit":"1"]
+        case .readMsg(let id):
+            
+            return ["projectId":BBQConfigure.fetchAppKey(),"id":id]
         }
         
     }

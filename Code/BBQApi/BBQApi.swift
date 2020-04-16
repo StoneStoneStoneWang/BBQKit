@@ -30,6 +30,12 @@ public enum BBQApi {
     
     case modifyPassword(_ oldPassword: String,password: String)
     
+    case fetchSystemMsg(_ page: Int)
+    
+    case fetchFirstMsg
+    
+    case readMsg(_ id: String)
+    
     case aliToken
     
     case fetchBlackList
