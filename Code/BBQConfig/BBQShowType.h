@@ -15,6 +15,12 @@
 
 #define BBQCONTAINERTAB 0
 
+// MARK: 登陆 导航透明色
+#define BBQLOGINNAVALPHA 1
+
+// MARK: 个人中心 导航透明色
+#define BBQPROFILEALPHA 0
+
 #pragma mark ---welcome
 
 #define BBQWelcomeOne 0

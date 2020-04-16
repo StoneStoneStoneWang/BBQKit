@@ -50,7 +50,7 @@ struct BBQMessageViewModel: WLBaseViewModel {
             .headerRefresh
             .startWith(())
             .flatMapLatest({_ in
-                return BBQArrayResp(BBQApi.fetchSystemMsg(1))
+                return bbqArrayResp(BBQApi.fetchSystemMsg(1))
                     .mapArray(type: BBQMessageBean.self)
                     .map({ return $0.count > 0 ? WLBaseResult.fetchList($0) : WLBaseResult.empty })
                     .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
@@ -80,14 +80,14 @@ extension BBQMessageViewModel {
     
     static func messageRead(_ encode: String) -> Driver<WLBaseResult> {
         
-        return BBQVoidResp(BBQApi.readMsg(encode))
+        return bbqVoidResp(BBQApi.readMsg(encode))
             .flatMapLatest({ return Driver.just(WLBaseResult.ok("")) })
             .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })
     }
     
     static func fetchFirstMessage() -> Driver<WLBaseResult> {
         
-        return BBQArrayResp(BBQApi.fetchFirstMsg)
+        return bbqArrayResp(BBQApi.fetchFirstMsg)
             .mapArray(type: BBQMessageBean.self)
             .flatMapLatest({ return Driver.just(WLBaseResult.fetchList($0)) })
             .asDriver(onErrorRecover: { return Driver.just(WLBaseResult.failed(($0 as! WLBaseError).description.0)) })

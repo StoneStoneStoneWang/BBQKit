@@ -37,7 +37,7 @@ extension BBQMessageBridge {
         
         let input = BBQMessageViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(BBQMessageBean.self),
                                                 itemSelect: vc.collectionView.rx.itemSelected,
-                                                headerRefresh: vc.collectionView.mj_header!.rx.BBQRefreshing.asDriver())
+                                                headerRefresh: vc.collectionView.mj_header!.rx.refreshing.asDriver())
         
         viewModel = BBQMessageViewModel(input, disposed: disposed)
         
@@ -69,7 +69,7 @@ extension BBQMessageBridge {
         
         endHeaderRefreshing
             .map({ _ in return true })
-            .drive(vc.collectionView.mj_header!.rx.BBQEndRefreshing)
+            .drive(vc.collectionView.mj_header!.rx.endRefreshing)
             .disposed(by: disposed)
         
         endHeaderRefreshing

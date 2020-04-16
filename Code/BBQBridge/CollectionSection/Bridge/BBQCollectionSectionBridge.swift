@@ -76,4 +76,11 @@ extension BBQCollectionSectionBridge {
         
         return mutable
     }
+    
+    @objc public func fetchCollectionItemBean(_ ip: IndexPath) -> BBQCollectionItemBean? {
+        
+        guard let dataSource = dataSource else { return nil }
+        
+        return dataSource[ip]
+    }
 }
