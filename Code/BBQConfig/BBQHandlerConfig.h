@@ -84,8 +84,6 @@
 
 #define createLoginWithBlock nStoaGlBhx
 
-#define BBQLoginViewController Q1MjLkI9CZ
-
 #define BBQRegBlock IC3L09SGjRz
 
 #define BBQRegViewController piNyelKh6m9Y
@@ -96,13 +94,9 @@
 
 #define BBQFindPassworBlock iMwSc3Vu0hK
 
-#define BBQFindPasswordViewController fH5_JQ5jIH
-
 #define createPasswordWithBlock RFIT8TVBAN
 
 #define BBQModifyPasswordBlock qgjK7iQkno
-
-#define BBQModifyPasswordViewController ofXT1Pe_zpN
 
 #define BBQSettingTableViewCell SETG4dR3U_pk
 
