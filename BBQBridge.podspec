@@ -666,4 +666,27 @@ Pod::Spec.new do |spec|
       bridge.dependency 'BBQCocoa/Refresh'
     end
   end
+  spec.subspec 'Message' do |message|
+    
+    message.subspec 'VM' do |vm|
+      
+      vm.source_files = "Code/BBQBridge/Message/VM/*.{swift}"
+      vm.dependency 'RxCocoa'
+      vm.dependency 'WLBaseViewModel'
+      vm.dependency 'BBQApi'
+      vm.dependency 'BBQRReq'
+      vm.dependency 'WLBaseResult'
+      vm.dependency 'BBQBean/Message'
+      
+    end
+    
+    message.subspec 'Bridge' do |bridge|
+      bridge.source_files = "Code/BBQBridge/Message/Bridge/*.{swift}"
+      bridge.dependency 'BBQBridge/Message/VM'
+      bridge.dependency 'BBQCollection'
+      bridge.dependency 'BBQBridge/Base'
+      bridge.dependency 'BBQCocoa/ASM'
+      bridge.dependency 'BBQCocoa/Refresh'
+    end
+  end
 end
